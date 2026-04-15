@@ -1,1591 +1,352 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L'IA qui Invente — GenAI & Computer Vision</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'IA générative simplifiée — GAN, VAE, Diffusion</title>
   <style>
-    :root {
-      --ink:       #1a1815;
-      --ink-soft:  #3d3830;
-      --paper:     #f9f7f2;
-      --warm:      #f4ede0;
-      --accent:    #c0392b;
-      --accent2:   #1a5276;
-      --accent3:   #1e8449;
-      --gold:      #c9a84c;
-      --muted:     #7d756b;
-      --border:    #e0d9ce;
-      --card:      #ffffff;
-      --serif:     'Playfair Display', Georgia, serif;
-      --body:      'Source Serif 4', Georgia, serif;
-      --mono:      'JetBrains Mono', monospace;
+    /* Styles épurés, sans icônes */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--body);
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 18px;
-      line-height: 1.85;
-      font-weight: 300;
-    }
-
-    /* ── COVER ── */
-    .cover {
-      background: var(--ink);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 4rem 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .cover::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 80%, rgba(192,57,43,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(26,82,118,0.16) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .cover-rule {
-      width: 60px; height: 2px;
-      background: var(--gold);
-      margin: 0 auto 2rem;
-      position: relative;
-    }
-    .cover-category {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2rem;
-      position: relative;
-    }
-    .cover h1 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.08;
-      max-width: 900px;
-      margin: 0 auto 1.5rem;
-      position: relative;
-    }
-    .cover h1 em {
-      font-style: italic;
-      color: var(--gold);
-    }
-    .cover-subtitle {
-      font-size: 1.15rem;
-      color: #bbb;
-      max-width: 640px;
-      margin: 0 auto 3rem;
-      font-weight: 300;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: #fefcf8;
+      color: #1e1b16;
       line-height: 1.7;
-      position: relative;
+      font-size: 18px;
     }
-    .cover-meta {
-      display: flex;
-      gap: 2.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
+
+    .conteneur {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.8rem;
     }
-    .cover-meta-item {
+
+    /* Couleurs sobres */
+    :root {
+      --rouge-brique: #b13e2d;
+      --bleu-canard: #2a5f6e;
+      --ocre: #c29a2b;
+      --gris-doux: #ece7df;
+      --bordure: #ddd3c6;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
       text-align: center;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      color: #1e1b16;
     }
-    .cover-meta-label {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #666;
-      display: block;
-      margin-bottom: 3px;
+    h1 .accent {
+      color: var(--rouge-brique);
+      font-style: italic;
     }
-    .cover-meta-value {
-      font-size: 0.9rem;
-      color: #ccc;
-      font-weight: 400;
-    }
-
-    /* ── TOC ── */
-    .toc-section {
-      background: var(--warm);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 3rem 2rem;
-    }
-    .toc-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .toc-title {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .toc-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem 3rem;
-    }
-    .toc-list li {
-      display: flex;
-      align-items: baseline;
-      gap: 0.7rem;
-    }
-    .toc-num {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--accent);
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-    .toc-list a {
-      color: var(--ink-soft);
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 400;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-    .toc-list a:hover { border-bottom-color: var(--accent); }
-
-    /* ── LAYOUT ── */
-    .article {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 5rem 2rem 6rem;
-    }
-
-    /* ── SECTION HEADER ── */
-    .section-header {
-      margin: 5rem 0 2rem;
-    }
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 0.6rem;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .chapeau {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #5b5347;
+      border-bottom: 2px solid var(--ocre);
+      display: inline-block;
+      width: auto;
+      margin: 0 auto 2rem;
+      padding-bottom: 0.5rem;
     }
     h2 {
-      font-family: var(--serif);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.2;
+      font-size: 2rem;
+      margin: 2.5rem 0 1rem;
+      padding-left: 0.8rem;
+      border-left: 6px solid var(--ocre);
+      font-weight: 600;
     }
     h3 {
-      font-family: var(--serif);
-      font-size: 1.55rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin: 3rem 0 1rem;
-      line-height: 1.25;
-    }
-    h4 {
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 2rem 0 0.7rem;
+      font-size: 1.6rem;
+      margin: 1.8rem 0 0.8rem;
+      color: var(--bleu-canard);
+      font-weight: 500;
     }
 
-    p { margin-bottom: 1.3rem; color: var(--ink-soft); }
-
-    /* ── DROP CAP ── */
-    .drop-cap::first-letter {
-      font-family: var(--serif);
-      font-size: 4.5rem;
-      font-weight: 900;
-      line-height: 0.8;
-      float: left;
-      margin-right: 0.1em;
-      margin-top: 0.12em;
-      color: var(--accent);
-    }
-
-    /* ── LEAD ── */
-    .lead {
-      font-size: 1.22rem;
-      color: var(--ink);
-      font-weight: 400;
-      line-height: 1.75;
-      margin-bottom: 2rem;
-      border-left: 3px solid var(--gold);
-      padding-left: 1.4rem;
-    }
-
-    /* ── ANALOGY BLOCK ── */
-    .analogy {
-      background: var(--ink);
-      color: #fff;
-      border-radius: 4px;
-      padding: 2rem 2.2rem;
-      margin: 2.5rem 0;
-      position: relative;
-    }
-    .analogy::before {
-      content: '"';
-      font-family: var(--serif);
-      font-size: 8rem;
-      color: rgba(255,255,255,0.06);
-      position: absolute;
-      top: -1rem; left: 1.2rem;
-      line-height: 1;
-    }
-    .analogy-label {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-    .analogy p {
-      color: #d0c9be;
-      font-style: italic;
-      font-size: 1.05rem;
-      margin: 0;
-      position: relative;
-    }
-    .analogy strong { color: #f4ede0; font-style: normal; }
-
-    /* ── CALLOUT ── */
-    .callout {
-      border: 1px solid var(--border);
-      background: var(--warm);
-      padding: 1.3rem 1.6rem;
-      border-radius: 4px;
+    /* Cartes */
+    .carte {
+      background: white;
+      border-radius: 0.8rem;
       margin: 2rem 0;
-      font-size: 0.97rem;
-    }
-    .callout-type {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-    .callout.accent { border-left: 3px solid var(--accent); }
-    .callout.blue { border-left: 3px solid var(--accent2); background: #f0f5fb; }
-    .callout.green { border-left: 3px solid var(--accent3); background: #f2fbf4; }
-
-    /* ── DIAGRAM ── */
-    .diagram-wrap {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      border: 1px solid var(--bordure);
       overflow: hidden;
-      margin: 2.5rem 0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    .diagram-header {
-      background: var(--ink);
-      color: #fff;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .titre-carte {
+      padding: 1rem 1.8rem;
+      font-size: 1.6rem;
+      font-weight: bold;
+      background: var(--gris-doux);
+      border-bottom: 3px solid;
     }
-    .diagram-title {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-    .diagram-tag {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: #888;
-    }
-    .diagram-wrap svg { display: block; width: 100%; height: auto; padding: 1.5rem; }
+    .titre-gan { border-bottom-color: var(--rouge-brique); color: var(--rouge-brique); }
+    .titre-vae { border-bottom-color: var(--bleu-canard); color: var(--bleu-canard); }
+    .titre-diff { border-bottom-color: var(--ocre); color: #a0761f; }
 
-    /* ── LIST STYLES ── */
-    ul, ol { padding-left: 1.5rem; margin-bottom: 1.3rem; }
-    li { margin-bottom: 0.6rem; color: var(--ink-soft); }
-    li strong { color: var(--ink); }
-
-    /* ── ARCH CARD ── */
-    .arch-card {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 3rem 0;
-    }
-    .arch-card-header {
-      padding: 1.4rem 1.8rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .arch-card-header.gan  { background: #fdf2f0; border-bottom: 1px solid #f5c6c0; }
-    .arch-card-header.vae  { background: #f0f4fb; border-bottom: 1px solid #bdd0ec; }
-    .arch-card-header.diff { background: #fdf8ec; border-bottom: 1px solid #edd9a3; }
-    .arch-letter {
-      font-family: var(--serif);
-      font-size: 2.8rem;
-      font-weight: 900;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-    .arch-letter.gan  { color: var(--accent); }
-    .arch-letter.vae  { color: var(--accent2); }
-    .arch-letter.diff { color: #a0522d; }
-    .arch-card-meta {}
-    .arch-name {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.2;
-    }
-    .arch-alias {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .arch-card-body { padding: 1.8rem; }
-
-    /* ── COMPARE TABLE ── */
-    .compare-section { margin: 3rem 0; }
-    .compare-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.93rem;
-      background: #fff;
-    }
-    .compare-table th {
-      background: var(--ink);
-      color: #fff;
-      padding: 12px 16px;
-      text-align: left;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-    .compare-table th:first-child { width: 14%; background: #111; }
-    .compare-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-      line-height: 1.65;
-    }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table td:first-child {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 600;
-      background: #faf9f5;
-    }
-    .compare-table tr:hover td { background: #f9f7f0; }
-    .compare-table tr:hover td:first-child { background: #f5f3eb; }
-
-    /* ── SCORE BARS ── */
-    .score-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 4px 0;
-      font-size: 0.82rem;
-    }
-    .score-label { min-width: 80px; color: var(--muted); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; }
-    .score-track {
-      flex: 1;
-      height: 5px;
-      background: var(--border);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .score-fill { height: 100%; border-radius: 3px; }
-    .score-fill.gan  { background: var(--accent); }
-    .score-fill.vae  { background: var(--accent2); }
-    .score-fill.diff { background: #c4891a; }
-
-    /* ── CONCLUSION ── */
-    .conclusion {
-      background: var(--ink);
-      color: #fff;
-      padding: 3rem 3rem;
-      border-radius: 4px;
-      margin-top: 4rem;
-    }
-    .conclusion-eyebrow {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-    .conclusion h2 {
-      font-family: var(--serif);
-      color: #fff;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-    .conclusion p { color: #b8b0a4; }
-    .conclusion strong { color: #e8dfd4; }
-    .conclusion-final {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #333;
-      font-size: 1.15rem;
-      color: var(--gold);
-      font-style: italic;
-      font-family: var(--serif);
+    .contenu-carte {
+      padding: 1.6rem 2rem;
     }
 
-    /* ── PULL QUOTE ── */
-    .pull-quote {
-      margin: 3rem -1rem;
-      padding: 1.5rem 2rem;
-      border-top: 2px solid var(--ink);
-      border-bottom: 1px solid var(--border);
-    }
-    .pull-quote p {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--ink);
-      margin: 0;
-    }
-    .pull-quote cite {
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.6rem;
+    /* Bloc analogie (sans icône) */
+    .analogie {
+      background: #f6f3ed;
+      padding: 1.2rem 1.6rem;
+      border-radius: 0.6rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid var(--ocre);
       font-style: normal;
     }
+    .analogie strong {
+      color: #2c5a3b;
+    }
 
-    /* ── STEP LIST ── */
-    .steps { list-style: none; padding: 0; counter-reset: steps; }
-    .steps li {
-      counter-increment: steps;
+    /* Liste simple */
+    ul, ol {
+      margin: 1rem 0 1rem 2rem;
+    }
+    li {
+      margin: 0.4rem 0;
+    }
+
+    /* Grille comparateur (3 colonnes) */
+    .grille {
       display: flex;
-      gap: 1.2rem;
-      margin-bottom: 1.4rem;
-      align-items: flex-start;
-    }
-    .steps li::before {
-      content: counter(steps);
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: var(--accent);
-      line-height: 1.2;
-      flex-shrink: 0;
-      width: 28px;
-      text-align: right;
-    }
-
-    /* ── COMPARISON CARDS ── */
-    .compare-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.5rem;
-      margin: 2.5rem 0;
-    }
-    @media (max-width: 700px) { .compare-cards { grid-template-columns: 1fr; } }
-    .ccard {
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .ccard-header {
-      padding: 1rem 1.3rem 0.8rem;
-      display: flex; align-items: center; gap: 0.7rem;
-    }
-    .ccard-header.gan  { background: #fdf2f0; border-bottom: 1px solid #f5c6c0; }
-    .ccard-header.vae  { background: #f0f4fb; border-bottom: 1px solid #bdd0ec; }
-    .ccard-header.diff { background: #fdf8ec; border-bottom: 1px solid #edd9a3; }
-    .ccard-badge {
-      font-family: var(--mono); font-weight: 700; font-size: 1.1rem;
-      width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .ccard-badge.gan  { background: var(--accent); color: #fff; }
-    .ccard-badge.vae  { background: var(--accent2); color: #fff; }
-    .ccard-badge.diff { background: #a0522d; color: #fff; }
-    .ccard-title { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
-    .ccard-body { padding: 1.2rem 1.3rem; background: #fff; }
-    .ccard-section-label {
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
-      text-transform: uppercase; margin-bottom: 0.35rem; margin-top: 0.9rem;
-    }
-    .ccard-section-label:first-child { margin-top: 0; }
-    .ccard-section-label.idea  { color: var(--accent2); }
-    .ccard-section-label.pro   { color: var(--accent3); }
-    .ccard-section-label.con   { color: var(--accent); }
-    .ccard-body p { font-size: 0.9rem; margin-bottom: 0; color: var(--ink-soft); }
-    .ccard-tag-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 0.5rem; }
-    .ccard-tag {
-      font-family: var(--mono); font-size: 0.6rem; padding: 2px 8px;
-      border-radius: 20px; letter-spacing: 0.08em;
-    }
-    .ccard-tag.pro  { background: #e8f8ed; color: #1e6035; border: 1px solid #b0dfc0; }
-    .ccard-tag.con  { background: #fdf0ee; color: #8a2c20; border: 1px solid #f0b8b0; }
-
-    /* ── RADAR WRAP ── */
-    .radar-wrap {
-      background: #fff; border: 1px solid var(--border); border-radius: 4px;
-      padding: 2rem; margin: 2.5rem 0; text-align: center;
-    }
-    .radar-wrap svg { max-width: 560px; margin: 0 auto; display: block; }
-
-    /* ── ANALOGY ROW ── */
-    .analogy-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.2rem; margin: 2rem 0;
-    }
-    @media (max-width: 700px) { .analogy-row { grid-template-columns: 1fr; } }
-    .mini-analogy {
-      background: var(--warm); border: 1px solid var(--border);
-      border-radius: 4px; padding: 1.1rem 1.2rem;
-    }
-    .mini-analogy-label {
-      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem;
-    }
-    .mini-analogy-emoji { display: none; }
-    .mini-analogy p { font-size: 0.88rem; margin: 0; color: var(--ink-soft); line-height: 1.6; }
-
-    .ccard-section-label.idea::before { content: '— '; color: var(--accent2); }
-    .ccard-section-label.pro::before  { content: '— '; color: var(--accent3); }
-    .ccard-section-label.con::before  { content: '— '; color: var(--accent); }
-
-    /* ── ELI5 BLOCK ── */
-    .eli5-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.2rem;
+      flex-wrap: wrap;
+      gap: 1.8rem;
       margin: 2rem 0;
     }
-    @media (max-width: 700px) { .eli5-grid { grid-template-columns: 1fr; } }
-    .eli5-card {
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
+    .grille-item {
+      flex: 1;
+      min-width: 230px;
+      background: white;
+      border: 1px solid var(--bordure);
+      border-radius: 0.8rem;
+      padding: 1.2rem 1.4rem;
     }
-    .eli5-card-top {
-      padding: 1rem 1.2rem 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .eli5-card-top.gan  { background: #fdf2f0; }
-    .eli5-card-top.vae  { background: #f0f4fb; }
-    .eli5-card-top.diff { background: #fdf8ec; }
-    .eli5-label {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.3rem;
-    }
-    .eli5-title {
-      font-family: var(--serif);
+    .grille-item h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
       font-weight: 700;
-      font-size: 1.1rem;
     }
-    .eli5-title.gan  { color: var(--accent); }
-    .eli5-title.vae  { color: var(--accent2); }
-    .eli5-title.diff { color: #a0522d; }
-    .eli5-card-body {
-      padding: 1rem 1.2rem;
-      background: #fff;
-      font-size: 0.93rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-    }
-    footer {
-      text-align: center;
-      padding: 3rem 2rem;
-      font-family: var(--mono);
+    .grille-item.gan h4 { color: var(--rouge-brique); }
+    .grille-item.vae h4 { color: var(--bleu-canard); }
+    .grille-item.diff h4 { color: #c2811a; }
+
+    .badge-simple {
+      display: inline-block;
+      background: #e8e2d8;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
       font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-right: 0.3rem;
     }
 
-    @media (max-width: 640px) {
-      .toc-list { grid-template-columns: 1fr; }
-      .compare-table { font-size: 0.82rem; }
-      .compare-table td, .compare-table th { padding: 10px 12px; }
+    /* Tableau */
+    .tableau-compare {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin: 2rem 0;
+      border-radius: 0.6rem;
+      overflow: hidden;
+    }
+    .tableau-compare th {
+      background: #e7e2d9;
+      padding: 0.8rem 1rem;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .tableau-compare td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--bordure);
+    }
+    .tableau-compare tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Bloc décision */
+    .bloc-decision {
+      background: #f0efe9;
+      padding: 1.4rem 2rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+    }
+    .bloc-decision p {
+      margin: 0.8rem 0;
+    }
+
+    hr {
+      margin: 1.5rem 0;
+      border: none;
+      border-top: 1px solid var(--bordure);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--bordure);
+      font-size: 0.8rem;
+      color: #6f6559;
+    }
+
+    @media (max-width: 700px) {
+      body { font-size: 16px; }
+      h1 { font-size: 2.2rem; }
+      .conteneur { padding: 1rem; }
+      .grille-item { min-width: 100%; }
     }
   </style>
 </head>
 <body>
+<div class="conteneur">
 
-<!-- COVER -->
-<header class="cover">
-  <div class="cover-rule"></div>
-  <div class="cover-category">Computer Vision &amp; Intelligence Artificielle</div>
-  <h1>L'IA qui <em>invente</em></h1>
-  <p class="cover-subtitle">Une introduction rigoureuse à l'IA générative en vision par ordinateur — des réseaux adversariaux aux modèles de diffusion, avec analogies, schémas et exemples concrets.</p>
-  
-</header>
-
-<!-- TABLE OF CONTENTS -->
-<nav class="toc-section">
-  <div class="toc-inner">
-    <div class="toc-title">Sommaire</div>
-    <ul class="toc-list">
-      <li><span class="toc-num">01</span><a href="#section1">La GenAI en Computer Vision : définition</a></li>
-      <li><span class="toc-num">04</span><a href="#section4">GAN : le duel du faussaire</a></li>
-      <li><span class="toc-num">02</span><a href="#section2">Pourquoi utiliser la GenAI ?</a></li>
-      <li><span class="toc-num">05</span><a href="#section5">VAE : la compression de l'espace</a></li>
-      <li><span class="toc-num">03</span><a href="#section3">Les trois grandes architectures</a></li>
-      <li><span class="toc-num">03b</span><a href="#eli5">ELI5 — Explication en termes simples</a></li>
-      <li><span class="toc-num">06</span><a href="#section6">Modèles de diffusion : le sculpteur</a></li>
-      <li><span class="toc-num">07</span><a href="#section7">Comparaison : idée, avantages, limites</a></li>
-    </ul>
-  </div>
-</nav>
-
-<article class="article">
-
-  <!-- SECTION 1 -->
-  <div class="section-header" id="section1">
-    <div class="section-label">Section 01</div>
-    <h2>Qu'est-ce que l'IA Générative en Computer Vision ?</h2>
+  <!-- TITRE -->
+  <h1>L'IA qui <span class="accent">invente</span></h1>
+  <div style="text-align: center;">
+    <div class="chapeau">GAN · VAE · Modèles de diffusion — expliqués simplement</div>
   </div>
 
-  <p class="lead">Pendant des décennies, les ordinateurs ont appris à <strong>analyser</strong> le monde visuel. Puis, quelque chose de fondamentalement différent s'est produit : ils ont appris à l'<strong>inventer</strong>.</p>
+  <!-- INTRODUCTION -->
+  <p><strong>L'IA générative en images, c'est quoi ?</strong><br>
+  Au lieu de simplement reconnaître un chat sur une photo, l'IA générative <strong>crée des images nouvelles</strong> qui n'ont jamais existé. Elle apprend les motifs, les couleurs et les formes pour dessiner des visages, des paysages ou des objets réalistes. Trois grandes méthodes dominent ce domaine : les GAN, les VAE et les modèles de diffusion.</p>
 
-  <p class="drop-cap">La vision par ordinateur classique — ou <em>Computer Vision</em> — désigne l'ensemble des techniques permettant à une machine d'interpréter des images. Reconnaître un visage dans une foule, détecter un piéton depuis une voiture autonome, lire le texte sur une plaque d'immatriculation : ce sont là des tâches d'analyse et de classification. Le modèle reçoit une image et produit une réponse, une étiquette, une décision.</p>
-
-  <p>L'IA Générative en Computer Vision marque un changement de paradigme radical. Il ne s'agit plus d'analyser des pixels existants, mais d'en <strong>créer de nouveaux</strong>. Un modèle génératif a appris, à partir de millions d'exemples, la structure profonde de ce à quoi ressemble le monde — les formes, les textures, les jeux de lumière, les proportions — au point de pouvoir en produire de nouvelles instanciations crédibles, jamais vues auparavant.</p>
-
-  <div class="analogy">
-    <div class="analogy-label">Analogie fondatrice</div>
-    <p>Imaginez deux étudiants dans une école des beaux-arts. Le premier passe des années à étudier des milliers de photographies de visages humains. Son expertise : regarder un portrait et dire avec précision <em>"cet homme a 35 ans, il est souriant, sa lumière vient de la gauche."</em> C'est l'IA classique — un <strong>critique d'art d'une précision absolue</strong>. Le second étudiant absorbe les mêmes milliers d'œuvres, mais au lieu d'analyser, il saisit un crayon et dessine un visage qu'il n'a jamais vu — avec sa propre lumière inventée, ses propres rides, son propre regard. C'est l'IA générative — <strong>l'artiste</strong>.</p>
+  <div class="analogie">
+    <strong>À retenir :</strong> L'IA classique répond à la question « qu'est-ce que c'est ? ». L'IA générative répond à « comment créer quelque chose qui y ressemble ? ». Chaque technique a sa propre philosophie.
   </div>
 
-  <p>La distinction n'est pas triviale. Elle implique que le modèle génératif ne stocke pas des images comme une bibliothèque — il apprend une <em>représentation compressée du monde visuel</em>, assez riche pour en synthétiser de nouveaux exemplaires. C'est précisément ce que font les trois architectures que nous allons explorer.</p>
-
-  <div class="callout blue">
-    <div class="callout-type">Distinction clé</div>
-    L'IA classique répond à la question <em>"Qu'est-ce que c'est ?"</em>. L'IA générative répond à <em>"Comment créer quelque chose qui ressemble à cela ?"</em> — une différence qui n'est pas de degré, mais de nature.
-  </div>
-
-  <!-- SECTION 2 -->
-  <div class="section-header" id="section2">
-    <div class="section-label">Section 02</div>
-    <h2>Pourquoi utiliser la GenAI ? Applications concrètes</h2>
-  </div>
-
-  <p class="lead">Générer de belles images est impressionnant. Mais la valeur réelle de la GenAI est opérationnelle, économique, et parfois vitale. Voici pourquoi des secteurs entiers restructurent leurs pipelines autour de cette technologie.</p>
-
-  <h3>Augmentation de données pour l'entraînement</h3>
-  <p>Une voiture autonome doit apprendre à réagir à un enfant qui surgit soudainement sur la route, à une tempête de neige réduisant la visibilité à quelques mètres, à des situations d'accident rarissimes mais critiques. Collecter ces données dans le monde réel est impossible, dangereux, ou simplement trop coûteux. La GenAI produit des milliers de scénarios de conduite synthétiques, photoréalistes, parfaitement annotés — des données que la réalité ne peut pas fournir à grande échelle.</p>
-
-  <h3>Formation médicale sans données confidentielles</h3>
-  <p>Former un radiologue nécessite une exposition répétée à des cas cliniques variés : tumeurs à différents stades, fractures complexes, pathologies rares. Or l'utilisation de données patients réels implique des contraintes légales (RGPD en Europe, HIPAA aux États-Unis) et éthiques considérables. Des modèles génératifs peuvent synthétiser des images IRM ou scanner cliniquement réalistes, permettant aux étudiants de s'entraîner intensivement sans jamais toucher à un seul dossier médical confidentiel.</p>
-
-  <h3>Prototypage et exploration créative</h3>
-  <p>Un architecte peut générer en quelques secondes cinquante variations d'une façade, explorant différents matériaux, orientations et styles. Ce qui nécessitait auparavant une semaine de rendus 3D par un studio spécialisé devient une itération rapide du processus créatif. Il en va de même pour le design de produit, la mode, le jeu vidéo, l'animation.</p>
-
-  <h3>Inpainting et restauration intelligente</h3>
-  <p>L'inpainting désigne la capacité d'un modèle à compléter une image lacunaire de façon cohérente. Un câble électrique traversant un paysage peut être effacé : le modèle invente ce qui se trouvait logiquement derrière lui — un fragment de ciel, de végétation, de façade — avec une cohérence visuelle que l'œil humain accepte comme naturelle. Cette même technique permet de restaurer des photographies historiques endommagées ou de compléter des œuvres d'art partiellement détruites.</p>
-
-  <div class="callout green">
-    <div class="callout-type">Perspective industrielle</div>
-    La GenAI n'est pas un outil de remplacement de la créativité humaine. C'est un <strong>multiplicateur de capacité</strong> : elle démultiplie ce qu'un créateur, un chercheur ou un ingénieur peut explorer et produire dans une unité de temps donnée.
-  </div>
-
-  <!-- SECTION 3 -->
-  <div class="section-header" id="section3">
-    <div class="section-label">Section 03</div>
-    <h2>Les trois architectures fondamentales</h2>
-  </div>
-
-  <p class="lead">Il n'existe pas une unique façon d'apprendre à créer. Les chercheurs ont développé trois familles d'approches, chacune fondée sur une intuition mathématique différente. Elles ne sont pas interchangeables — elles répondent à des problèmes distincts.</p>
-
-  <div class="pull-quote">
-    <p>"Chaque architecture est une réponse différente à la même question : comment apprendre la distribution statistique des images naturelles ?"</p>
-    <cite>Principe central du deep learning génératif</cite>
-  </div>
-
-  <!-- ELI5 SECTION -->
-  <h3 id="eli5">ELI5 — Explication en termes simples</h3>
-  <p>Avant d'entrer dans les détails techniques, voici comment expliquer chaque architecture à quelqu'un sans aucune formation en IA. Ces formulations simples capturent l'essentiel de chaque approche sans aucun jargon.</p>
-
-  <div class="eli5-grid">
-    <div class="eli5-card">
-      <div class="eli5-card-top gan">
-        <div class="eli5-label">Architecture 01</div>
-        <div class="eli5-title gan">GAN en 3 phrases</div>
+  <!-- 1. GAN -->
+  <h2>1. Les GAN — l'apprentissage par compétition</h2>
+  <div class="carte">
+    <div class="titre-carte titre-gan">GAN (Generative Adversarial Network)</div>
+    <div class="contenu-carte">
+      <div class="analogie">
+        <strong>Exemple simple :</strong> Un faussaire dessine des billets. Un détective essaie de repérer les faux. Au fil du temps, le faussaire progresse et ses billets deviennent parfaits. À la fin, même le détective est trompé. C'est exactement le principe du GAN.
       </div>
-      <div class="eli5-card-body">
-        Imagine deux enfants : l'un dessine de faux billets de banque, l'autre essaie de repérer les faux. Chaque fois que le détecteur trouve un faux, le dessinateur s'améliore. Ils s'entraînent mutuellement jusqu'à ce que les faux soient parfaits.
-      </div>
-    </div>
-    <div class="eli5-card">
-      <div class="eli5-card-top vae">
-        <div class="eli5-label">Architecture 02</div>
-        <div class="eli5-title vae">VAE en 3 phrases</div>
-      </div>
-      <div class="eli5-card-body">
-        Imagine que tu résumes un film en 5 mots-clés, puis que tu demandes à quelqu'un de recréer le film depuis ces 5 mots. Le VAE fait ça avec des images : il les compresse en quelques chiffres, puis les reconstruit. L'avantage ? Changer un chiffre = changer un détail de l'image.
-      </div>
-    </div>
-    <div class="eli5-card">
-      <div class="eli5-card-top diff">
-        <div class="eli5-label">Architecture 03</div>
-        <div class="eli5-title diff">Diffusion en 3 phrases</div>
-      </div>
-      <div class="eli5-card-body">
-        Imagine que tu ajoutes de la neige sur une photo jusqu'à ne plus rien voir. Le modèle apprend à faire l'inverse : partir de la neige pure et la retirer couche par couche, guidé par une description. C'est comme déneiger une sculpture pour révéler la forme cachée à l'intérieur.
-      </div>
-    </div>
-  </div>
-
-  <div class="callout blue">
-    <div class="callout-type">La différence fondamentale entre les trois</div>
-    Le GAN <em>invente par compétition</em>, le VAE <em>invente par compression</em>, et le modèle de diffusion <em>invente par reconstruction</em>. Trois philosophies différentes pour atteindre le même but : générer des images crédibles que personne n'a jamais vues.
-  </div>
-
-  <!-- GAN -->
-  <div class="arch-card" id="section4">
-    <div class="arch-card-header gan">
-      <div class="arch-letter gan">GAN</div>
-      <div class="arch-card-meta">
-        <div class="arch-name">Generative Adversarial Network</div>
-        <div class="arch-alias">Réseau génératif adversarial — 2014, Ian Goodfellow</div>
-      </div>
-    </div>
-    <div class="arch-card-body">
-
-      <div class="analogy">
-        <div class="analogy-label">Analogie — Le duel interminable</div>
-        <p>Un faussaire de génie tente de reproduire des billets de banque parfaits. En face de lui, un détective de la police monétaire inspecte chaque billet et prononce son verdict : <em>"authentique"</em> ou <em>"faux"</em>. Chaque fois que le détective démasque un faux, le faussaire étudie son erreur et perfectionne sa technique. Chaque fois que le faussaire trompe le détective, ce dernier affûte son regard. Ce duel se répète des millions de fois, jusqu'à ce que les billets produits soient <strong>absolument indétectables</strong> — même pour un expert.</p>
-      </div>
-
-      <h4>Fonctionnement détaillé</h4>
-      <p>Un GAN met en compétition deux réseaux de neurones entraînés simultanément et en opposition :</p>
+      <p><strong>Comment cela fonctionne :</strong> Deux réseaux de neurones sont en compétition :</p>
       <ul>
-        <li><strong>Le Générateur</strong> reçoit en entrée un vecteur de bruit aléatoire — des chiffres sans signification. Il produit en sortie une image artificielle. Au début de l'entraînement, il produit du bruit pur. Progressivement, il apprend quels patterns pixels rendent une image convaincante.</li>
-        <li><strong>Le Discriminateur</strong> reçoit en entrée un mélange d'images réelles (issues du jeu de données) et d'images générées par le Générateur. Sa tâche : attribuer à chaque image une probabilité qu'elle soit réelle. Il apprend à détecter les artefacts caractéristiques des images synthétiques.</li>
-        <li><strong>La dynamique d'entraînement</strong> : les deux réseaux s'améliorent mutuellement. Le Générateur est entraîné à maximiser la probabilité que le Discriminateur se trompe. Le Discriminateur est entraîné à maximiser sa précision. Le système atteint un équilibre — appelé équilibre de Nash en théorie des jeux — lorsque le Discriminateur ne peut plus distinguer le vrai du faux.</li>
+        <li><strong>Le générateur</strong> : fabrique des images artificielles.</li>
+        <li><strong>Le discriminateur</strong> : distingue les vraies images des fausses.</li>
+        <li>Ils s'améliorent mutuellement jusqu'à ce que les images générées soient indiscernables des réelles.</li>
       </ul>
-
-      <div class="diagram-wrap">
-        <div class="diagram-header">
-          <span class="diagram-title">Architecture GAN — Vue d'ensemble</span>
-          <span class="diagram-tag">Forward pass</span>
-        </div>
-        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" font-family="'Source Serif 4', Georgia, serif">
-          <defs>
-            <marker id="a1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#1a1815"/>
-            </marker>
-            <marker id="a1r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#c0392b"/>
-            </marker>
-          </defs>
-
-          <!-- Noise input -->
-          <rect x="12" y="75" width="100" height="65" rx="3" fill="#f5f4f0" stroke="#d0cdc5" stroke-width="1.2"/>
-          <text x="62" y="102" text-anchor="middle" font-size="10" fill="#7d756b" font-family="'JetBrains Mono', monospace" letter-spacing="1">BRUIT</text>
-          <text x="62" y="118" text-anchor="middle" font-size="8.5" fill="#a09891">z ~ N(0,1)</text>
-
-          <!-- Generateur -->
-          <rect x="145" y="60" width="135" height="95" rx="3" fill="#1a1815"/>
-          <text x="212" y="102" text-anchor="middle" font-size="12" fill="white" font-family="'Playfair Display', serif" font-weight="700">Générateur</text>
-          <text x="212" y="120" text-anchor="middle" font-size="9" fill="#888">G(z) — Le Faussaire</text>
-          <text x="212" y="136" text-anchor="middle" font-size="8.5" fill="#555">Conv Transposées</text>
-
-          <!-- Fake image -->
-          <rect x="315" y="75" width="100" height="65" rx="3" fill="#fdf0ee" stroke="#e8b4ae" stroke-width="1.2"/>
-          <text x="365" y="100" text-anchor="middle" font-size="10" fill="#c0392b" font-family="'JetBrains Mono', monospace" letter-spacing="1">IMAGE</text>
-          <text x="365" y="116" text-anchor="middle" font-size="8.5" fill="#c0392b">synthétique</text>
-          <text x="365" y="130" text-anchor="middle" font-size="8" fill="#d9806b">G(z)</text>
-
-          <!-- Real images entry -->
-          <rect x="315" y="155" width="100" height="50" rx="3" fill="#f0f5fb" stroke="#93afd4" stroke-width="1.2"/>
-          <text x="365" y="176" text-anchor="middle" font-size="9.5" fill="#1a5276" font-family="'JetBrains Mono', monospace">VRAIE</text>
-          <text x="365" y="192" text-anchor="middle" font-size="8.5" fill="#2980b9">image réelle</text>
-
-          <!-- Discriminateur -->
-          <rect x="450" y="60" width="135" height="95" rx="3" fill="#1a3a5c"/>
-          <text x="517" y="98" text-anchor="middle" font-size="12" fill="white" font-family="'Playfair Display', serif" font-weight="700">Discriminateur</text>
-          <text x="517" y="116" text-anchor="middle" font-size="9" fill="#90b8d8">D(x) — Le Détective</text>
-          <text x="517" y="132" text-anchor="middle" font-size="8.5" fill="#5d8baa">Convolutions</text>
-
-          <!-- Output -->
-          <rect x="620" y="75" width="70" height="65" rx="3" fill="#fefce8" stroke="#e8d060" stroke-width="1.2"/>
-          <text x="655" y="99" text-anchor="middle" font-size="10" fill="#7d6a10" font-family="'JetBrains Mono', monospace">P(réel)</text>
-          <text x="655" y="115" text-anchor="middle" font-size="18" fill="#c0a030">?</text>
-          <text x="655" y="133" text-anchor="middle" font-size="8" fill="#7d6a10">[0 ; 1]</text>
-
-          <!-- Arrows forward -->
-          <line x1="112" y1="107" x2="143" y2="107" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a1)"/>
-          <line x1="280" y1="107" x2="313" y2="107" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a1)"/>
-          <line x1="415" y1="107" x2="448" y2="107" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a1)"/>
-          <line x1="415" y1="180" x2="448" y2="140" stroke="#2980b9" stroke-width="1.2" marker-end="url(#a1)"/>
-          <line x1="585" y1="107" x2="618" y2="107" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a1)"/>
-
-          <!-- Feedback loop -->
-          <path d="M517 155 Q517 195 212 195 Q212 157" stroke="#c0392b" stroke-width="1.4" fill="none" stroke-dasharray="5,3" marker-end="url(#a1r)"/>
-          <text x="365" y="212" text-anchor="middle" font-size="8.5" fill="#c0392b" font-family="'JetBrains Mono', monospace">Gradient de retour — le faussaire s'améliore</text>
-        </svg>
-      </div>
-
-      <h4>Forces et limites</h4>
-      <div class="score-bar"><span class="score-label">Qualité</span><div class="score-track"><div class="score-fill gan" style="width:90%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Vitesse</span><div class="score-track"><div class="score-fill gan" style="width:82%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Stabilité</span><div class="score-track"><div class="score-fill gan" style="width:35%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Diversité</span><div class="score-track"><div class="score-fill gan" style="width:55%"></div></div></div>
-
-      <p style="margin-top:1.2rem;">Le principal défaut des GAN est le <em>mode collapse</em> : le générateur peut converger vers la production d'un nombre limité de variations très convaincantes, en ignorant d'autres parties de l'espace de données. L'entraînement est aussi notablement instable — l'équilibre entre les deux réseaux est délicat à maintenir. Ces limites ont conduit les chercheurs à explorer les deux architectures suivantes.</p>
-
-      <div class="callout accent">
-        <div class="callout-type">Applications emblématiques</div>
-        ThisPersonDoesNotExist.com (génération de visages), StyleGAN2 et 3 (Nvidia), Super-résolution d'images, Deepfake vidéo, pix2pix (transformation image-à-image).
-      </div>
+      <p><strong>Points forts :</strong> génération très rapide, images nettes, bonne qualité pour de la haute résolution.<br>
+      <strong>Points faibles :</strong> peut parfois produire toujours le même type d'image (mode collapse), entraînement instable.</p>
+      <p><span class="badge-simple">Exemples connus</span> StyleGAN (visages humains), les deepfakes, pix2pix.</p>
     </div>
   </div>
 
-  <!-- VAE -->
-  <div class="arch-card" id="section5">
-    <div class="arch-card-header vae">
-      <div class="arch-letter vae">VAE</div>
-      <div class="arch-card-meta">
-        <div class="arch-name">Variational Autoencoder</div>
-        <div class="arch-alias">Auto-encodeur variationnel — 2013, Kingma &amp; Welling</div>
+  <!-- 2. VAE -->
+  <h2>2. Les VAE — la compression créative</h2>
+  <div class="carte">
+    <div class="titre-carte titre-vae">VAE (Variational Autoencoder)</div>
+    <div class="contenu-carte">
+      <div class="analogie">
+        <strong>Exemple simple :</strong> Imagine que tu résumes un film en cinq mots-clés. Quelqu'un d'autre lit ces mots et reconstruit le film. Si tu changes un mot (ex: « triste » devient « joyeux »), le film reconstruit change. Le VAE compresse une image en quelques chiffres (espace latent), puis la reconstruit. En modifiant ces chiffres, tu modifies l'image.
       </div>
-    </div>
-    <div class="arch-card-body">
-
-      <div class="analogy">
-        <div class="analogy-label">Analogie — Le résumé et la reconstruction</div>
-        <p>Imaginez que vous deviez décrire votre appartement à quelqu'un qui ne l'a jamais vu, en n'utilisant que dix mots clés. Vous choisissez : <em>"grand, lumineux, parquet ancien, cuisine ouverte, vue sur jardin."</em> Votre interlocuteur, à partir de ces dix mots, se construit une représentation mentale de l'espace — imparfaite, mais cohérente. Un VAE fait exactement cela avec des images : il <strong>comprime une image en une liste de concepts abstraits</strong>, puis la <strong>reconstruit</strong> à partir de ces concepts. Et surtout — il peut modifier ces concepts pour transformer l'image.</p>
-      </div>
-
-      <h4>Fonctionnement détaillé</h4>
-      <p>Un VAE repose sur deux sous-réseaux :</p>
-      <ul>
-        <li><strong>L'Encodeur</strong> prend une image en entrée et produit non pas un vecteur unique, mais <em>deux vecteurs</em> : une moyenne et un écart-type pour chaque dimension de l'espace latent. Ce point est crucial : plutôt qu'une compression déterministe, l'encodeur produit une <strong>distribution de probabilités</strong> autour d'une région de l'espace latent.</li>
-        <li><strong>L'espace latent</strong> est un espace à plusieurs dizaines ou centaines de dimensions où chaque région correspond à un type d'image. Les visages souriants occupent une région, les visages sérieux une autre ; les visages avec lunettes forment un sous-espace distinct. La clé : cet espace est <strong>continu et structuré</strong>, ce qui le rend manipulable.</li>
-        <li><strong>Le Décodeur</strong> prend un point dans l'espace latent et reconstruit une image correspondante. En interpolant entre deux points (par exemple, entre "visage jeune" et "visage âgé"), on obtient des transformations visuelles continues et cohérentes.</li>
-      </ul>
-
-      <div class="diagram-wrap">
-        <div class="diagram-header">
-          <span class="diagram-title">Architecture VAE — Encodage et reconstruction</span>
-          <span class="diagram-tag">Espace latent continu</span>
-        </div>
-        <svg viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg" font-family="'Source Serif 4', Georgia, serif">
-          <defs>
-            <marker id="a2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#1a1815"/>
-            </marker>
-            <marker id="a2g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L8,3 z" fill="#1e8449"/>
-            </marker>
-          </defs>
-
-          <!-- Input image -->
-          <rect x="12" y="75" width="95" height="70" rx="3" fill="#f0f5fb" stroke="#93afd4" stroke-width="1.2"/>
-          <text x="59" y="103" text-anchor="middle" font-size="10" fill="#1a5276" font-family="'JetBrains Mono', monospace">IMAGE</text>
-          <text x="59" y="119" text-anchor="middle" font-size="8.5" fill="#2980b9">originale</text>
-          <text x="59" y="134" text-anchor="middle" font-size="7.5" fill="#85b4d4">x ∈ ℝⁿ</text>
-
-          <!-- Encodeur -->
-          <rect x="138" y="58" width="120" height="104" rx="3" fill="#1a3a5c"/>
-          <text x="198" y="100" text-anchor="middle" font-size="12" fill="white" font-family="'Playfair Display', serif" font-weight="700">Encodeur</text>
-          <text x="198" y="116" text-anchor="middle" font-size="8.5" fill="#90b8d8">q_φ(z|x)</text>
-          <text x="198" y="132" text-anchor="middle" font-size="8" fill="#5d8baa">→ μ et σ²</text>
-          <text x="198" y="148" text-anchor="middle" font-size="7.5" fill="#456a8a">Convolutions</text>
-
-          <!-- Espace latent -->
-          <rect x="292" y="45" width="125" height="130" rx="3" fill="#fffde7" stroke="#f0c040" stroke-width="1.5"/>
-          <text x="354" y="75" text-anchor="middle" font-size="9.5" fill="#7d6010" font-family="'JetBrains Mono', monospace" letter-spacing="1">ESPACE</text>
-          <text x="354" y="90" text-anchor="middle" font-size="9.5" fill="#7d6010" font-family="'JetBrains Mono', monospace" letter-spacing="1">LATENT</text>
-          <line x1="312" y1="103" x2="395" y2="103" stroke="#e8c840" stroke-width="0.8"/>
-          <text x="354" y="118" text-anchor="middle" font-size="8.5" fill="#a08828">μ : vecteur moyen</text>
-          <text x="354" y="132" text-anchor="middle" font-size="8.5" fill="#a08828">σ² : incertitude</text>
-          <line x1="312" y1="143" x2="395" y2="143" stroke="#e8c840" stroke-width="0.8"/>
-          <text x="354" y="157" text-anchor="middle" font-size="8" fill="#c09820">âge · genre · expression</text>
-          <text x="354" y="169" text-anchor="middle" font-size="8" fill="#c09820">couleur · lumière · pose...</text>
-
-          <!-- Décodeur -->
-          <rect x="452" y="58" width="120" height="104" rx="3" fill="#0d3d20"/>
-          <text x="512" y="100" text-anchor="middle" font-size="12" fill="white" font-family="'Playfair Display', serif" font-weight="700">Décodeur</text>
-          <text x="512" y="116" text-anchor="middle" font-size="8.5" fill="#6ee7b7">p_θ(x|z)</text>
-          <text x="512" y="132" text-anchor="middle" font-size="8" fill="#3aac70">z → image</text>
-          <text x="512" y="148" text-anchor="middle" font-size="7.5" fill="#2a7a50">Déconvolutions</text>
-
-          <!-- Output image -->
-          <rect x="606" y="75" width="82" height="70" rx="3" fill="#f0fdf4" stroke="#6ee7b7" stroke-width="1.2"/>
-          <text x="647" y="103" text-anchor="middle" font-size="10" fill="#0d3d20" font-family="'JetBrains Mono', monospace">IMAGE</text>
-          <text x="647" y="119" text-anchor="middle" font-size="8.5" fill="#1e8449">modifiée</text>
-          <text x="647" y="134" text-anchor="middle" font-size="7.5" fill="#4dae78">x' ∈ ℝⁿ</text>
-
-          <!-- Arrows -->
-          <line x1="107" y1="110" x2="136" y2="110" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a2)"/>
-          <line x1="258" y1="110" x2="290" y2="110" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a2)"/>
-          <line x1="417" y1="110" x2="450" y2="110" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a2)"/>
-          <line x1="572" y1="110" x2="604" y2="110" stroke="#1a1815" stroke-width="1.5" marker-end="url(#a2)"/>
-
-          <!-- Edit annotation -->
-          <rect x="310" y="195" width="90" height="22" rx="2" fill="#fdf5d0" stroke="#e8c840" stroke-width="0.8"/>
-          <text x="355" y="210" text-anchor="middle" font-size="8.5" fill="#a08828">Modifier z → transformer l'image</text>
-          <line x1="355" y1="175" x2="355" y2="194" stroke="#c09820" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#a2g)"/>
-        </svg>
-      </div>
-
-      <h4>Forces et limites</h4>
-      <div class="score-bar"><span class="score-label">Qualité</span><div class="score-track"><div class="score-fill vae" style="width:60%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Vitesse</span><div class="score-track"><div class="score-fill vae" style="width:88%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Stabilité</span><div class="score-track"><div class="score-fill vae" style="width:90%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Contrôle</span><div class="score-track"><div class="score-fill vae" style="width:92%"></div></div></div>
-
-      <p style="margin-top:1.2rem;">La grande faiblesse des VAE est la qualité visuelle : les images générées ont souvent un aspect légèrement flou, car la perte de reconstruction moyenne l'information sur la distribution. Pour des applications nécessitant un espace latent structuré et manipulable plutôt qu'une qualité maximale, ils restent supérieurs aux GAN.</p>
-
-      <div class="callout blue">
-        <div class="callout-type">Applications emblématiques</div>
-        Détection d'anomalies industrielles, morphing de visages, édition d'attributs précis (âge, expression), compression d'images, génération de molécules en biochimie computationnelle.
-      </div>
+      <p><strong>Principe :</strong> Un encodeur transforme l'image en un vecteur (code secret). Un décodeur reconstruit l'image à partir de ce vecteur. L'espace des codes est continu : on peut passer en douceur d'une image à l'autre.</p>
+      <p><strong>Points forts :</strong> entraînement stable, excellent pour modifier des détails précis (âge, expression, couleur), détection d'anomalies.<br>
+      <strong>Points faibles :</strong> les images sont parfois un peu floues, moins de détails fins que les GAN ou la diffusion.</p>
+      <p><span class="badge-simple">Applications</span> Vieillissement de visages, interpolation entre deux photos, inspection industrielle (défauts).</p>
     </div>
   </div>
 
-  <!-- DIFFUSION -->
-  <div class="arch-card" id="section6">
-    <div class="arch-card-header diff">
-      <div class="arch-letter diff">DM</div>
-      <div class="arch-card-meta">
-        <div class="arch-name">Diffusion Models</div>
-        <div class="arch-alias">Modèles de diffusion — 2020, Ho, Jain &amp; Abbeel (DDPM)</div>
+  <!-- 3. MODÈLES DE DIFFUSION -->
+  <h2>3. Les modèles de diffusion — la sculpture pas à pas</h2>
+  <div class="carte">
+    <div class="titre-carte titre-diff">Modèles de diffusion (Diffusion Models)</div>
+    <div class="contenu-carte">
+      <div class="analogie">
+        <strong>Exemple simple :</strong> Prends une photo nette, ajoute du bruit petit à petit jusqu'à ce qu'elle devienne du grain gris. Ensuite, apprends à faire l'inverse : partir du grain et enlever le bruit couche par couche, guidé par une description écrite (« un chat avec un chapeau »). Chaque étape affine l'image. C'est le principe des modèles de diffusion.
       </div>
-    </div>
-    <div class="arch-card-body">
-
-      <div class="analogy">
-        <div class="analogy-label">Analogie — La statue dans le marbre</div>
-        <p>Michel-Ange aurait dit que ses statues existaient déjà dans le marbre — il se contentait d'ôter ce qui n'était pas elles. Les modèles de diffusion fonctionnent selon cette même logique, mais à l'envers : on leur apprend d'abord à <strong>détruire</strong> méthodiquement une image, en y ajoutant du bruit jusqu'au chaos total. Puis on leur apprend à faire <strong>l'inverse</strong> — à partir du chaos pur, guidé par une description textuelle, <em>retirer le bruit par petites couches successives</em>, révélant progressivement l'image cachée dans le hasard.</p>
-      </div>
-
-      <h4>Fonctionnement en deux phases</h4>
-      <ol class="steps">
-        <li>
-          <div>
-            <strong>Phase d'entraînement — Le processus de destruction (forward process)</strong><br>
-            On prend une image nette et on y ajoute du bruit gaussien progressivement, en T étapes (typiquement T = 1000). À l'étape t = 1, l'image est légèrement bruitée. À t = T, elle est devenue un nuage de pixels aléatoires, indiscernable d'un bruit blanc. Le modèle apprend, à chaque étape, <em>quelle quantité et quelle structure de bruit a été ajoutée</em>. Ce n'est pas le modèle qui détruit — il <strong>observe</strong> la destruction et mémorise comment l'inverser.
-          </div>
-        </li>
-        <li>
-          <div>
-            <strong>Phase de génération — Le processus de création (reverse process)</strong><br>
-            On part d'un vecteur de bruit pur (équivalent à t = T). On conditionne le modèle sur un prompt textuel encodé — <em>"un astronaute à cheval sur Mars, style peinture à l'huile"</em>. À chaque étape, le modèle prédit et retire une petite quantité de bruit, guidant les pixels vers une structure cohérente avec la description. Après 50 à 200 étapes, une image cohérente et détaillée émerge.
-          </div>
-        </li>
+      <p><strong>Fonctionnement en deux phases :</strong></p>
+      <ol>
+        <li><strong>Phase d'ajout de bruit (destruction) :</strong> on bruit une image réelle en plusieurs étapes jusqu'à obtenir du bruit pur.</li>
+        <li><strong>Phase de génération (débruitage) :</strong> on part d'un bruit aléatoire, et on le « débruite » progressivement, guidé par un texte ou une consigne.</li>
       </ol>
-
-      <div class="diagram-wrap">
-        <div class="diagram-header">
-          <span class="diagram-title">Processus de diffusion — Forward et Reverse</span>
-          <span class="diagram-tag">T étapes de bruit</span>
-        </div>
-        <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg" font-family="'Source Serif 4', Georgia, serif">
-          <defs>
-            <marker id="a3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L7,3 z" fill="#1a1815"/>
-            </marker>
-            <marker id="a3r" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L7,3 z" fill="#c0392b"/>
-            </marker>
-          </defs>
-
-          <!-- Label forward -->
-          <text x="350" y="20" text-anchor="middle" font-size="9" fill="#7d756b" font-family="'JetBrains Mono', monospace" letter-spacing="1">FORWARD — ajout progressif de bruit</text>
-
-          <!-- Image nette -->
-          <rect x="12" y="32" width="88" height="68" rx="3" fill="#dbeafe" stroke="#93afd4" stroke-width="1.2"/>
-          <text x="56" y="60" text-anchor="middle" font-size="9.5" fill="#1a5276" font-family="'JetBrains Mono', monospace">IMAGE</text>
-          <text x="56" y="74" text-anchor="middle" font-size="8.5" fill="#2980b9">nette</text>
-          <text x="56" y="89" text-anchor="middle" font-size="7.5" fill="#85b4d4">t = 0</text>
-
-          <!-- étapes bruit 1 -->
-          <rect x="118" y="32" width="78" height="68" rx="3" fill="#dee2e6" stroke="#bdc3c9" stroke-width="1"/>
-          <text x="157" y="64" text-anchor="middle" font-size="8" fill="#555">t = T/4</text>
-          <text x="157" y="78" text-anchor="middle" font-size="7.5" fill="#777">léger bruit</text>
-
-          <!-- étapes bruit 2 -->
-          <rect x="214" y="32" width="78" height="68" rx="3" fill="#adb5bd" stroke="#868e96" stroke-width="1"/>
-          <text x="253" y="64" text-anchor="middle" font-size="8" fill="#fff">t = T/2</text>
-          <text x="253" y="78" text-anchor="middle" font-size="7.5" fill="#ddd">bruit moyen</text>
-
-          <!-- étapes bruit 3 -->
-          <rect x="310" y="32" width="78" height="68" rx="3" fill="#6c757d" stroke="#495057" stroke-width="1"/>
-          <text x="349" y="64" text-anchor="middle" font-size="8" fill="#fff">t = 3T/4</text>
-          <text x="349" y="78" text-anchor="middle" font-size="7.5" fill="#ccc">fort bruit</text>
-
-          <!-- Bruit pur -->
-          <rect x="406" y="32" width="88" height="68" rx="3" fill="#1a1815" stroke="#333" stroke-width="1.5"/>
-          <text x="450" y="60" text-anchor="middle" font-size="9.5" fill="white" font-family="'JetBrains Mono', monospace">BRUIT</text>
-          <text x="450" y="74" text-anchor="middle" font-size="8.5" fill="#888">PUR</text>
-          <text x="450" y="89" text-anchor="middle" font-size="7.5" fill="#555">t = T</text>
-
-          <!-- Forward arrows -->
-          <line x1="100" y1="66" x2="116" y2="66" stroke="#1a1815" stroke-width="1.3" marker-end="url(#a3)"/>
-          <line x1="196" y1="66" x2="212" y2="66" stroke="#1a1815" stroke-width="1.3" marker-end="url(#a3)"/>
-          <line x1="292" y1="66" x2="308" y2="66" stroke="#1a1815" stroke-width="1.3" marker-end="url(#a3)"/>
-          <line x1="388" y1="66" x2="404" y2="66" stroke="#1a1815" stroke-width="1.3" marker-end="url(#a3)"/>
-
-          <!-- Separator -->
-          <line x1="30" y1="125" x2="670" y2="125" stroke="#e0d9ce" stroke-width="0.8"/>
-
-          <!-- Label reverse -->
-          <text x="350" y="145" text-anchor="middle" font-size="9" fill="#c0392b" font-family="'JetBrains Mono', monospace" letter-spacing="1">REVERSE — débruitage guidé par le prompt</text>
-
-          <!-- Prompt -->
-          <rect x="510" y="157" width="120" height="68" rx="3" fill="#fdf8ec" stroke="#e8c840" stroke-width="1.2"/>
-          <text x="570" y="181" text-anchor="middle" font-size="9" fill="#7d6010" font-family="'JetBrains Mono', monospace">PROMPT</text>
-          <text x="570" y="195" text-anchor="middle" font-size="8.5" fill="#a08828">"un chat sur</text>
-          <text x="570" y="209" text-anchor="middle" font-size="8.5" fill="#a08828">la lune"</text>
-
-          <!-- Image générée -->
-          <rect x="600" y="157" width="88" height="68" rx="3" fill="#f0fdf4" stroke="#6ee7b7" stroke-width="1.2"/>
-          <text x="644" y="185" text-anchor="middle" font-size="9.5" fill="#0d3d20" font-family="'JetBrains Mono', monospace">IMAGE</text>
-          <text x="644" y="199" text-anchor="middle" font-size="8.5" fill="#1e8449">finale</text>
-          <text x="644" y="213" text-anchor="middle" font-size="7.5" fill="#4dae78">t = 0</text>
-
-          <!-- Bruit pur reverse -->
-          <rect x="406" y="157" width="88" height="68" rx="3" fill="#1a1815" stroke="#333" stroke-width="1.5"/>
-          <text x="450" y="185" text-anchor="middle" font-size="9.5" fill="white" font-family="'JetBrains Mono', monospace">BRUIT</text>
-          <text x="450" y="199" text-anchor="middle" font-size="8.5" fill="#888">PUR</text>
-          <text x="450" y="213" text-anchor="middle" font-size="7.5" fill="#555">t = T</text>
-
-          <!-- Reverse denoising steps (arcs) -->
-          <path d="M406,191 Q375,238 335,191" stroke="#c0392b" stroke-width="1.3" fill="none" stroke-dasharray="4,2.5" marker-end="url(#a3r)"/>
-          <path d="M310,191 Q280,238 238,191" stroke="#c0392b" stroke-width="1.3" fill="none" stroke-dasharray="4,2.5" marker-end="url(#a3r)"/>
-          <path d="M214,191 Q185,238 148,191" stroke="#c0392b" stroke-width="1.3" fill="none" stroke-dasharray="4,2.5" marker-end="url(#a3r)"/>
-          <path d="M118,191 Q90,238 60,191" stroke="#c0392b" stroke-width="1.3" fill="none" stroke-dasharray="4,2.5" marker-end="url(#a3r)"/>
-
-          <!-- Intermediate steps (ghost) -->
-          <rect x="310" y="157" width="78" height="68" rx="3" fill="#6c757d" stroke="#495057" stroke-width="0.8" opacity="0.6"/>
-          <rect x="214" y="157" width="78" height="68" rx="3" fill="#adb5bd" stroke="#868e96" stroke-width="0.8" opacity="0.6"/>
-          <rect x="118" y="157" width="78" height="68" rx="3" fill="#dee2e6" stroke="#bdc3c9" stroke-width="0.8" opacity="0.6"/>
-          <rect x="12" y="157" width="88" height="68" rx="3" fill="#dbeafe" stroke="#93afd4" stroke-width="0.8" opacity="0.6"/>
-
-          <!-- Prompt to denoising -->
-          <line x1="508" y1="191" x2="496" y2="191" stroke="#c0a030" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#a3r)"/>
-
-          <!-- Arrow to final -->
-          <line x1="512" y1="191" x2="598" y2="191" stroke="#1e8449" stroke-width="1.5" marker-end="url(#a3r)"/>
-        </svg>
-      </div>
-
-      <p>Ce qui distingue les modèles de diffusion des deux architectures précédentes est leur capacité à intégrer le langage naturel comme condition de génération. Un encodeur de texte (comme CLIP) projette le prompt dans un espace vectoriel, et ce vecteur guide le processus de débruitage à chaque étape via un mécanisme d'<em>attention croisée</em>. C'est ce couplage texte-image qui explique la précision et la richesse des sorties de Stable Diffusion ou DALL-E.</p>
-
-      <h4>Forces et limites</h4>
-      <div class="score-bar"><span class="score-label">Qualité</span><div class="score-track"><div class="score-fill diff" style="width:98%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Vitesse</span><div class="score-track"><div class="score-fill diff" style="width:28%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Contrôle</span><div class="score-track"><div class="score-fill diff" style="width:88%"></div></div></div>
-      <div class="score-bar"><span class="score-label">Diversité</span><div class="score-track"><div class="score-fill diff" style="width:95%"></div></div></div>
-
-      <p style="margin-top:1.2rem;">La principale limitation des modèles de diffusion est leur <strong>coût computationnel</strong> : chaque image nécessite de 50 à 1000 étapes de débruitage, chacune impliquant un passage complet dans un réseau de neurones profond. Des optimisations comme DDIM ou la diffusion dans un espace latent compressé (Latent Diffusion Models, base de Stable Diffusion) ont réduit ce coût de façon significative.</p>
-
-      <div class="callout accent">
-        <div class="callout-type">Applications emblématiques</div>
-        Midjourney, DALL-E 3, Stable Diffusion XL, Adobe Firefly, génération de textures 3D, synthèse vidéo (Sora), inpainting avancé, génération d'images médicales.
-      </div>
+      <p><strong>Points forts :</strong> qualité d'image exceptionnelle (meilleure que GAN et VAE), grand contrôle via le texte, diversité énorme.<br>
+      <strong>Points faibles :</strong> très lent (nécessite plusieurs dizaines d'étapes), gourmand en calcul (GPU puissant requis).</p>
+      <p><span class="badge-simple">Exemples célèbres</span> DALL-E, Midjourney, Stable Diffusion, Sora (génération vidéo).</p>
     </div>
   </div>
 
-  <!-- SECTION 4 — COMPARAISON SYNTHÉTIQUE (tableau) -->
-  <div class="section-header">
-    <div class="section-label">Section 04</div>
-    <h2>Comparaison synthétique des trois architectures</h2>
-  </div>
-
-  <p>Ces trois architectures ne sont pas en compétition — elles occupent des niches différentes. Le choix dépend du cas d'usage, des contraintes de temps réel, et de la priorité accordée à la qualité versus la manipulabilité.</p>
-
-  <div class="compare-section">
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>GAN</th>
-          <th>VAE</th>
-          <th>Diffusion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Principe</td>
-          <td>Duel entre un générateur et un discriminateur. Apprentissage implicite par adversité.</td>
-          <td>Compression en espace latent structuré, puis reconstruction. Apprentissage explicite de la distribution.</td>
-          <td>Inversion d'un processus de destruction par bruit. Apprentissage du score de la distribution.</td>
-        </tr>
-        <tr>
-          <td>Qualité visuelle</td>
-          <td>Très élevée. Images nettes et détaillées. Excellente haute résolution.</td>
-          <td>Moyenne à élevée. Légère tendance au flou. Moins de détails fins.</td>
-          <td>Exceptionnelle. État de l'art absolu sur toutes les métriques perceptuelles.</td>
-        </tr>
-        <tr>
-          <td>Vitesse de génération</td>
-          <td>Rapide. Une passe du générateur suffit (quelques millisecondes).</td>
-          <td>Très rapide. Décodage direct depuis l'espace latent.</td>
-          <td>Lente. Requiert 50 à 1000 passes itératives (secondes à minutes).</td>
-        </tr>
-        <tr>
-          <td>Stabilité d'entraînement</td>
-          <td>Fragile. Mode collapse et oscillations fréquentes. Nécessite beaucoup d'ajustements.</td>
-          <td>Stable. Fonction de perte explicite (ELBO). Entraînement fiable et reproductible.</td>
-          <td>Stable. Processus de destruction bien défini. Convergence robuste.</td>
-        </tr>
-        <tr>
-          <td>Contrôle et édition</td>
-          <td>Limité. Contrôle via l'espace latent possible mais moins structuré que le VAE.</td>
-          <td>Excellent. L'espace latent continu permet des interpolations et modifications précises d'attributs.</td>
-          <td>Très bon via le prompt textuel et les techniques de guidance (classifier-free guidance).</td>
-        </tr>
-        <tr>
-          <td>Cas d'usage idéaux</td>
-          <td>Génération de visages, super-résolution, transfert de style, augmentation de données visuelles.</td>
-          <td>Détection d'anomalies, édition ciblée d'attributs, compression, tâches nécessitant un espace latent interprétable.</td>
-          <td>Text-to-image, inpainting, génération créative, synthèse vidéo, toutes applications où la qualité prime.</td>
-        </tr>
-        <tr>
-          <td>Références</td>
-          <td>StyleGAN3 (Nvidia), BigGAN, CycleGAN, pix2pix</td>
-          <td>VAE de Kingma (2013), VQ-VAE (DeepMind), NVAE</td>
-          <td>DDPM (2020), Stable Diffusion, DALL-E 3, Midjourney, Sora</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout">
-    <div class="callout-type">Note technique importante</div>
-    Les architectures modernes combinent souvent ces trois familles. Stable Diffusion utilise un VAE pour compresser l'image dans un espace latent, puis applique un processus de diffusion dans cet espace latent compressé — bénéficiant ainsi de la structuration du VAE et de la qualité des modèles de diffusion tout en réduisant le coût computationnel.
-  </div>
-
-  <!-- SECTION 7 — COMPARAISON IDÉE / AVANTAGES / LIMITES -->
-  <div class="section-header" id="section7">
-    <div class="section-label">Section 07</div>
-    <h2>Comparaison détaillée : Idée · Avantages · Limites</h2>
-  </div>
-
-  <p class="lead">Une table, c'est utile. Mais pour <em>vraiment</em> comprendre comment choisir entre GAN, VAE et Diffusion, il faut décortiquer chaque architecture selon trois axes : l'intuition centrale, ce qu'elle fait mieux que les autres, et là où elle montre ses limites.</p>
-
-  <!-- Analogies rapides -->
-  <h3>En une image : trois métaphores</h3>
-  <p>Avant de rentrer dans les détails, ancrons chaque architecture dans une métaphore du quotidien. Ces trois images mentales vous permettront de vous souvenir instinctivement de quel outil utiliser et pourquoi.</p>
-
-  <div class="analogy-row">
-    <div class="mini-analogy">
-      <div class="mini-analogy-label">GAN</div>
-      <p><strong>Le duel du faussaire.</strong> Un contrefacteur de billets affronte un détective bancaire. Chacun force l'autre à s'améliorer indéfiniment. Le résultat ? Des billets si parfaits qu'aucune machine ne peut les distinguer des vrais — mais l'entraînement lui-même est un équilibre instable, comme un jeu de poker qui peut déraper à tout moment.</p>
+  <!-- COMPARAISON VISUELLE SIMPLE -->
+  <h2>Comparaison en un clin d'œil</h2>
+  <div class="grille">
+    <div class="grille-item gan">
+      <h4>GAN</h4>
+      <p><strong>Vitesse :</strong> très rapide<br>
+      <strong>Qualité :</strong> haute<br>
+      <strong>Contrôle :</strong> moyen<br>
+      <strong>Idéal pour :</strong> temps réel, super-résolution, visages</p>
     </div>
-    <div class="mini-analogy">
-      <div class="mini-analogy-label">VAE</div>
-      <p><strong>Le cartographe et l'explorateur.</strong> Le cartographe résume un continent entier en dix symboles sur une carte (l'encodeur). L'explorateur lit la carte et reconstruit mentalement le paysage (le décodeur). La carte est imprécise, mais elle est <em>navigable</em> : on peut se déplacer dans l'espace des concepts, passer d'une montagne à une plaine en glissant un doigt.</p>
+    <div class="grille-item vae">
+      <h4>VAE</h4>
+      <p><strong>Vitesse :</strong> rapide<br>
+      <strong>Qualité :</strong> moyenne (légèrement flou)<br>
+      <strong>Contrôle :</strong> excellent (modification d'attributs)<br>
+      <strong>Idéal pour :</strong> édition fine, interpolation, détection d'anomalies</p>
     </div>
-    <div class="mini-analogy">
-      <div class="mini-analogy-label">Diffusion</div>
-      <p><strong>Le sculpteur inversé.</strong> Au lieu de tailler dans le marbre, le sculpteur part d'un bloc de neige fondue — du chaos pur — et, couche par couche, <em>gèle et sculpte simultanément</em>, guidé par les mots d'un poème. Chaque étape de débruitage est un coup de ciseau précis. Le résultat est d'une finesse inégalée, mais demande patience et puissance de calcul.</p>
+    <div class="grille-item diff">
+      <h4>Diffusion</h4>
+      <p><strong>Vitesse :</strong> lente<br>
+      <strong>Qualité :</strong> exceptionnelle<br>
+      <strong>Contrôle :</strong> très bon via texte<br>
+      <strong>Idéal pour :</strong> création artistique, image à partir de texte, qualité maximale</p>
     </div>
   </div>
 
-  <!-- Cartes détaillées -->
-  <h3>Idée centrale, avantages et limites par architecture</h3>
-  <p>Chaque carte ci-dessous décompose une architecture selon ses trois dimensions essentielles : l'idée qui la fonde, ce qu'elle excelle à faire, et les cas où elle déçoit.</p>
+  <!-- TABLEAU COMPARATIF DÉTAILLÉ (sans icônes) -->
+  <h3>Tableau comparatif détaillé</h3>
+  <table class="tableau-compare">
+    <thead>
+      <tr><th>Caractéristique</th><th>GAN</th><th>VAE</th><th>Diffusion</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Idée principale</td><td>Compétition générateur / discriminateur</td><td>Compression puis reconstruction</td><td>Débruitage progressif</td></tr>
+      <tr><td>Netteté des images</td><td>Très bonne</td><td>Assez bonne (peu floue)</td><td>Meilleure qualité possible</td></tr>
+      <tr><td>Temps de génération</td><td>Quelques millisecondes</td><td>Quelques millisecondes</td><td>Secondes à minutes</td></tr>
+      <tr><td>Stabilité à l'entraînement</td><td>Instable, réglages délicats</td><td>Très stable</td><td>Stable</td></tr>
+      <tr><td>Modifier un détail précis</td><td>Difficile</td><td>Très facile (espace latent)</td><td>Possible via prompt</td></tr>
+      <tr><td>Usage typique</td><td>Deepfakes, StyleGAN, super-résolution</td><td>Détection d'anomalies, vieillissement, morphing</td><td>DALL-E, Midjourney, création text->image</td></tr>
+    </tbody>
+  </table>
 
-  <div class="compare-cards">
-
-    <!-- GAN -->
-    <div class="ccard">
-      <div class="ccard-header gan">
-        <div class="ccard-badge gan">G</div>
-        <div class="ccard-title">GAN<br><small style="font-family:var(--mono);font-size:0.62rem;font-weight:400;color:var(--muted);">Generative Adversarial Network</small></div>
-      </div>
-      <div class="ccard-body">
-        <div class="ccard-section-label idea">Idée centrale</div>
-        <p>Deux réseaux s'affrontent en boucle : un <strong>générateur</strong> qui fabrique de fausses images, et un <strong>discriminateur</strong> qui tente de les détecter. La compétition force le générateur à produire des images de plus en plus réalistes. C'est de l'<em>apprentissage par l'adversité</em> — comme apprendre à mentir en affrontant un détecteur de mensonges de plus en plus performant.</p>
-
-        <div class="ccard-section-label pro">Avantages</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag pro">Génération ultra-rapide</span>
-          <span class="ccard-tag pro">Haute résolution</span>
-          <span class="ccard-tag pro">Détails fins</span>
-          <span class="ccard-tag pro">Temps réel possible</span>
-        </div>
-        <p style="margin-top:0.6rem;">Les GAN produisent des images d'une netteté exceptionnelle en un seul passage — quelques millisecondes. Pour la génération de visages photoréalistes (StyleGAN), la super-résolution ou le transfert de style en temps réel, ils restent imbattables en vitesse.</p>
-
-        <div class="ccard-section-label con">Limites</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag con">Instabilité d'entraînement</span>
-          <span class="ccard-tag con">Mode collapse</span>
-          <span class="ccard-tag con">Contrôle difficile</span>
-        </div>
-        <p style="margin-top:0.6rem;">Le <em>mode collapse</em> — quand le générateur se focalise sur quelques images très convaincantes et ignore la diversité du dataset — est leur talon d'Achille. L'entraînement est fragile, nécessite beaucoup de réglages et peut diverger sans prévenir.</p>
-      </div>
-    </div>
-
-    <!-- VAE -->
-    <div class="ccard">
-      <div class="ccard-header vae">
-        <div class="ccard-badge vae">V</div>
-        <div class="ccard-title">VAE<br><small style="font-family:var(--mono);font-size:0.62rem;font-weight:400;color:var(--muted);">Variational Autoencoder</small></div>
-      </div>
-      <div class="ccard-body">
-        <div class="ccard-section-label idea">Idée centrale</div>
-        <p>Compresser une image en un vecteur de concepts abstraits — l'<strong>espace latent</strong> — puis la reconstruire depuis ce vecteur. Chaque dimension de cet espace correspond à un attribut visuel (âge, luminosité, pose...). L'idée clé : l'espace est <em>continu et structuré</em>, comme une carte géographique où l'on peut naviguer de façon cohérente entre les régions.</p>
-
-        <div class="ccard-section-label pro">Avantages</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag pro">Espace latent interprétable</span>
-          <span class="ccard-tag pro">Édition d'attributs précise</span>
-          <span class="ccard-tag pro">Entraînement stable</span>
-          <span class="ccard-tag pro">Détection d'anomalies</span>
-        </div>
-        <p style="margin-top:0.6rem;">Sa grande force : on peut <em>modifier l'image en manipulant les concepts</em>. Vieillir un visage, changer une expression, détecter une anomalie industrielle (ce qui ne ressemble pas aux données normales sera loin du centre de l'espace latent).</p>
-
-        <div class="ccard-section-label con">Limites</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag con">Images légèrement floues</span>
-          <span class="ccard-tag con">Moins de détails fins</span>
-          <span class="ccard-tag con">Qualité inférieure aux DM</span>
-        </div>
-        <p style="margin-top:0.6rem;">La compression vers l'espace latent entraîne une perte d'information : les images reconstruites manquent souvent de netteté et de détails fins. Ce flou caractéristique est le prix de la manipulabilité.</p>
-      </div>
-    </div>
-
-    <!-- Diffusion -->
-    <div class="ccard">
-      <div class="ccard-header diff">
-        <div class="ccard-badge diff">D</div>
-        <div class="ccard-title">Diffusion<br><small style="font-family:var(--mono);font-size:0.62rem;font-weight:400;color:var(--muted);">Diffusion Models</small></div>
-      </div>
-      <div class="ccard-body">
-        <div class="ccard-section-label idea">Idée centrale</div>
-        <p>Apprendre à <em>défaire méthodiquement la destruction</em>. On entraîne un réseau à inverser un processus de bruitage progressif — partir du chaos pur et, guidé par un prompt textuel, retirer du bruit couche par couche jusqu'à révéler une image cohérente. C'est une approche <strong>itérative et probabiliste</strong>, inspirée de la thermodynamique statistique.</p>
-
-        <div class="ccard-section-label pro">Avantages</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag pro">Qualité état de l'art</span>
-          <span class="ccard-tag pro">Contrôle textuel précis</span>
-          <span class="ccard-tag pro">Entraînement stable</span>
-          <span class="ccard-tag pro">Diversité maximale</span>
-        </div>
-        <p style="margin-top:0.6rem;">Les modèles de diffusion dominent aujourd'hui toutes les métriques de qualité visuelle. Leur capacité à être guidés par du texte (CLIP, DALL-E) leur donne une expressivité sans précédent : on communique en langage naturel pour décrire exactement ce que l'on veut créer.</p>
-
-        <div class="ccard-section-label con">Limites</div>
-        <div class="ccard-tag-list">
-          <span class="ccard-tag con">Lents à l'inférence</span>
-          <span class="ccard-tag con">Coûteux en GPU</span>
-          <span class="ccard-tag con">Pas temps réel natif</span>
-        </div>
-        <p style="margin-top:0.6rem;">Générer une image nécessite 50 à 1000 passes itératives à travers le réseau — chacune coûteuse. Bien qu'DDIM et la diffusion latente (LDM) aient réduit ce coût de manière significative, les modèles de diffusion restent inadaptés aux applications nécessitant une génération en temps réel.</p>
-      </div>
-    </div>
-
-  </div><!-- /compare-cards -->
-
-  <!-- Radar chart comparatif -->
-  <h3>Visualisation radar : qui excelle où ?</h3>
-  <p>Ce diagramme radar superpose les profils des trois architectures selon cinq dimensions clés. Aucune architecture ne domine sur tous les axes — c'est précisément ce qui justifie leur coexistence.</p>
-
-  <div class="radar-wrap">
-    <svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" font-family="'Source Serif 4', Georgia, serif">
-      <defs>
-        <style>
-          .rl { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #7d756b; }
-          .rt { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.08em; }
-        </style>
-      </defs>
-
-      <!-- Background grid (5 rings) -->
-      <!-- Ring 5 (outermost = 100%) -->
-      <polygon points="280,60 411,138 411,262 280,340 149,262 149,138" fill="none" stroke="#e0d9ce" stroke-width="1"/>
-      <!-- Ring 4 (80%) -->
-      <polygon points="280,84 384.8,148.4 384.8,251.6 280,316 175.2,251.6 175.2,148.4" fill="none" stroke="#e0d9ce" stroke-width="0.8"/>
-      <!-- Ring 3 (60%) -->
-      <polygon points="280,108 358.6,158.8 358.6,241.2 280,292 201.4,241.2 201.4,158.8" fill="none" stroke="#e0d9ce" stroke-width="0.8"/>
-      <!-- Ring 2 (40%) -->
-      <polygon points="280,132 332.4,169.2 332.4,230.8 280,268 227.6,230.8 227.6,169.2" fill="none" stroke="#e0d9ce" stroke-width="0.8"/>
-      <!-- Ring 1 (20%) -->
-      <polygon points="280,156 306.2,179.6 306.2,220.4 280,244 253.8,220.4 253.8,179.6" fill="none" stroke="#e0d9ce" stroke-width="0.8"/>
-
-      <!-- Axes -->
-      <line x1="280" y1="200" x2="280" y2="60" stroke="#ccc" stroke-width="1"/>
-      <line x1="280" y1="200" x2="411" y2="138" stroke="#ccc" stroke-width="1"/>
-      <line x1="280" y1="200" x2="411" y2="262" stroke="#ccc" stroke-width="1"/>
-      <line x1="280" y1="200" x2="280" y2="340" stroke="#ccc" stroke-width="1"/>
-      <line x1="280" y1="200" x2="149" y2="262" stroke="#ccc" stroke-width="1"/>
-      <line x1="280" y1="200" x2="149" y2="138" stroke="#ccc" stroke-width="1"/>
-
-      <!-- Axis labels -->
-      <text x="280" y="50" text-anchor="middle" class="rl" font-weight="600" fill="#3d3830">QUALITÉ</text>
-      <text x="428" y="134" text-anchor="start" class="rl" font-weight="600" fill="#3d3830">VITESSE</text>
-      <text x="428" y="270" text-anchor="start" class="rl" font-weight="600" fill="#3d3830">STABILITÉ</text>
-      <text x="280" y="358" text-anchor="middle" class="rl" font-weight="600" fill="#3d3830">CONTRÔLE</text>
-      <text x="132" y="270" text-anchor="end" class="rl" font-weight="600" fill="#3d3830">DIVERSITÉ</text>
-      <text x="132" y="134" text-anchor="end" class="rl" font-weight="600" fill="#3d3830">LÉGÈRETÉ</text>
-
-      <!-- Ring % labels -->
-      <text x="283" y="159" class="rt" fill="#bbb">20%</text>
-      <text x="283" y="135" class="rt" fill="#bbb">40%</text>
-      <text x="283" y="111" class="rt" fill="#bbb">60%</text>
-      <text x="283" y="87" class="rt" fill="#bbb">80%</text>
-
-      <!--
-        Axes: top=QUALITÉ, top-right=VITESSE, bot-right=STABILITÉ, bottom=CONTRÔLE, bot-left=DIVERSITÉ, top-left=LÉGÈRETÉ
-        Center = 280,200. Outer ring radius = 140px for each axis direction.
-
-        GAN:  Qualité=90%, Vitesse=82%, Stabilité=35%, Contrôle=45%, Diversité=55%, Légèreté=85%
-        VAE:  Qualité=55%, Vitesse=88%, Stabilité=90%, Contrôle=92%, Diversité=65%, Légèreté=90%
-        DIFF: Qualité=98%, Vitesse=28%, Stabilité=88%, Contrôle=88%, Diversité=95%, Légèreté=20%
-
-        Point formula: center + pct * (axis_unit_vector * 140)
-        axis vectors (unit): top=(0,-1), top-right=(sin60,−cos60)=(0.866,−0.5), bot-right=(0.866,0.5), bottom=(0,1), bot-left=(−0.866,0.5), top-left=(−0.866,−0.5)
-
-        GAN:
-          top(Qualité 0.90):     280, 200 + 0.9*(-140) = 280,74
-          top-right(Vitesse 0.82): 280+0.82*0.866*140, 200+0.82*(−0.5)*140 = 280+99.5,200-57.4 = 379.5,142.6
-          bot-right(Stabilité 0.35): 280+0.35*0.866*140, 200+0.35*0.5*140 = 280+42.4,200+24.5 = 322.4,224.5
-          bottom(Contrôle 0.45): 280, 200+0.45*140 = 280,263
-          bot-left(Diversité 0.55): 280+0.55*(−0.866)*140, 200+0.55*0.5*140 = 280−66.7,200+38.5 = 213.3,238.5
-          top-left(Légèreté 0.85): 280+0.85*(−0.866)*140, 200+0.85*(−0.5)*140 = 280−103,200−59.5 = 177,140.5
-
-        VAE:
-          top(Qualité 0.55):     280, 200−0.55*140 = 280,123
-          top-right(Vitesse 0.88): 280+0.88*121.2, 200+0.88*(−70) = 280+106.7,200−61.6 = 386.7,138.4
-          bot-right(Stabilité 0.90): 280+0.90*121.2, 200+0.90*70 = 280+109.1,200+63 = 389.1,263
-          bottom(Contrôle 0.92): 280, 200+0.92*140 = 280,328.8
-          bot-left(Diversité 0.65): 280−0.65*121.2, 200+0.65*70 = 280−78.8,200+45.5 = 201.2,245.5
-          top-left(Légèreté 0.90): 280−0.90*121.2, 200−0.90*70 = 280−109.1,200−63 = 170.9,137
-
-        DIFF:
-          top(Qualité 0.98):     280, 200−0.98*140 = 280,62.8
-          top-right(Vitesse 0.28): 280+0.28*121.2, 200+0.28*(−70) = 280+33.9,200−19.6 = 313.9,180.4
-          bot-right(Stabilité 0.88): 280+0.88*121.2, 200+0.88*70 = 386.7,261.6
-          bottom(Contrôle 0.88): 280, 200+0.88*140 = 280,323.2
-          bot-left(Diversité 0.95): 280−0.95*121.2, 200+0.95*70 = 280−115.1,200+66.5 = 164.9,266.5
-          top-left(Légèreté 0.20): 280−0.20*121.2, 200−0.20*70 = 280−24.2,200−14 = 255.8,186
-      -->
-
-      <!-- GAN polygon -->
-      <polygon
-        points="280,74 379.5,142.6 322.4,224.5 280,263 213.3,238.5 177,140.5"
-        fill="rgba(192,57,43,0.12)" stroke="#c0392b" stroke-width="2" stroke-linejoin="round"/>
-
-      <!-- VAE polygon -->
-      <polygon
-        points="280,123 386.7,138.4 389.1,263 280,328.8 201.2,245.5 170.9,137"
-        fill="rgba(26,82,118,0.12)" stroke="#1a5276" stroke-width="2" stroke-linejoin="round"/>
-
-      <!-- Diffusion polygon -->
-      <polygon
-        points="280,62.8 313.9,180.4 386.7,261.6 280,323.2 164.9,266.5 255.8,186"
-        fill="rgba(160,82,45,0.10)" stroke="#a0522d" stroke-width="2" stroke-linejoin="round"/>
-
-      <!-- Data point dots — GAN -->
-      <circle cx="280" cy="74" r="3.5" fill="#c0392b"/>
-      <circle cx="379.5" cy="142.6" r="3.5" fill="#c0392b"/>
-      <circle cx="322.4" cy="224.5" r="3.5" fill="#c0392b"/>
-      <circle cx="280" cy="263" r="3.5" fill="#c0392b"/>
-      <circle cx="213.3" cy="238.5" r="3.5" fill="#c0392b"/>
-      <circle cx="177" cy="140.5" r="3.5" fill="#c0392b"/>
-
-      <!-- Data point dots — VAE -->
-      <circle cx="280" cy="123" r="3.5" fill="#1a5276"/>
-      <circle cx="386.7" cy="138.4" r="3.5" fill="#1a5276"/>
-      <circle cx="389.1" cy="263" r="3.5" fill="#1a5276"/>
-      <circle cx="280" cy="328.8" r="3.5" fill="#1a5276"/>
-      <circle cx="201.2" cy="245.5" r="3.5" fill="#1a5276"/>
-      <circle cx="170.9" cy="137" r="3.5" fill="#1a5276"/>
-
-      <!-- Data point dots — Diffusion -->
-      <circle cx="280" cy="62.8" r="3.5" fill="#a0522d"/>
-      <circle cx="313.9" cy="180.4" r="3.5" fill="#a0522d"/>
-      <circle cx="386.7" cy="261.6" r="3.5" fill="#a0522d"/>
-      <circle cx="280" cy="323.2" r="3.5" fill="#a0522d"/>
-      <circle cx="164.9" cy="266.5" r="3.5" fill="#a0522d"/>
-      <circle cx="255.8" cy="186" r="3.5" fill="#a0522d"/>
-
-      <!-- Legend -->
-      <rect x="30" y="355" width="12" height="3" rx="1" fill="#c0392b"/>
-      <text x="46" y="360" class="rt" fill="#c0392b">GAN</text>
-      <rect x="100" y="355" width="12" height="3" rx="1" fill="#1a5276"/>
-      <text x="116" y="360" class="rt" fill="#1a5276">VAE</text>
-      <rect x="170" y="355" width="12" height="3" rx="1" fill="#a0522d"/>
-      <text x="186" y="360" class="rt" fill="#a0522d">Diffusion</text>
-    </svg>
+  <!-- GUIDE DE CHOIX SIMPLE -->
+  <div class="bloc-decision">
+    <h3>Comment choisir la bonne méthode ?</h3>
+    <p><strong>Vous avez besoin de vitesse et de temps réel ?</strong> → Choisissez un GAN. C'est le plus rapide.</p>
+    <p><strong>Vous voulez modifier un attribut précis (âge, couleur, sourire) ou faire des transitions douces ?</strong> → Choisissez un VAE. Il permet un contrôle fin.</p>
+    <p><strong>Vous voulez la plus belle image possible, ou générer à partir d'une phrase ?</strong> → Choisissez un modèle de diffusion. C'est le meilleur en qualité.</p>
+    <p><strong>Vous débutez et voulez un entraînement stable ?</strong> → Préférez VAE ou diffusion (plus robustes que GAN).</p>
+    <hr>
+    <p><strong>Note importante :</strong> Aujourd'hui, les modèles de diffusion sont devenus la référence pour la création artistique et le text-to-image (DALL-E, Midjourney). Les GAN restent imbattables pour les applications en temps réel. Les VAE excellent pour la manipulation fine d'images.</p>
   </div>
 
-  <!-- Decision tree diagram -->
-  <h3>Quel modèle choisir ? L'arbre de décision</h3>
-  <p>La vraie question pratique n'est pas <em>"quel est le meilleur modèle ?"</em> mais <em>"quel modèle résout mon problème ?"</em> Voici un guide de décision rapide basé sur les contraintes les plus courantes.</p>
+  <!-- EXPLICATION TRÈS SIMPLE (ELI5) -->
+  <h3>Explication pour tous (sans jargon technique)</h3>
+  <ul>
+    <li><strong>GAN :</strong> deux enfants jouent : l'un dessine un faux jouet, l'autre devine si c'est un vrai. À force, le dessinateur devient imbattable.</li>
+    <li><strong>VAE :</strong> on résume une image en quelques mots secrets, puis on la reconstruit. Si on change un mot, l'image change (ex: remplacer « sérieux » par « souriant »).</li>
+    <li><strong>Diffusion :</strong> on part d'une photo, on ajoute du bruit jusqu'à ne plus rien voir. Puis on apprend à enlever le bruit couche par couche pour faire réapparaître l'image, guidé par une description.</li>
+  </ul>
 
-  <div class="diagram-wrap">
-    <div class="diagram-header">
-      <span class="diagram-title">Arbre de décision — Choisir son architecture GenAI</span>
-      <span class="diagram-tag">Cas d'usage → Architecture</span>
-    </div>
-    <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" font-family="'Source Serif 4', Georgia, serif">
-      <defs>
-        <marker id="dt1" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L7,3 z" fill="#7d756b"/>
-        </marker>
-      </defs>
-
-      <!-- Root question -->
-      <rect x="230" y="18" width="240" height="44" rx="4" fill="#1a1815"/>
-      <text x="350" y="37" text-anchor="middle" font-size="10.5" fill="#fff" font-family="'JetBrains Mono', monospace" letter-spacing="0.5">MON BESOIN PRINCIPAL</text>
-      <text x="350" y="52" text-anchor="middle" font-size="9" fill="#888">Quelle priorité absolue ?</text>
-
-      <!-- Branch lines from root -->
-      <line x1="280" y1="62" x2="120" y2="110" stroke="#ccc" stroke-width="1.2" marker-end="url(#dt1)"/>
-      <line x1="350" y1="62" x2="350" y2="110" stroke="#ccc" stroke-width="1.2" marker-end="url(#dt1)"/>
-      <line x1="420" y1="62" x2="580" y2="110" stroke="#ccc" stroke-width="1.2" marker-end="url(#dt1)"/>
-
-      <!-- Branch labels -->
-      <text x="185" y="92" text-anchor="middle" font-size="8.5" fill="#c0392b" font-family="'JetBrains Mono', monospace">Vitesse / Temps réel</text>
-      <text x="350" y="92" text-anchor="middle" font-size="8.5" fill="#1a5276" font-family="'JetBrains Mono', monospace">Manipulation / Contrôle</text>
-      <text x="515" y="92" text-anchor="middle" font-size="8.5" fill="#a0522d" font-family="'JetBrains Mono', monospace">Qualité / Créativité</text>
-
-      <!-- Level 2 boxes -->
-      <!-- GAN branch -->
-      <rect x="40" y="110" width="160" height="44" rx="4" fill="#fdf0ee" stroke="#f0b8b0" stroke-width="1.2"/>
-      <text x="120" y="128" text-anchor="middle" font-size="9.5" fill="#c0392b" font-family="'JetBrains Mono', monospace">Génération en</text>
-      <text x="120" y="143" text-anchor="middle" font-size="9.5" fill="#c0392b" font-family="'JetBrains Mono', monospace">temps réel ?</text>
-
-      <!-- VAE branch -->
-      <rect x="270" y="110" width="160" height="44" rx="4" fill="#f0f4fb" stroke="#bdd0ec" stroke-width="1.2"/>
-      <text x="350" y="128" text-anchor="middle" font-size="9.5" fill="#1a5276" font-family="'JetBrains Mono', monospace">Espace latent</text>
-      <text x="350" y="143" text-anchor="middle" font-size="9.5" fill="#1a5276" font-family="'JetBrains Mono', monospace">interprétable ?</text>
-
-      <!-- Diffusion branch -->
-      <rect x="500" y="110" width="160" height="44" rx="4" fill="#fdf8ec" stroke="#edd9a3" stroke-width="1.2"/>
-      <text x="580" y="128" text-anchor="middle" font-size="9.5" fill="#a0522d" font-family="'JetBrains Mono', monospace">Quelques secondes</text>
-      <text x="580" y="143" text-anchor="middle" font-size="9.5" fill="#a0522d" font-family="'JetBrains Mono', monospace">acceptables ?</text>
-
-      <!-- Level 3 answers -->
-      <!-- GAN Yes → GAN architecture -->
-      <line x1="90" y1="154" x2="70" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="60" y="185" font-size="8" fill="#1e8449" font-family="'JetBrains Mono', monospace">Oui</text>
-      <rect x="20" y="200" width="100" height="50" rx="4" fill="#1a1815"/>
-      <text x="70" y="221" text-anchor="middle" font-size="11" fill="#c0392b" font-family="'Playfair Display', serif" font-weight="700">GAN</text>
-      <text x="70" y="237" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">StyleGAN, pix2pix</text>
-
-      <!-- GAN No → VAE -->
-      <line x1="140" y1="154" x2="200" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="175" y="185" font-size="8" fill="#c0392b" font-family="'JetBrains Mono', monospace">Non</text>
-      <rect x="155" y="200" width="100" height="50" rx="4" fill="#1a1815"/>
-      <text x="205" y="221" text-anchor="middle" font-size="11" fill="#1a5276" font-family="'Playfair Display', serif" font-weight="700">VAE</text>
-      <text x="205" y="237" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">VQ-VAE, NVAE</text>
-
-      <!-- VAE Yes → VAE architecture -->
-      <line x1="320" y1="154" x2="300" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="298" y="185" font-size="8" fill="#1e8449" font-family="'JetBrains Mono', monospace">Oui</text>
-      <rect x="265" y="200" width="100" height="50" rx="4" fill="#1a1815"/>
-      <text x="315" y="221" text-anchor="middle" font-size="11" fill="#1a5276" font-family="'Playfair Display', serif" font-weight="700">VAE</text>
-      <text x="315" y="237" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">Kingma, NVAE</text>
-
-      <!-- VAE No → Diffusion -->
-      <line x1="400" y1="154" x2="420" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="415" y="185" font-size="8" fill="#c0392b" font-family="'JetBrains Mono', monospace">Non</text>
-      <rect x="380" y="200" width="100" height="50" rx="4" fill="#1a1815"/>
-      <text x="430" y="221" text-anchor="middle" font-size="11" fill="#a0522d" font-family="'Playfair Display', serif" font-weight="700">Diffusion</text>
-      <text x="430" y="237" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">LDM, DDIM</text>
-
-      <!-- Diffusion Yes → Diffusion architecture -->
-      <line x1="555" y1="154" x2="530" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="524" y="185" font-size="8" fill="#1e8449" font-family="'JetBrains Mono', monospace">Oui</text>
-      <rect x="490" y="200" width="100" height="50" rx="4" fill="#1a1815"/>
-      <text x="540" y="221" text-anchor="middle" font-size="11" fill="#a0522d" font-family="'Playfair Display', serif" font-weight="700">Diffusion</text>
-      <text x="540" y="237" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">SD, DALL-E 3</text>
-
-      <!-- Diffusion No → GAN or hybrid -->
-      <line x1="615" y1="154" x2="640" y2="200" stroke="#ccc" stroke-width="1" marker-end="url(#dt1)"/>
-      <text x="632" y="185" font-size="8" fill="#c0392b" font-family="'JetBrains Mono', monospace">Non</text>
-      <rect x="595" y="200" width="88" height="50" rx="4" fill="#333"/>
-      <text x="639" y="221" text-anchor="middle" font-size="9.5" fill="#c9a84c" font-family="'Playfair Display', serif" font-weight="700">GAN</text>
-      <text x="639" y="235" text-anchor="middle" font-size="7.5" fill="#888" font-family="'JetBrains Mono', monospace">ou hybride</text>
-
-      <!-- Summary row -->
-      <line x1="350" y1="270" x2="350" y2="295" stroke="#e0d9ce" stroke-width="1" stroke-dasharray="4,2"/>
-      <text x="350" y="288" text-anchor="middle" font-size="8" fill="#aaa" font-family="'JetBrains Mono', monospace">En résumé ↓</text>
-
-      <rect x="20" y="300" width="198" height="64" rx="4" fill="#fdf0ee" stroke="#e0c8c4" stroke-width="1"/>
-      <text x="119" y="318" text-anchor="middle" font-size="9" fill="#c0392b" font-family="'JetBrains Mono', monospace" font-weight="600">GAN → Vitesse</text>
-      <text x="119" y="333" text-anchor="middle" font-size="8.5" fill="#7d4040">Réel temps réel, haute res,</text>
-      <text x="119" y="347" text-anchor="middle" font-size="8.5" fill="#7d4040">super-résolution, visages</text>
-
-      <rect x="251" y="300" width="198" height="64" rx="4" fill="#f0f4fb" stroke="#bdd0ec" stroke-width="1"/>
-      <text x="350" y="318" text-anchor="middle" font-size="9" fill="#1a5276" font-family="'JetBrains Mono', monospace" font-weight="600">VAE → Contrôle</text>
-      <text x="350" y="333" text-anchor="middle" font-size="8.5" fill="#2c4a6a">Anomalies, édition d'attributs,</text>
-      <text x="350" y="347" text-anchor="middle" font-size="8.5" fill="#2c4a6a">morphing, compression</text>
-
-      <rect x="482" y="300" width="198" height="64" rx="4" fill="#fdf8ec" stroke="#edd9a3" stroke-width="1"/>
-      <text x="581" y="318" text-anchor="middle" font-size="9" fill="#a0522d" font-family="'JetBrains Mono', monospace" font-weight="600">Diffusion → Qualité</text>
-      <text x="581" y="333" text-anchor="middle" font-size="8.5" fill="#6b3a1a">Text-to-image, créatif,</text>
-      <text x="581" y="347" text-anchor="middle" font-size="8.5" fill="#6b3a1a">médical, inpainting avancé</text>
-    </svg>
-  </div>
-
-  <div class="callout green">
-    <div class="callout-type">Retenir l'essentiel en une phrase</div>
-    Choisissez le <strong>GAN</strong> quand la vitesse prime, le <strong>VAE</strong> quand vous voulez comprendre et manipuler l'espace des concepts, et les <strong>modèles de diffusion</strong> quand la qualité et la flexibilité créative sont non-négociables — au prix d'un délai de génération plus long.
-  </div>
-
-  <!-- CONCLUSION -->
-  <div class="conclusion">
-    <div class="conclusion-eyebrow">En conclusion</div>
-    <h2>Ce que nous apprennent ces trois familles</h2>
-    <p>La vision par ordinateur a traversé en moins d'une décennie un changement de paradigme sans précédent. Là où elle se contentait d'analyser le monde visuel, elle apprend désormais à l'<strong>habiter</strong> — à en comprendre la structure interne assez profondément pour en créer de nouvelles instanciations.</p>
-    <p>Les trois architectures présentées ici — la <strong>compétition adversariale</strong> du GAN, la <strong>compression conceptuelle</strong> du VAE, et le <strong>débruitage itératif</strong> des modèles de diffusion — ne sont pas de simples techniques alternatives. Elles représentent trois façons philosophiquement distinctes de poser la question de la création : comment apprend-on à produire ce qu'on n'a jamais vu ?</p>
-    <p>La vraie question pour un praticien n'est plus <em>"quelle architecture est la meilleure ?"</em> mais <strong>"quel problème est-ce que je veux résoudre, avec quelles contraintes de qualité, de vitesse et de contrôle ?"</strong> Chaque cas d'usage a son architecture de prédilection — et les hybrides les plus performants savent les combiner.</p>
-    <p class="conclusion-final">"La limite de l'IA générative n'est plus technique. Elle est désormais celle de notre capacité à formuler des problèmes dignes d'être résolus."</p>
-  </div>
-
-</article>
+  <!-- CONCLUSION LÉGÈRE -->
+  <h2>En résumé</h2>
+  <p>Les trois architectures ne sont pas en concurrence : elles répondent à des besoins différents. Le GAN mise sur la rapidité, le VAE sur le contrôle précis des attributs, et la diffusion sur la qualité et la flexibilité créative. L'important est de choisir l'outil adapté à votre objectif : vitesse, manipulation ou qualité d'image. L'IA générative ne remplace pas l'humain, elle démultiplie sa créativité.</p>
 
 
+
+</div>
 </body>
 </html>
