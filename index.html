@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GenAI en Computer Vision — ELI5</title>
+<title>GenAI en Computer Vision — Nouveaux Horizons (ELI5)</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+  /* [Le CSS reste exactement le même que dans votre version originale pour préserver le style] */
   :root {
     --ink: #1a1714;
     --ink2: #4a4540;
@@ -332,12 +333,12 @@
 </head>
 <body>
 
-<!-- HERO -->
+<!-- HERO (Contenu modifié) -->
 <header class="hero">
-  <p class="hero-eyebrow">Mini-TAF · Intelligence Artificielle Générative</p>
-  <h1>L'IA Générative<br>en <em>Computer Vision</em><br>— comme si j'avais 5 ans</h1>
-  <p class="hero-sub">GAN, VAE, Diffusion Models : trois façons d'apprendre à une machine à <em>imaginer</em> des images, expliquées simplement avec des analogies et des schémas.</p>
-  <p class="hero-meta">Rédigé en Avril 2025 · Lecture : ~8 min</p>
+  <p class="hero-eyebrow">Explorations · Intelligence Artificielle Générative</p>
+  <h1>Peindre avec des maths :<br>L'<em>imagination</em> des machines<br>— expliquée simplement</h1>
+  <p class="hero-sub">GAN, VAE, Diffusion : trois méthodes pour transformer des lignes de code en images étonnantes. Voici comment l'IA apprend à rêver.</p>
+  <p class="hero-meta">Mis à jour en Avril 2026 · Lecture : ~9 min</p>
 </header>
 
 <!-- TOC -->
@@ -354,26 +355,26 @@
 
 <main>
 
-<!-- ── SECTION 1 : C'EST QUOI ── -->
+<!-- ── SECTION 1 : C'EST QUOI (Contenu modifié) ── -->
 <section id="intro">
   <div class="page">
-    <p class="section-label">01 — Introduction</p>
-    <h2>L'IA Générative en Vision par Ordinateur, c'est quoi exactement ?</h2>
+    <p class="section-label">01 — Au-delà de la reconnaissance</p>
+    <h2>Quand l'ordinateur arrête de regarder et commence à créer</h2>
 
-    <p>Tu as probablement vu des images créées par des IA : un cheval qui peint des tableaux, une photo réaliste d'une ville qui n'existe pas, ou ton visage transformé en personnage de dessin animé. Tout ça, c'est de l'<strong>IA Générative en Computer Vision</strong>.</p>
+    <p>Jusqu'à récemment, la vision par ordinateur, c'était surtout "qu'est-ce qu'il y a sur cette photo ?". Un chat, une voiture, un visage. L'IA Générative change la donne : elle répond à la question <strong>"et si on inventait ce qui n'existe pas ?"</strong>.</p>
 
-    <p>En termes simples : c'est apprendre à une machine à <strong>créer de nouvelles images à partir de zéro</strong>, ou transformer des images existantes — le tout de façon réaliste et cohérente.</p>
+    <p>Concrètement, on donne à un modèle des millions d'exemples (des paysages, des portraits, des plans d'architecte), et il en extrait les règles cachées. Ensuite, à partir d'un simple code ou d'une phrase, il <strong>synthétise une image totalement inédite</strong>.</p>
 
     <div class="callout">
-      <p class="callout-label">🎨 Analogie</p>
-      <p>Imagine un enfant qui a regardé des milliers de tableaux de couchers de soleil. Après un certain temps, il peut en dessiner un nouveau, crédible, qui n'a jamais existé. L'IA fait la même chose — mais à une échelle industrielle, avec des millions d'exemples.</p>
+      <p class="callout-label">🧩 Nouvelle Analogie</p>
+      <p>Imagine un chef cuisinier qui a goûté tous les plats du monde. Un jour, on lui demande une recette qui n'a jamais été écrite : un "dessert épicé aux notes de rose et de safran". Grâce à sa connaissance profonde des ingrédients, il peut inventer la recette. L'IA générative est ce chef : elle mélange les concepts appris pour créer du nouveau.</p>
     </div>
 
-    <p>La "Computer Vision" (vision par ordinateur), c'est la branche de l'IA qui s'occupe de <em>comprendre</em> les images. La partie <em>générative</em> va plus loin : elle ne lit plus seulement les images, elle les <strong>invente</strong>.</p>
+    <p>La frontière entre le "vrai" et le "synthétique" devient floue. Et c'est une excellente nouvelle pour la science et la créativité.</p>
 
-    <!-- DIAGRAM 1 : Discriminatif vs Génératif -->
+    <!-- DIAGRAM 1 : Discriminatif vs Génératif (Gardé visuellement, texte changé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">IA Classique vs IA Générative</p>
+      <p class="diagram-title">IA d'Analyse vs IA de Création</p>
       <svg class="diagram" viewBox="0 0 820 210" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -381,411 +382,304 @@
           </marker>
         </defs>
 
-        <!-- === Left side: Classique === -->
-        <text x="205" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA CLASSIQUE (discriminative)</text>
-
-        <!-- image box -->
+        <!-- Gauche -->
+        <text x="205" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA D'ANALYSE (Discriminative)</text>
         <rect x="30" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="75" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Image</text>
-        <text x="75" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">📷 input</text>
-
-        <!-- arrow -->
+        <text x="75" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Photo</text>
+        <text x="75" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">📸 Entrée</text>
         <line x1="120" y1="68" x2="160" y2="68" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr)"/>
-
-        <!-- modele box -->
         <rect x="162" y="38" width="90" height="60" rx="8" fill="#c45c2e" stroke="#a03c12" stroke-width="1"/>
-        <text x="207" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Modèle</text>
-        <text x="207" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">CNN, etc.</text>
-
-        <!-- arrow -->
+        <text x="207" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Analyse</text>
+        <text x="207" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Réseau de neurones</text>
         <line x1="252" y1="68" x2="292" y2="68" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr)"/>
-
-        <!-- label box -->
         <rect x="294" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="339" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Label</text>
-        <text x="339" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🐱 "Chat"</text>
+        <text x="339" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Résultat</text>
+        <text x="339" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🏔️ "Montagne"</text>
 
-        <!-- divider -->
         <line x1="420" y1="20" x2="420" y2="195" stroke="#e8e0d0" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-        <!-- === Right side: Générative === -->
-        <text x="618" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA GÉNÉRATIVE</text>
-
-        <!-- bruit/texte box -->
+        <!-- Droite -->
+        <text x="618" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA GÉNÉRATIVE (Créative)</text>
         <rect x="440" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="485" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Bruit / Texte</text>
-        <text x="485" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🎲 input</text>
-
-        <!-- arrow -->
+        <text x="485" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Idée / Bruit</text>
+        <text x="485" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🎲 Impulsion</text>
         <line x1="530" y1="68" x2="570" y2="68" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr)"/>
-
-        <!-- modele box -->
         <rect x="572" y="38" width="90" height="60" rx="8" fill="#6a40b0" stroke="#4a2080" stroke-width="1"/>
-        <text x="617" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Modèle</text>
-        <text x="617" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">GAN/VAE/…</text>
-
-        <!-- arrow -->
+        <text x="617" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Synthèse</text>
+        <text x="617" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Générateur</text>
         <line x1="662" y1="68" x2="702" y2="68" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr)"/>
-
-        <!-- image générée box -->
         <rect x="704" y="38" width="90" height="60" rx="8" fill="#ece5f5" stroke="#8a60c0" stroke-width="1"/>
-        <text x="749" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a2080">Image</text>
-        <text x="749" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">✨ créée</text>
+        <text x="749" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a2080">Nouvelle</text>
+        <text x="749" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">✨ Image</text>
 
-        <!-- Descriptions bas -->
-        <text x="205" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">Reconnaît et classifie</text>
-        <text x="205" y="153" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">→ "c'est un chat"</text>
-        <text x="618" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">Crée et imagine</text>
-        <text x="618" y="153" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">→ génère une nouvelle image</text>
+        <text x="205" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">"Je vois une montagne"</text>
+        <text x="618" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">"Je crée une montagne sur une autre planète"</text>
       </svg>
     </div>
-
-    <p>Autrement dit, une IA classique dit <strong>"je vois un chat"</strong>. Une IA générative dit <strong>"laisse-moi en inventer un"</strong>.</p>
   </div>
 </section>
 
-<!-- ── SECTION 2 : POURQUOI ── -->
+<!-- ── SECTION 2 : POURQUOI (Contenu modifié) ── -->
 <section id="pourquoi">
   <div class="page">
-    <p class="section-label">02 — Motivation</p>
-    <h2>Pourquoi utiliser l'IA Générative ?</h2>
+    <p class="section-label">02 — Les super-pouvoirs du synthétique</p>
+    <h2>À quoi ça sert de fabriquer des images ?</h2>
 
-    <p>Le monde réel manque souvent d'images. Imagine vouloir entraîner un système à détecter une maladie rare qui touche 1 personne sur 100 000 : tu n'as que quelques dizaines d'exemples. <strong>Pas assez pour apprendre.</strong></p>
-
-    <p>L'IA générative permet de répondre à des besoins concrets dans plein de domaines :</p>
+    <p>Au-delà du "waouh" artistique, la génération d'images résout des problèmes très concrets d'<strong>apprentissage automatique et de conception</strong>. Voici quelques usages qui changent la donne :</p>
 
     <div class="apps-grid">
       <div class="app-item">
-        <span class="app-icon">🏥</span>
-        <strong>Santé</strong>
-        <span>Générer des IRM ou radios synthétiques pour entraîner des diagnostics</span>
+        <span class="app-icon">🌾</span>
+        <strong>Agriculture de précision</strong>
+        <span>Créer des milliers de photos de mauvaises herbes pour entraîner des robots désherbeurs sans avoir à toutes les photographier en vrai.</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🎮</span>
-        <strong>Jeux vidéo</strong>
-        <span>Créer des textures, décors et personnages automatiquement</span>
+        <span class="app-icon">🏛️</span>
+        <strong>Archéologie & Patrimoine</strong>
+        <span>Reconstituer des fresques effacées ou visualiser des ruines antiques en 3D telles qu'elles étaient il y a 2000 ans.</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">👗</span>
-        <strong>Mode & Design</strong>
-        <span>Visualiser des vêtements sur des modèles virtuels sans photoshoot</span>
+        <span class="app-icon">🦾</span>
+        <strong>Robotique</strong>
+        <span>Apprendre à un robot à saisir des objets fragiles (fruits, verres) en s'entraînant sur des millions de scènes simulées photoréalistes.</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🚗</span>
-        <strong>Voiture autonome</strong>
-        <span>Simuler des scénarios rares (nuit, neige, brouillard) pour l'entraînement</span>
+        <span class="app-icon">🛰️</span>
+        <strong>Observation de la Terre</strong>
+        <span>Simuler des vues satellites de zones sinistrées (inondations, incendies) pour préparer les équipes de secours à tous les scénarios.</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🎬</span>
-        <strong>Cinéma & Pub</strong>
-        <span>Effets spéciaux, deepfakes artistiques, reconstruction de scènes</span>
+        <span class="app-icon">🧬</span>
+        <strong>Découverte de médicaments</strong>
+        <span>Générer des formes 3D de nouvelles protéines qui n'existent pas dans la nature pour créer des médicaments plus efficaces.</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🔬</span>
-        <strong>Science</strong>
-        <span>Visualiser des molécules, prédire des structures 3D de protéines</span>
+        <span class="app-icon">🕶️</span>
+        <strong>Essayage virtuel</strong>
+        <span>Voir une veste sur soi sans l'enfiler, ou visualiser un canapé dans son salon avant de l'acheter.</span>
       </div>
     </div>
 
     <div class="big-quote">
-      Là où les données manquent, <em>l'IA générative invente</em> — et ça change tout.
+      Générer, c'est aussi <em>mieux comprendre</em>. Si l'IA peut dessiner un chat, c'est qu'elle a vraiment saisi l'essence de ce qu'est un chat.
     </div>
-
-    <p>Au-delà du manque de données, l'IA générative sert aussi à <strong>comprendre</strong> ce qu'un modèle a appris. En lui demandant de générer des images, on peut inspecter ses représentations internes — un outil puissant pour la recherche.</p>
   </div>
 </section>
 
-<!-- ── SECTION 3 : GAN ── -->
+<!-- ── SECTION 3 : GAN (Contenu modifié) ── -->
 <section id="gan">
   <div class="page">
-    <p class="section-label">03 — Architecture GAN</p>
-    <h2>GAN — Le Faussaire et le Détective</h2>
+    <p class="section-label">03 — Le Duel Créatif</p>
+    <h2>GAN — Le Peintre et le Critique d'Art</h2>
 
-    <p>Imaginons un faussaire de tableaux et un détective expert en art. Le faussaire essaie de créer des faux si convaincants que le détective ne peut plus les distinguer des vrais. Et le détective, de son côté, s'améliore constamment pour repérer les faux. Au bout d'un moment, le faussaire est devenu tellement bon qu'il produit des œuvres quasi-indiscernables des originaux.</p>
+    <p>Imaginez un étudiant en art (le <strong>Générateur</strong>) qui présente ses toiles à un professeur très sévère (le <strong>Discriminateur</strong>). Le professeur a aussi accès aux toiles de grands maîtres. Au début, les toiles de l'étudiant sont faciles à repérer. Mais à chaque fois que le professeur dit "c'est un faux !", l'étudiant apprend de ses erreurs. Après des mois de ce jeu du chat et de la souris, l'étudiant peint des œuvres que même le professeur n'arrive plus à distinguer des vrais tableaux de maîtres.</p>
 
-    <p>C'est exactement ainsi que fonctionne un <strong>GAN (Generative Adversarial Network)</strong>, inventé par Ian Goodfellow en 2014.</p>
+    <p>Voilà l'essence du <strong>GAN (Generative Adversarial Network)</strong> : une compétition qui pousse à l'excellence.</p>
 
     <div class="callout">
-      <p class="callout-label">📖 Analogie complète</p>
-      <p>Le faussaire = le <strong>Générateur (G)</strong>. Il prend du bruit aléatoire et produit une image. Le détective = le <strong>Discriminateur (D)</strong>. Il reçoit des images réelles ET des images générées, et doit dire lequel est lequel. Les deux s'entraînent ensemble, en compétition, jusqu'à ce que le générateur soit si bon que le discriminateur ne peut plus les différencier.</p>
+      <p class="callout-label">🎭 Rôles</p>
+      <p><strong>Générateur (G) :</strong> Le Faussaire. Il prend du bruit aléatoire et tente de le sculpter en image cohérente.<br>
+      <strong>Discriminateur (D) :</strong> L'Expert. Il examine l'image et doit dire "VRAI" (du dataset) ou "FAUX" (créé par G).</p>
     </div>
 
-    <!-- DIAGRAM GAN -->
+    <!-- DIAGRAM GAN (Gardé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Architecture d'un GAN</p>
+      <p class="diagram-title">Le face-à-face du GAN</p>
       <svg class="diagram" viewBox="0 0 820 230" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
-
-        <!-- Bruit z -->
         <rect x="20" y="75" width="80" height="60" rx="8" fill="#f2ede3" stroke="#c4b89a" stroke-width="1"/>
         <text x="60" y="101" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#4a4540" font-weight="500">Bruit z</text>
         <text x="60" y="118" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">vecteur aléatoire</text>
-
-        <!-- arrow bruit -> G -->
         <line x1="100" y1="105" x2="148" y2="105" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr2)"/>
-
-        <!-- G -->
         <rect x="150" y="60" width="120" height="90" rx="8" fill="#c45c2e" stroke="#a03c12" stroke-width="1"/>
         <text x="210" y="95" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#fff" font-weight="500">Générateur G</text>
         <text x="210" y="114" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="rgba(255,255,255,.75)">Invente des images</text>
         <text x="210" y="130" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.55)">"le faussaire"</text>
-
-        <!-- arrow G -> Fake Image -->
         <line x1="270" y1="105" x2="318" y2="105" stroke="#c45c2e" stroke-width="1.5" marker-end="url(#arr2)"/>
-
-        <!-- Fake Image -->
         <rect x="320" y="75" width="100" height="60" rx="8" fill="#fdeede" stroke="#e8a055" stroke-width="1"/>
         <text x="370" y="101" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#7a4010" font-weight="500">Fausse image</text>
         <text x="370" y="118" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#a06020">générée par G</text>
-
-        <!-- Vraie image -->
         <rect x="320" y="155" width="100" height="50" rx="8" fill="#d7f0e4" stroke="#60b880" stroke-width="1"/>
         <text x="370" y="177" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a5e38" font-weight="500">Vraie image</text>
         <text x="370" y="193" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2a7848">du dataset</text>
-
-        <!-- arrows to D -->
         <line x1="420" y1="105" x2="468" y2="120" stroke="#e8a055" stroke-width="1.5" marker-end="url(#arr2)"/>
         <line x1="420" y1="175" x2="468" y2="140" stroke="#60b880" stroke-width="1.5" marker-end="url(#arr2)"/>
-
-        <!-- D -->
         <rect x="470" y="75" width="120" height="90" rx="8" fill="#2d6fa8" stroke="#1a4f80" stroke-width="1"/>
         <text x="530" y="113" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#fff" font-weight="500">Discriminateur D</text>
         <text x="530" y="132" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="rgba(255,255,255,.75)">"le détective"</text>
-
-        <!-- arrow D -> Verdict -->
         <line x1="590" y1="120" x2="638" y2="120" stroke="#2d6fa8" stroke-width="1.5" marker-end="url(#arr2)"/>
-
-        <!-- Verdict -->
         <rect x="640" y="90" width="130" height="60" rx="8" fill="#deeaf7" stroke="#6aacdc" stroke-width="1"/>
         <text x="705" y="116" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a4f80" font-weight="500">Vrai ou Faux ?</text>
         <text x="705" y="134" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">Probabilité [0 → 1]</text>
-
-        <!-- Feedback loop arrows -->
         <path d="M705 150 Q705 215 530 215 Q355 215 210 175" fill="none" stroke="#c45c2e" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#arr2)"/>
-        <text x="450" y="208" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#c45c2e">erreur → améliore G</text>
+        <text x="450" y="208" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#c45c2e">Feedback : "Tu t'es fait avoir ! Améliore-toi."</text>
       </svg>
     </div>
 
-    <h3>Comment ça s'entraîne ?</h3>
-    <p>L'entraînement d'un GAN est un jeu à deux joueurs. Le <strong>Générateur</strong> essaie de minimiser la capacité du Discriminateur à identifier ses faux. Le <strong>Discriminateur</strong> essaie de maximiser sa capacité à distinguer vrais et faux. On appelle ça un <em>jeu minimax</em>.</p>
-
-    <p>Quand l'équilibre est atteint (Nash equilibrium), le Générateur produit des images si réalistes que le Discriminateur a 50% de chances de se tromper — comme un pile-ou-face aléatoire.</p>
-
-    <h3>Applications célèbres des GANs</h3>
-    <p><strong>StyleGAN</strong> (NVIDIA) : génère des visages humains ultra-réalistes (thispersondoesnotexist.com). <strong>CycleGAN</strong> : transforme des chevaux en zèbres, des photos en tableaux style Monet. <strong>Pix2Pix</strong> : transforme des esquisses en photos réalistes. Les GANs ont été les premiers à produire des images vraiment convaincantes.</p>
+    <h3>La révolution StyleGAN</h3>
+    <p>Les GANs ont connu leur heure de gloire avec <strong>StyleGAN</strong> (NVIDIA), capable de générer des visages humains d'un réalisme saisissant et même de contrôler finement les attributs (âge, pose, coiffure, lunettes) en se déplaçant dans un "espace latent". Un autre exemple frappant est <strong>CycleGAN</strong> qui a appris à transformer des photos de chevaux en zèbres, ou des paysages d'été en hiver, sans avoir besoin d'exemples parfaitement appariés.</p>
   </div>
 </section>
 
-<!-- ── SECTION 4 : VAE ── -->
+<!-- ── SECTION 4 : VAE (Contenu modifié) ── -->
 <section id="vae">
   <div class="page">
-    <p class="section-label">04 — Architecture VAE</p>
-    <h2>VAE — Le Cartographe de l'Imaginaire</h2>
+    <p class="section-label">04 — La Carte au Trésor des Concepts</p>
+    <h2>VAE — L'Architecte de l'Espace des Idées</h2>
 
-    <p>Imagine que tu veuilles décrire tous les visages humains possibles dans un espace cartographique. Un visage souriant est à gauche, un visage triste à droite. Un visage jeune en haut, vieux en bas. Maintenant, si tu pointes un endroit sur cette carte, tu peux obtenir le visage correspondant.</p>
+    <p>Plutôt que de dessiner pixel par pixel, un <strong>VAE (Variational AutoEncoder)</strong> apprend à construire un <strong>plan de métro des concepts visuels</strong>. Chaque image est une "station" sur ce plan. Les stations proches se ressemblent (visages souriants), les stations éloignées sont différentes (voitures de course).</p>
 
-    <p>C'est l'idée derrière un <strong>VAE (Variational AutoEncoder)</strong>.</p>
+    <p>L'<strong>Encodeur</strong> lit l'image et donne ses coordonnées GPS sur le plan (l'Espace Latent). Le <strong>Décodeur</strong> prend des coordonnées et reconstruit l'image correspondante. La magie, c'est qu'on peut se promener sur ce plan et visiter des stations qui n'existent pas encore !</p>
 
     <div class="callout">
-      <p class="callout-label">📖 Analogie</p>
-      <p>Imagine un traducteur qui compresse n'importe quel livre en une seule fiche résumé (encodage), puis un autre traducteur qui recrée le livre depuis la fiche (décodage). Un VAE fait pareil avec les images — il "résume" une image en un point dans un espace mathématique, puis peut en recréer une nouvelle depuis n'importe quel point de cet espace.</p>
+      <p class="callout-label">🗺️ Pourquoi c'est utile ?</p>
+      <p>Imaginez que vous ayez un curseur "Sourire". À gauche : visage triste. À droite : visage joyeux. Vous pouvez ainsi <strong>manipuler</strong> l'image de façon intuitive et continue. C'est l'outil parfait pour les logiciels de retouche intelligente.</p>
     </div>
 
-    <!-- DIAGRAM VAE -->
+    <!-- DIAGRAM VAE (Gardé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Architecture d'un VAE</p>
+      <p class="diagram-title">Le Tunnel Encodeur-Décodeur</p>
       <svg class="diagram" viewBox="0 0 820 230" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
-
-        <!-- Input Image -->
         <rect x="20" y="65" width="90" height="90" rx="8" fill="#f2ede3" stroke="#c4b89a" stroke-width="1"/>
         <text x="65" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#4a4540" font-weight="500">Image</text>
         <text x="65" y="125" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">input x</text>
-
         <line x1="110" y1="110" x2="148" y2="110" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr3)"/>
-
-        <!-- Encoder -->
         <polygon points="150,60 270,80 270,140 150,160" fill="#2d6fa8" stroke="#1a4f80" stroke-width="1"/>
         <text x="210" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#fff" font-weight="500">Encodeur</text>
         <text x="210" y="124" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Compresse</text>
-
         <line x1="270" y1="110" x2="308" y2="110" stroke="#2d6fa8" stroke-width="1.5" marker-end="url(#arr3)"/>
-
-        <!-- Latent Space -->
         <rect x="310" y="65" width="130" height="90" rx="8" fill="#deeaf7" stroke="#6aacdc" stroke-width="1.5"/>
         <text x="375" y="95" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a4f80" font-weight="500">Espace Latent z</text>
         <text x="375" y="113" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">μ (moyenne)</text>
         <text x="375" y="130" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">σ (variance)</text>
-        <text x="375" y="146" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#6a90b0">"la carte des images"</text>
-
+        <text x="375" y="146" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#6a90b0">"la carte des idées"</text>
         <line x1="440" y1="110" x2="478" y2="110" stroke="#2d6fa8" stroke-width="1.5" marker-end="url(#arr3)"/>
-
-        <!-- Decoder -->
         <polygon points="480,80 600,60 600,160 480,140" fill="#1e7a60" stroke="#126040" stroke-width="1"/>
         <text x="538" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#fff" font-weight="500">Décodeur</text>
         <text x="538" y="124" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Reconstruit</text>
-
         <line x1="600" y1="110" x2="638" y2="110" stroke="#1e7a60" stroke-width="1.5" marker-end="url(#arr3)"/>
-
-        <!-- Output Image -->
         <rect x="640" y="65" width="90" height="90" rx="8" fill="#d7f0e4" stroke="#60b880" stroke-width="1"/>
         <text x="685" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a5e38" font-weight="500">Image</text>
         <text x="685" y="125" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2a7848">reconstruite</text>
-
-        <!-- Labels en bas -->
         <text x="65" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#8a837a">Visage réel</text>
-        <text x="375" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#2d6fa8">Description compressée</text>
+        <text x="375" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#2d6fa8">Code mathématique</text>
         <text x="685" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#1e7a60">Visage généré</text>
       </svg>
     </div>
 
-    <h3>La magie de l'espace latent</h3>
-    <p>Ce qui est fascinant, c'est qu'on peut <strong>interpoler</strong> dans cet espace latent. Prends le point correspondant à "homme aux cheveux bruns" et le point "femme aux cheveux blonds" : si tu traces une ligne entre eux et génères les images correspondant aux points intermédiaires, tu obtiens une transformation graduelle et fluide d'un visage à l'autre.</p>
-
-    <p>Le VAE apprend aussi une distribution probabiliste : pas un point exact, mais une <strong>zone floue</strong> (définie par une moyenne μ et une variance σ). Ça rend les images générées plus variées et moins rigides que les GANs — mais souvent un peu plus floues.</p>
-
-    <h3>Applications des VAEs</h3>
-    <p>Les VAEs brillent dans la <strong>manipulation contrôlée</strong> : "plus vieux", "plus souriant", "avec des lunettes". Ils sont aussi utilisés pour la détection d'anomalies (une image qui ne rentre pas bien dans l'espace latent est probablement anormale), et en bioinformatique pour explorer l'espace des molécules.</p>
+    <h3>Interpolation : La magie du "morphing"</h3>
+    <p>L'un des aspects les plus fascinants des VAEs est l'<strong>interpolation linéaire</strong>. Prenez le point A (un homme barbu) et le point B (une femme aux cheveux longs). Si vous tirez une ligne droite entre A et B dans l'espace latent et que vous générez les images correspondant aux points sur cette ligne, vous verrez une transformation fluide et cohérente : la barbe disparaît progressivement, les traits s'adoucissent, les cheveux s'allongent. Aucun "saut" bizarre, juste une évolution naturelle.</p>
   </div>
 </section>
 
-<!-- ── SECTION 5 : DIFFUSION ── -->
+<!-- ── SECTION 5 : DIFFUSION (Contenu modifié) ── -->
 <section id="diffusion">
   <div class="page">
-    <p class="section-label">05 — Modèles de Diffusion</p>
-    <h2>Diffusion Models — L'Art de Débruiter</h2>
+    <p class="section-label">05 — La Révélation Progressive</p>
+    <h2>Diffusion — Le Sculpteur qui Travaille dans le Brouillard</h2>
 
-    <p>Imagine une photo magnifique. Maintenant, ajoute progressivement du "bruit" dessus — d'abord imperceptible, puis de plus en plus de parasites — jusqu'à ce qu'elle ne soit plus qu'une image de bruit aléatoire. Tu as oublié à quoi elle ressemblait.</p>
+    <p>Un <strong>modèle de diffusion</strong> est un perfectionniste patient. Plutôt que de peindre une toile d'un seul coup (comme un GAN), il part d'un brouillard de neige cathodique (du <strong>bruit aléatoire</strong>). Ensuite, <em>étape par étape</em>, il retire un peu de neige pour révéler les contours, puis les formes, puis les textures et enfin les détails les plus fins.</p>
 
-    <p>Un <strong>modèle de diffusion</strong> apprend à <em>inverser</em> ce processus. Il apprend à supprimer le bruit, étape par étape, jusqu'à retrouver une image cohérente. Et une fois entraîné, on peut lui donner du bruit pur et lui demander de "débruiter vers" une image correspondant à une description.</p>
+    <p>Pour apprendre à faire cela, on lui a montré des millions de fois comment on "abîme" une belle photo en y ajoutant du bruit. Il est devenu expert pour faire le chemin inverse.</p>
 
     <div class="callout">
-      <p class="callout-label">📖 Analogie</p>
-      <p>C'est comme un sculpteur qui dégage progressivement une statue depuis un bloc de marbre brut. Il enlève de petites quantités de marbre à chaque étape, guidé par sa vision de l'œuvre finale. Le modèle de diffusion fait pareil : il "sculpte" l'image finale à partir du bruit, étape par étape.</p>
+      <p class="callout-label">⏳ Pourquoi c'est plus lent mais meilleur ?</p>
+      <p>En décomposant la création en 50 ou 100 petites étapes simples ("enlever un tout petit peu de bruit"), le modèle résout un problème facile 100 fois de suite, plutôt qu'un problème impossible une seule fois. C'est pour ça que les images sont tellement plus nettes et créatives qu'avec les autres méthodes.</p>
     </div>
 
-    <!-- DIAGRAM DIFFUSION -->
+    <!-- DIAGRAM DIFFUSION (Gardé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Processus de Diffusion (avant ↔ arrière)</p>
+      <p class="diagram-title">Le Cycle Bruit ↔ Image</p>
       <svg class="diagram" viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
-
-        <!-- ===== PROCESSUS FORWARD (ajout de bruit) haut ===== -->
-        <text x="410" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#c45c2e" letter-spacing="1">PROCESSUS FORWARD — ajout de bruit (entraînement)</text>
+        <text x="410" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#c45c2e" letter-spacing="1">APPRENTISSAGE : Ajouter du bruit</text>
         <line x1="20" y1="32" x2="800" y2="32" stroke="#e8c09a" stroke-width="1" stroke-dasharray="4 3"/>
-
-        <!-- Image nette -->
         <rect x="20" y="42" width="80" height="80" rx="8" fill="#d7f0e4" stroke="#60b880" stroke-width="1"/>
         <text x="60" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a5e38" font-weight="500">Image</text>
         <text x="60" y="98" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2a7848">nette x₀</text>
-
         <line x1="100" y1="82" x2="138" y2="82" stroke="#c45c2e" stroke-width="1.5" marker-end="url(#arr4)"/>
         <text x="119" y="75" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#c45c2e">+bruit</text>
-
-        <!-- x1 -->
         <rect x="140" y="52" width="70" height="60" rx="8" fill="#fdeede" stroke="#e8a055" stroke-width="1"/>
         <text x="175" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#7a4010">Légèrement</text>
         <text x="175" y="96" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#a06020">bruité x₁</text>
-
         <line x1="210" y1="82" x2="248" y2="82" stroke="#c45c2e" stroke-width="1.5" marker-end="url(#arr4)"/>
         <text x="229" y="75" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#c45c2e">+bruit</text>
-
-        <!-- x2 -->
         <rect x="250" y="52" width="70" height="60" rx="8" fill="#f5d8c0" stroke="#e09060" stroke-width="1"/>
         <text x="285" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#7a4010">Plus</text>
         <text x="285" y="96" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#a06020">bruité x₂</text>
-
         <line x1="320" y1="82" x2="358" y2="82" stroke="#c45c2e" stroke-width="1.5" marker-end="url(#arr4)"/>
         <text x="339" y="75" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#c45c2e">+bruit</text>
-
-        <!-- ... -->
         <text x="400" y="87" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="20" fill="#c4b89a">···</text>
         <line x1="430" y1="82" x2="468" y2="82" stroke="#c45c2e" stroke-width="1.5" marker-end="url(#arr4)"/>
         <text x="449" y="75" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#c45c2e">+bruit</text>
-
-        <!-- xT = bruit pur -->
         <rect x="470" y="42" width="100" height="80" rx="8" fill="#4a4540" stroke="#2a2520" stroke-width="1"/>
         <text x="520" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#f2ede3" font-weight="500">Bruit pur</text>
         <text x="520" y="98" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#a0988f">xT ∈ 𝒩(0,1)</text>
-
-        <!-- === PROCESSUS REVERSE (débruitage) bas ===== -->
-        <text x="410" y="155" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#6a40b0" letter-spacing="1">PROCESSUS REVERSE — débruitage (génération)</text>
+        
+        <text x="410" y="155" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#6a40b0" letter-spacing="1">GÉNÉRATION : Enlever le bruit</text>
         <line x1="20" y1="165" x2="800" y2="165" stroke="#c0a8e0" stroke-width="1" stroke-dasharray="4 3"/>
-
-        <!-- Modèle U-Net -->
         <rect x="590" y="175" width="130" height="60" rx="8" fill="#6a40b0" stroke="#4a2080" stroke-width="1"/>
         <text x="655" y="201" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#fff" font-weight="500">Modèle U-Net θ</text>
         <text x="655" y="218" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">prédit le bruit ε</text>
-
         <line x1="588" y1="205" x2="528" y2="110" stroke="#6a40b0" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr4)"/>
         <text x="572" y="160" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">bruit pur</text>
-
-        <!-- Image générée -->
         <rect x="680" y="175" width="100" height="60" rx="8" fill="#ece5f5" stroke="#8a60c0" stroke-width="1"/>
         <text x="730" y="201" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#4a2080" font-weight="500">Image</text>
         <text x="730" y="218" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">générée ✨</text>
-
         <line x1="720" y1="175" x2="720" y2="130" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr4)"/>
-
-        <text x="410" y="240" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">T étapes de débruitage guidé (DDPM, DDIM, …)</text>
+        <text x="410" y="240" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">Guidage par Texte : "Un astronaute en armure samouraï"</text>
       </svg>
     </div>
 
-    <h3>Pourquoi c'est révolutionnaire ?</h3>
-    <p>Les modèles de diffusion sont aujourd'hui la base de <strong>Stable Diffusion</strong>, <strong>DALL-E</strong> et <strong>Midjourney</strong>. Ils produisent des images d'une qualité bien supérieure aux GANs, avec une grande diversité et une meilleure cohérence textuelle.</p>
-
-    <p>L'astuce clé : plutôt que d'apprendre à générer une image directement, le modèle apprend une tâche plus simple — <strong>prédire quelle quantité de bruit a été ajoutée</strong> à une image. Une fois cette tâche maîtrisée, on peut partir du bruit pur et itérer.</p>
-
-    <p>Avec le <strong>guidage par texte</strong> (text-conditioning via CLIP), le débruitage est orienté vers une image correspondant à une description : "un chat astronaute sur la lune, style aquarelle". Le modèle sculpte l'image en fonction de cette description à chaque étape.</p>
-
-    <h3>Applications des Diffusion Models</h3>
-    <p>Stable Diffusion, DALL-E 3, Imagen (Google), Adobe Firefly. Mais aussi : super-résolution d'images, inpainting (remplir une zone manquante), traduction image-à-image, et même génération de vidéos (Sora).</p>
+    <h3>Le Secret : Prédire le Bruit</h3>
+    <p>L'astuce géniale de cette méthode, c'est que le réseau de neurones (souvent un U-Net) n'apprend pas à dessiner. Il apprend à <strong>deviner quel bruit a été ajouté</strong> à une image à une étape donnée. Une fois qu'il sait faire ça parfaitement, on peut lui donner du bruit pur et lui dire : "D'après toi, quel bruit a été ajouté pour obtenir ce chaos ?". Il nous donne le bruit, on le soustrait, et on obtient une image un peu plus nette. On répète 50 fois.</p>
   </div>
 </section>
 
-<!-- ── SECTION 6 : COMPARAISON ── -->
+<!-- ── SECTION 6 : COMPARAISON (Contenu légèrement modifié) ── -->
 <section id="comparaison">
   <div class="page">
-    <p class="section-label">06 — Synthèse</p>
-    <h2>Comparaison des trois architectures</h2>
+    <p class="section-label">06 — Quel outil pour quel rêve ?</p>
+    <h2>Choisir son Architecture</h2>
 
-    <p>Chaque architecture a son âme propre. Voyons leurs différences fondamentales.</p>
+    <p>Il n'y a pas de méthode parfaite, mais des philosophies différentes adaptées à des besoins différents.</p>
 
     <!-- Arch cards summary -->
     <div class="arch-grid">
       <div class="arch-card gan">
         <span class="arch-num">01</span>
         <span class="arch-tag">GAN</span>
-        <h3>L'Adversariel</h3>
-        <p>Deux réseaux en compétition : un générateur contre un discriminateur. L'un crée, l'autre juge. Cette tension produit des images très réalistes mais l'entraînement est instable.</p>
+        <h3>Le Virtuose Rapide</h3>
+        <p>Idéal pour la synthèse en temps réel (filtres vidéo, jeux). Rapide mais parfois capricieux à entraîner. Peut se bloquer à ne générer qu'un seul type d'image (mode collapse).</p>
       </div>
       <div class="arch-card vae">
         <span class="arch-num">02</span>
         <span class="arch-tag">VAE</span>
-        <h3>Le Cartographe</h3>
-        <p>Encode les images dans un espace latent structuré et continu. Permet l'interpolation et la manipulation douce. Images plus floues mais espace plus contrôlable.</p>
+        <h3>L'Explorateur Rigoureux</h3>
+        <p>Parfait pour la science et l'analyse de données. Si vous avez besoin de comprendre et manipuler les "ingrédients" d'une image, le VAE est votre meilleur allié.</p>
       </div>
       <div class="arch-card diff">
         <span class="arch-num">03</span>
         <span class="arch-tag">Diffusion</span>
-        <h3>Le Sculpteur</h3>
-        <p>Apprend à débruiter progressivement. Entraînement stable, qualité exceptionnelle, diversité maximale. Plus lent à l'inférence — compense par la qualité.</p>
+        <h3>Le Maître Incontesté</h3>
+        <p>Le standard actuel pour la qualité photo et l'illustration créative. C'est le plus lent, mais le résultat est tellement supérieur que tout le monde l'utilise aujourd'hui.</p>
       </div>
     </div>
 
-    <!-- COMPARISON TABLE -->
+    <!-- COMPARISON TABLE (Gardée) -->
     <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
       <table class="compare-table" style="margin: 0;">
         <thead>
@@ -798,121 +692,50 @@
         </thead>
         <tbody>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">💡 Idée centrale</td>
-            <td>Adversarial : G vs D</td>
-            <td>Encoder → Espace latent → Decoder</td>
-            <td>Débruitage progressif en T étapes</td>
+            <td class="row-label" style="padding-left: 24px;">💡 Philosophie</td>
+            <td>Compétition (Adversarial)</td>
+            <td>Compression (Probabiliste)</td>
+            <td>Débruitage (Itératif)</td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🖼️ Qualité image</td>
-            <td><span class="badge green">Très bonne</span></td>
-            <td><span class="badge yellow">Moyenne (flou)</span></td>
-            <td><span class="badge green">Excellente</span></td>
+            <td class="row-label" style="padding-left: 24px;">🖼️ Rendu Visuel</td>
+            <td><span class="badge green">Très net</span></td>
+            <td><span class="badge yellow">Souvent flou</span></td>
+            <td><span class="badge green">Ultra-réaliste</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🎲 Diversité</td>
-            <td><span class="badge yellow">Mode collapse possible</span></td>
-            <td><span class="badge green">Bonne</span></td>
-            <td><span class="badge green">Très haute</span></td>
+            <td class="row-label" style="padding-left: 24px;">🎲 Créativité / Variété</td>
+            <td><span class="badge yellow">Risque de répétition</span></td>
+            <td><span class="badge green">Bonne couverture</span></td>
+            <td><span class="badge green">Excellente diversité</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">⚙️ Entraînement</td>
-            <td><span class="badge red">Instable, fragile</span></td>
+            <td class="row-label" style="padding-left: 24px;">⚙️ Stabilité entraînement</td>
+            <td><span class="badge red">Instable</span></td>
+            <td><span class="badge green">Très stable</span></td>
             <td><span class="badge green">Stable</span></td>
-            <td><span class="badge green">Stable</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">⚡ Vitesse génération</td>
-            <td><span class="badge green">Rapide (un seul pass)</span></td>
-            <td><span class="badge green">Rapide</span></td>
-            <td><span class="badge yellow">Lente (T itérations)</span></td>
+            <td class="row-label" style="padding-left: 24px;">⚡ Vitesse</td>
+            <td><span class="badge green">Instantané (~0.1s)</span></td>
+            <td><span class="badge green">Rapide (~0.2s)</span></td>
+            <td><span class="badge yellow">Lent (2s à 10s)</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🔍 Espace latent</td>
-            <td><span class="badge yellow">Non structuré</span></td>
-            <td><span class="badge green">Continu, interprétable</span></td>
-            <td><span class="badge yellow">Bruit gaussien</span></td>
-          </tr>
-          <tr>
-            <td class="row-label" style="padding-left: 24px;">📝 Guidage texte</td>
+            <td class="row-label" style="padding-left: 24px;">🔍 Contrôle</td>
             <td><span class="badge yellow">Difficile</span></td>
-            <td><span class="badge yellow">Possible</span></td>
-            <td><span class="badge green">Natif (CLIP, etc.)</span></td>
-          </tr>
-          <tr>
-            <td class="row-label" style="padding-left: 24px;">🌟 Exemples connus</td>
-            <td>StyleGAN, CycleGAN, Pix2Pix</td>
-            <td>VAE-GAN, β-VAE</td>
-            <td>Stable Diffusion, DALL-E, Midjourney</td>
-          </tr>
-          <tr>
-            <td class="row-label" style="padding-left: 24px; border-bottom: none;">📅 Popularité</td>
-            <td style="border-bottom: none;"><span class="badge yellow">En déclin (2014–2021)</span></td>
-            <td style="border-bottom: none;"><span class="badge yellow">Niche (recherche)</span></td>
-            <td style="border-bottom: none;"><span class="badge green">Dominant (2022–)</span></td>
+            <td><span class="badge green">Très précis</span></td>
+            <td><span class="badge green">Excellent (via texte)</span></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Visual diagram comparison -->
-    <div class="diagram-wrap">
-      <p class="diagram-title">Synthèse visuelle : Avantages et Limites</p>
-      <svg class="diagram" viewBox="0 0 820 280" xmlns="http://www.w3.org/2000/svg">
-        <!-- GAN column -->
-        <rect x="20" y="20" width="240" height="240" rx="10" fill="#fdeede" stroke="#e8a055" stroke-width="1"/>
-        <text x="140" y="48" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#a03c12" font-weight="500">GAN</text>
-
-        <text x="36" y="75" font-family="'DM Sans', sans-serif" font-size="11" fill="#2a7848" font-weight="500">✓ Avantages</text>
-        <text x="36" y="93" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Images hyper-réalistes</text>
-        <text x="36" y="111" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Génération rapide</text>
-        <text x="36" y="129" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Architecture flexible</text>
-
-        <text x="36" y="163" font-family="'DM Sans', sans-serif" font-size="11" fill="#8a1a1a" font-weight="500">✗ Limites</text>
-        <text x="36" y="181" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Mode collapse</text>
-        <text x="36" y="199" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Entraînement instable</text>
-        <text x="36" y="217" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Diversité limitée</text>
-        <text x="36" y="235" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Pas de latent structuré</text>
-
-        <!-- VAE column -->
-        <rect x="290" y="20" width="240" height="240" rx="10" fill="#deeaf7" stroke="#6aacdc" stroke-width="1"/>
-        <text x="410" y="48" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#1a4f80" font-weight="500">VAE</text>
-
-        <text x="306" y="75" font-family="'DM Sans', sans-serif" font-size="11" fill="#2a7848" font-weight="500">✓ Avantages</text>
-        <text x="306" y="93" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Espace latent continu</text>
-        <text x="306" y="111" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Interpolation douce</text>
-        <text x="306" y="129" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Entraînement stable</text>
-
-        <text x="306" y="163" font-family="'DM Sans', sans-serif" font-size="11" fill="#8a1a1a" font-weight="500">✗ Limites</text>
-        <text x="306" y="181" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Images souvent floues</text>
-        <text x="306" y="199" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Qualité < GAN/Diff.</text>
-        <text x="306" y="217" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Compromis netteté/</text>
-        <text x="306" y="235" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">   diversité difficile</text>
-
-        <!-- Diffusion column -->
-        <rect x="560" y="20" width="240" height="240" rx="10" fill="#ece5f5" stroke="#8a60c0" stroke-width="1"/>
-        <text x="680" y="48" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="14" fill="#4a2080" font-weight="500">Diffusion</text>
-
-        <text x="576" y="75" font-family="'DM Sans', sans-serif" font-size="11" fill="#2a7848" font-weight="500">✓ Avantages</text>
-        <text x="576" y="93" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Qualité exceptionnelle</text>
-        <text x="576" y="111" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Très haute diversité</text>
-        <text x="576" y="129" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Guidage texte natif</text>
-
-        <text x="576" y="163" font-family="'DM Sans', sans-serif" font-size="11" fill="#8a1a1a" font-weight="500">✗ Limites</text>
-        <text x="576" y="181" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Génération lente</text>
-        <text x="576" y="199" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Coûteux en calcul</text>
-        <text x="576" y="217" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Espace latent opaque</text>
-        <text x="576" y="235" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">• Moins interprétable</text>
-      </svg>
-    </div>
-
-    <h3>En résumé : lequel choisir ?</h3>
-    <p>Si tu veux des images <strong>ultra-réalistes rapidement</strong> → GAN. Si tu veux <strong>explorer et interpoler</strong> un espace continu d'images → VAE. Si tu veux la <strong>meilleure qualité absolue</strong> avec du guidage textuel → Diffusion.</p>
-
-    <p>Dans la pratique, les modèles modernes (comme Stable Diffusion XL ou DALL-E 3) combinent les idées de plusieurs architectures. Les VAEs sont souvent utilisés comme encodeurs latents dans les Diffusion Models (Latent Diffusion Models), et les GANs servent parfois de discriminateurs pour affiner la qualité.</p>
+    <h3>L'avenir : La Fusion</h3>
+    <p>Aujourd'hui, la recherche ne consiste plus à choisir mais à <strong>fusionner</strong>. Les <strong>Modèles de Diffusion Latente</strong> (comme Stable Diffusion) utilisent un VAE pour compresser l'image avant d'appliquer la diffusion, rendant le processus beaucoup plus rapide et moins gourmand en mémoire.</p>
 
     <div class="big-quote">
-      L'histoire du GenAI en vision, c'est <em>trois façons de répondre</em> à la même question : comment apprendre à une machine à imaginer ?
+      Comprendre ces trois architectures, c'est tenir les clés du <em>langage visuel de l'IA moderne</em>.
     </div>
   </div>
 </section>
@@ -920,10 +743,9 @@
 </main>
 
 <footer>
-  <p>Blog rédigé dans le cadre du Mini-TAF · GenAI en Computer Vision · 2025</p>
-  <p style="margin-top: 8px; font-size: 11px;">GAN · VAE · Diffusion Models · ELI5</p>
+  <p>Documentation Pédagogique · GenAI Computer Vision · Nouveaux Horizons 2026</p>
+  <p style="margin-top: 8px; font-size: 11px;">GAN · VAE · Diffusion Models · Du pixel à l'imagination</p>
 </footer>
 
 </body>
 </html>
-
