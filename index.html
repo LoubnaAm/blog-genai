@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>L'IA générative simplifiée — GAN, VAE, Diffusion</title>
+  <title>L'IA générative illustrée — GAN, VAE, Diffusion</title>
   <style>
-    /* Styles épurés, sans icônes */
     * {
       margin: 0;
       padding: 0;
@@ -26,7 +25,6 @@
       padding: 2rem 1.8rem;
     }
 
-    /* Couleurs sobres */
     :root {
       --rouge-brique: #b13e2d;
       --bleu-canard: #2a5f6e;
@@ -71,7 +69,6 @@
       font-weight: 500;
     }
 
-    /* Cartes */
     .carte {
       background: white;
       border-radius: 0.8rem;
@@ -95,28 +92,34 @@
       padding: 1.6rem 2rem;
     }
 
-    /* Bloc analogie (sans icône) */
     .analogie {
       background: #f6f3ed;
       padding: 1.2rem 1.6rem;
       border-radius: 0.6rem;
       margin: 1.5rem 0;
       border-left: 4px solid var(--ocre);
-      font-style: normal;
-    }
-    .analogie strong {
-      color: #2c5a3b;
     }
 
-    /* Liste simple */
-    ul, ol {
-      margin: 1rem 0 1rem 2rem;
+    /* illustration SVG */
+    .schema {
+      background: #faf9f5;
+      border: 1px solid var(--bordure);
+      border-radius: 0.8rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
     }
-    li {
-      margin: 0.4rem 0;
+    .schema svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .legende-schema {
+      font-size: 0.8rem;
+      color: #6f6559;
+      text-align: center;
+      margin-top: 0.5rem;
     }
 
-    /* Grille comparateur (3 colonnes) */
     .grille {
       display: flex;
       flex-wrap: wrap;
@@ -151,7 +154,6 @@
       margin-right: 0.3rem;
     }
 
-    /* Tableau */
     .tableau-compare {
       width: 100%;
       border-collapse: collapse;
@@ -175,7 +177,6 @@
       border-bottom: none;
     }
 
-    /* Bloc décision */
     .bloc-decision {
       background: #f0efe9;
       padding: 1.4rem 2rem;
@@ -212,140 +213,272 @@
 <body>
 <div class="conteneur">
 
-  <!-- TITRE -->
   <h1>L'IA qui <span class="accent">invente</span></h1>
   <div style="text-align: center;">
-    <div class="chapeau">GAN · VAE · Modèles de diffusion — expliqués simplement</div>
+    <div class="chapeau">GAN · VAE · Modèles de diffusion — expliqués avec schémas</div>
   </div>
 
-  <!-- INTRODUCTION -->
   <p><strong>L'IA générative en images, c'est quoi ?</strong><br>
-  Au lieu de simplement reconnaître un chat sur une photo, l'IA générative <strong>crée des images nouvelles</strong> qui n'ont jamais existé. Elle apprend les motifs, les couleurs et les formes pour dessiner des visages, des paysages ou des objets réalistes. Trois grandes méthodes dominent ce domaine : les GAN, les VAE et les modèles de diffusion.</p>
+  Au lieu de simplement reconnaître un chat sur une photo, l'IA générative <strong>crée des images nouvelles</strong> qui n'ont jamais existé. Trois grandes méthodes dominent ce domaine : les GAN, les VAE et les modèles de diffusion.</p>
 
   <div class="analogie">
-    <strong>À retenir :</strong> L'IA classique répond à la question « qu'est-ce que c'est ? ». L'IA générative répond à « comment créer quelque chose qui y ressemble ? ». Chaque technique a sa propre philosophie.
+    <strong>À retenir :</strong> L'IA classique analyse. L'IA générative crée. Chaque technique a sa propre philosophie illustrée ci-dessous.
   </div>
 
-  <!-- 1. GAN -->
+  <!-- 1. GAN avec illustration -->
   <h2>1. Les GAN — l'apprentissage par compétition</h2>
   <div class="carte">
     <div class="titre-carte titre-gan">GAN (Generative Adversarial Network)</div>
     <div class="contenu-carte">
       <div class="analogie">
-        <strong>Exemple simple :</strong> Un faussaire dessine des billets. Un détective essaie de repérer les faux. Au fil du temps, le faussaire progresse et ses billets deviennent parfaits. À la fin, même le détective est trompé. C'est exactement le principe du GAN.
+        <strong>Exemple simple :</strong> Un faussaire dessine des billets. Un détective essaie de repérer les faux. La compétition améliore les deux.
       </div>
-      <p><strong>Comment cela fonctionne :</strong> Deux réseaux de neurones sont en compétition :</p>
-      <ul>
-        <li><strong>Le générateur</strong> : fabrique des images artificielles.</li>
-        <li><strong>Le discriminateur</strong> : distingue les vraies images des fausses.</li>
-        <li>Ils s'améliorent mutuellement jusqu'à ce que les images générées soient indiscernables des réelles.</li>
-      </ul>
-      <p><strong>Points forts :</strong> génération très rapide, images nettes, bonne qualité pour de la haute résolution.<br>
-      <strong>Points faibles :</strong> peut parfois produire toujours le même type d'image (mode collapse), entraînement instable.</p>
-      <p><span class="badge-simple">Exemples connus</span> StyleGAN (visages humains), les deepfakes, pix2pix.</p>
+
+      <!-- Schéma GAN -->
+      <div class="schema">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="70" width="110" height="55" rx="6" fill="#f0eae2" stroke="#b13e2d" stroke-width="1.5"/>
+          <text x="65" y="100" text-anchor="middle" font-size="13" fill="#1e1b16">Bruit</text>
+          <text x="65" y="116" text-anchor="middle" font-size="10" fill="#6f6559">aléatoire</text>
+
+          <rect x="150" y="50" width="120" height="95" rx="6" fill="#b13e2d" opacity="0.15" stroke="#b13e2d" stroke-width="1.5"/>
+          <text x="210" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#b13e2d">Générateur</text>
+          <text x="210" y="112" text-anchor="middle" font-size="10" fill="#5a3a30">(faussaire)</text>
+          <text x="210" y="128" text-anchor="middle" font-size="9" fill="#6f6559">crée des images</text>
+
+          <rect x="300" y="70" width="100" height="55" rx="6" fill="#f0eae2" stroke="#b13e2d" stroke-width="1.5"/>
+          <text x="350" y="98" text-anchor="middle" font-size="12" fill="#1e1b16">Fausse</text>
+          <text x="350" y="114" text-anchor="middle" font-size="11" fill="#1e1b16">image</text>
+
+          <rect x="430" y="50" width="120" height="95" rx="6" fill="#2a5f6e" opacity="0.12" stroke="#2a5f6e" stroke-width="1.5"/>
+          <text x="490" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#2a5f6e">Discriminateur</text>
+          <text x="490" y="112" text-anchor="middle" font-size="10" fill="#2a5f6e">(détective)</text>
+          <text x="490" y="128" text-anchor="middle" font-size="9" fill="#6f6559">vrai / faux ?</text>
+
+          <!-- Flèches -->
+          <line x1="120" y1="97" x2="148" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#fleche)"/>
+          <line x1="270" y1="97" x2="298" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#fleche)"/>
+          <line x1="400" y1="97" x2="428" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#fleche)"/>
+
+          <!-- Flèche retour apprentissage -->
+          <path d="M490 145 L490 170 L210 170 L210 147" fill="none" stroke="#b13e2d" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#fleche-rouge)"/>
+          <text x="350" y="184" text-anchor="middle" font-size="9" fill="#b13e2d">Le générateur apprend de ses erreurs</text>
+
+          <defs>
+            <marker id="fleche" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#1e1b16"/>
+            </marker>
+            <marker id="fleche-rouge" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#b13e2d"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="legende-schema">Schéma GAN : le générateur et le discriminateur s'affrontent pour s'améliorer mutuellement.</div>
+      </div>
+
+      <p><strong>Points forts :</strong> génération très rapide, images nettes.<br>
+      <strong>Points faibles :</strong> peut se bloquer sur un seul type d'image.</p>
+      <p><span class="badge-simple">Exemples</span> StyleGAN (visages), deepfakes.</p>
     </div>
   </div>
 
-  <!-- 2. VAE -->
+  <!-- 2. VAE avec illustration -->
   <h2>2. Les VAE — la compression créative</h2>
   <div class="carte">
     <div class="titre-carte titre-vae">VAE (Variational Autoencoder)</div>
     <div class="contenu-carte">
       <div class="analogie">
-        <strong>Exemple simple :</strong> Imagine que tu résumes un film en cinq mots-clés. Quelqu'un d'autre lit ces mots et reconstruit le film. Si tu changes un mot (ex: « triste » devient « joyeux »), le film reconstruit change. Le VAE compresse une image en quelques chiffres (espace latent), puis la reconstruit. En modifiant ces chiffres, tu modifies l'image.
+        <strong>Exemple simple :</strong> Résume un film en cinq mots-clés, puis reconstruis-le. Changer un mot change le film.
       </div>
-      <p><strong>Principe :</strong> Un encodeur transforme l'image en un vecteur (code secret). Un décodeur reconstruit l'image à partir de ce vecteur. L'espace des codes est continu : on peut passer en douceur d'une image à l'autre.</p>
-      <p><strong>Points forts :</strong> entraînement stable, excellent pour modifier des détails précis (âge, expression, couleur), détection d'anomalies.<br>
-      <strong>Points faibles :</strong> les images sont parfois un peu floues, moins de détails fins que les GAN ou la diffusion.</p>
-      <p><span class="badge-simple">Applications</span> Vieillissement de visages, interpolation entre deux photos, inspection industrielle (défauts).</p>
+
+      <!-- Schéma VAE -->
+      <div class="schema">
+        <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="70" width="100" height="55" rx="6" fill="#eef2f0" stroke="#2a5f6e" stroke-width="1.5"/>
+          <text x="60" y="98" text-anchor="middle" font-size="12" fill="#1e1b16">Image</text>
+          <text x="60" y="114" text-anchor="middle" font-size="10" fill="#6f6559">originale</text>
+
+          <rect x="140" y="50" width="110" height="95" rx="6" fill="#2a5f6e" opacity="0.15" stroke="#2a5f6e" stroke-width="1.5"/>
+          <text x="195" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2a5f6e">Encodeur</text>
+          <text x="195" y="108" text-anchor="middle" font-size="9" fill="#2a5f6e">compresse</text>
+          <text x="195" y="124" text-anchor="middle" font-size="9" fill="#6f6559">→ code secret</text>
+
+          <rect x="280" y="70" width="100" height="55" rx="6" fill="#fef3db" stroke="#c29a2b" stroke-width="1.5"/>
+          <text x="330" y="96" text-anchor="middle" font-size="11" fill="#1e1b16">Espace</text>
+          <text x="330" y="112" text-anchor="middle" font-size="11" fill="#1e1b16">latent</text>
+          <text x="330" y="120" text-anchor="middle" font-size="8" fill="#c29a2b">(quelques chiffres)</text>
+
+          <rect x="410" y="50" width="110" height="95" rx="6" fill="#2a5f6e" opacity="0.15" stroke="#2a5f6e" stroke-width="1.5"/>
+          <text x="465" y="92" text-anchor="middle" font-size="13" font-weight="bold" fill="#2a5f6e">Décodeur</text>
+          <text x="465" y="108" text-anchor="middle" font-size="9" fill="#2a5f6e">reconstruit</text>
+          <text x="465" y="124" text-anchor="middle" font-size="9" fill="#6f6559">→ nouvelle image</text>
+
+          <rect x="540" y="70" width="50" height="55" rx="6" fill="#eef2f0" stroke="#2a5f6e" stroke-width="1.5"/>
+          <text x="565" y="100" text-anchor="middle" font-size="11" fill="#1e1b16">Image</text>
+          <text x="565" y="114" text-anchor="middle" font-size="9" fill="#1e1b16">finale</text>
+
+          <!-- Flèches -->
+          <line x1="110" y1="97" x2="138" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#f2)"/>
+          <line x1="250" y1="97" x2="278" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#f2)"/>
+          <line x1="380" y1="97" x2="408" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#f2)"/>
+          <line x1="520" y1="97" x2="538" y2="97" stroke="#1e1b16" stroke-width="1.5" marker-end="url(#f2)"/>
+
+          <!-- annotation modification -->
+          <text x="330" y="175" text-anchor="middle" font-size="9" fill="#c29a2b">En modifiant le code, on change l'image</text>
+          <line x1="330" y1="125" x2="330" y2="165" stroke="#c29a2b" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#f3)"/>
+
+          <defs>
+            <marker id="f2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#1e1b16"/>
+            </marker>
+            <marker id="f3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#c29a2b"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="legende-schema">Schéma VAE : compression en espace latent, puis reconstruction. L'espace latent est modifiable.</div>
+      </div>
+
+      <p><strong>Points forts :</strong> contrôle précis des détails, entraînement stable.<br>
+      <strong>Points faibles :</strong> images parfois un peu floues.</p>
+      <p><span class="badge-simple">Applications</span> Vieillissement de visages, interpolation.</p>
     </div>
   </div>
 
-  <!-- 3. MODÈLES DE DIFFUSION -->
+  <!-- 3. MODÈLES DE DIFFUSION avec illustration -->
   <h2>3. Les modèles de diffusion — la sculpture pas à pas</h2>
   <div class="carte">
     <div class="titre-carte titre-diff">Modèles de diffusion (Diffusion Models)</div>
     <div class="contenu-carte">
       <div class="analogie">
-        <strong>Exemple simple :</strong> Prends une photo nette, ajoute du bruit petit à petit jusqu'à ce qu'elle devienne du grain gris. Ensuite, apprends à faire l'inverse : partir du grain et enlever le bruit couche par couche, guidé par une description écrite (« un chat avec un chapeau »). Chaque étape affine l'image. C'est le principe des modèles de diffusion.
+        <strong>Exemple simple :</strong> Ajoute du bruit à une photo jusqu'à ce qu'elle devienne du grain. Puis apprends à enlever le bruit couche par couche.
       </div>
-      <p><strong>Fonctionnement en deux phases :</strong></p>
-      <ol>
-        <li><strong>Phase d'ajout de bruit (destruction) :</strong> on bruit une image réelle en plusieurs étapes jusqu'à obtenir du bruit pur.</li>
-        <li><strong>Phase de génération (débruitage) :</strong> on part d'un bruit aléatoire, et on le « débruite » progressivement, guidé par un texte ou une consigne.</li>
-      </ol>
-      <p><strong>Points forts :</strong> qualité d'image exceptionnelle (meilleure que GAN et VAE), grand contrôle via le texte, diversité énorme.<br>
-      <strong>Points faibles :</strong> très lent (nécessite plusieurs dizaines d'étapes), gourmand en calcul (GPU puissant requis).</p>
-      <p><span class="badge-simple">Exemples célèbres</span> DALL-E, Midjourney, Stable Diffusion, Sora (génération vidéo).</p>
+
+      <!-- Schéma Diffusion -->
+      <div class="schema">
+        <svg viewBox="0 0 650 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Phase forward (destruction) -->
+          <text x="325" y="22" text-anchor="middle" font-size="10" fill="#6f6559">Phase d'entraînement : on ajoute du bruit</text>
+
+          <rect x="15" y="35" width="75" height="60" rx="4" fill="#eef2f0" stroke="#2a5f6e" stroke-width="1"/>
+          <text x="52" y="58" text-anchor="middle" font-size="9">Image</text>
+          <text x="52" y="72" text-anchor="middle" font-size="8">nette</text>
+
+          <rect x="105" y="35" width="75" height="60" rx="4" fill="#ddd8cf" stroke="#9a9286" stroke-width="1"/>
+          <text x="142" y="58" text-anchor="middle" font-size="8">+ bruit</text>
+          <text x="142" y="72" text-anchor="middle" font-size="8">léger</text>
+
+          <rect x="195" y="35" width="75" height="60" rx="4" fill="#b0a89b" stroke="#7a7265" stroke-width="1"/>
+          <text x="232" y="58" text-anchor="middle" font-size="8">+ bruit</text>
+          <text x="232" y="72" text-anchor="middle" font-size="8">moyen</text>
+
+          <rect x="285" y="35" width="75" height="60" rx="4" fill="#6f6559" stroke="#4a4238" stroke-width="1"/>
+          <text x="322" y="58" text-anchor="middle" font-size="8" fill="white">+ bruit</text>
+          <text x="322" y="72" text-anchor="middle" font-size="8" fill="#ccc">fort</text>
+
+          <rect x="375" y="35" width="75" height="60" rx="4" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1"/>
+          <text x="412" y="62" text-anchor="middle" font-size="8" fill="white">Bruit</text>
+          <text x="412" y="76" text-anchor="middle" font-size="8" fill="#aaa">pur</text>
+
+          <!-- flèches forward -->
+          <line x1="90" y1="65" x2="103" y2="65" stroke="#1e1b16" stroke-width="1" marker-end="url(#fd)"/>
+          <line x1="180" y1="65" x2="193" y2="65" stroke="#1e1b16" stroke-width="1" marker-end="url(#fd)"/>
+          <line x1="270" y1="65" x2="283" y2="65" stroke="#1e1b16" stroke-width="1" marker-end="url(#fd)"/>
+          <line x1="360" y1="65" x2="373" y2="65" stroke="#1e1b16" stroke-width="1" marker-end="url(#fd)"/>
+
+          <!-- séparateur -->
+          <line x1="15" y1="115" x2="635" y2="115" stroke="#ddd3c6" stroke-width="1"/>
+
+          <!-- Phase reverse (génération) -->
+          <text x="325" y="135" text-anchor="middle" font-size="10" fill="#b13e2d">Phase de génération : on enlève le bruit (guidé par un texte)</text>
+
+          <rect x="15" y="148" width="75" height="60" rx="4" fill="#2a2a2a" stroke="#1a1a1a" stroke-width="1"/>
+          <text x="52" y="175" text-anchor="middle" font-size="8" fill="white">Bruit</text>
+          <text x="52" y="189" text-anchor="middle" font-size="8" fill="#aaa">pur</text>
+
+          <rect x="105" y="148" width="75" height="60" rx="4" fill="#6f6559" stroke="#4a4238" stroke-width="1"/>
+          <text x="142" y="175" text-anchor="middle" font-size="8" fill="white">- bruit</text>
+          <text x="142" y="189" text-anchor="middle" font-size="8" fill="#ccc">léger</text>
+
+          <rect x="195" y="148" width="75" height="60" rx="4" fill="#b0a89b" stroke="#7a7265" stroke-width="1"/>
+          <text x="232" y="175" text-anchor="middle" font-size="8">- bruit</text>
+          <text x="232" y="189" text-anchor="middle" font-size="8">moyen</text>
+
+          <rect x="285" y="148" width="75" height="60" rx="4" fill="#ddd8cf" stroke="#9a9286" stroke-width="1"/>
+          <text x="322" y="175" text-anchor="middle" font-size="8">- bruit</text>
+          <text x="322" y="189" text-anchor="middle" font-size="8">fort</text>
+
+          <rect x="375" y="148" width="75" height="60" rx="4" fill="#eef2f0" stroke="#2a5f6e" stroke-width="1"/>
+          <text x="412" y="172" text-anchor="middle" font-size="9">Image</text>
+          <text x="412" y="186" text-anchor="middle" font-size="8">finale</text>
+
+          <!-- flèches reverse -->
+          <line x1="90" y1="178" x2="103" y2="178" stroke="#b13e2d" stroke-width="1" marker-end="url(#fr)"/>
+          <line x1="180" y1="178" x2="193" y2="178" stroke="#b13e2d" stroke-width="1" marker-end="url(#fr)"/>
+          <line x1="270" y1="178" x2="283" y2="178" stroke="#b13e2d" stroke-width="1" marker-end="url(#fr)"/>
+          <line x1="360" y1="178" x2="373" y2="178" stroke="#b13e2d" stroke-width="1" marker-end="url(#fr)"/>
+
+          <!-- bulle texte pour guidage -->
+          <rect x="475" y="160" width="140" height="40" rx="6" fill="#fef3db" stroke="#c29a2b" stroke-width="1"/>
+          <text x="545" y="178" text-anchor="middle" font-size="9" fill="#7a5c1a">Guidage par</text>
+          <text x="545" y="192" text-anchor="middle" font-size="9" fill="#7a5c1a">description textuelle</text>
+          <line x1="475" y1="178" x2="452" y2="178" stroke="#c29a2b" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#f3d)"/>
+
+          <defs>
+            <marker id="fd" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#1e1b16"/>
+            </marker>
+            <marker id="fr" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#b13e2d"/>
+            </marker>
+            <marker id="f3d" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#c29a2b"/>
+            </marker>
+          </defs>
+        </svg>
+        <div class="legende-schema">Schéma diffusion : on ajoute du bruit (haut), puis on apprend à l'enlever guidé par un texte (bas).</div>
+      </div>
+
+      <p><strong>Points forts :</strong> qualité exceptionnelle, contrôle par texte.<br>
+      <strong>Points faibles :</strong> lent, nécessite beaucoup de calcul.</p>
+      <p><span class="badge-simple">Exemples</span> DALL-E, Midjourney, Stable Diffusion.</p>
     </div>
   </div>
 
-  <!-- COMPARAISON VISUELLE SIMPLE -->
-  <h2>Comparaison en un clin d'œil</h2>
+  <!-- COMPARAISON RAPIDE -->
+  <h2>Comparaison en un coup d'œil</h2>
   <div class="grille">
     <div class="grille-item gan">
       <h4>GAN</h4>
       <p><strong>Vitesse :</strong> très rapide<br>
       <strong>Qualité :</strong> haute<br>
-      <strong>Contrôle :</strong> moyen<br>
-      <strong>Idéal pour :</strong> temps réel, super-résolution, visages</p>
+      <strong>Idéal pour :</strong> temps réel, visages</p>
     </div>
     <div class="grille-item vae">
       <h4>VAE</h4>
       <p><strong>Vitesse :</strong> rapide<br>
-      <strong>Qualité :</strong> moyenne (légèrement flou)<br>
-      <strong>Contrôle :</strong> excellent (modification d'attributs)<br>
-      <strong>Idéal pour :</strong> édition fine, interpolation, détection d'anomalies</p>
+      <strong>Qualité :</strong> moyenne (flou léger)<br>
+      <strong>Idéal pour :</strong> édition fine, interpolation</p>
     </div>
     <div class="grille-item diff">
       <h4>Diffusion</h4>
       <p><strong>Vitesse :</strong> lente<br>
       <strong>Qualité :</strong> exceptionnelle<br>
-      <strong>Contrôle :</strong> très bon via texte<br>
-      <strong>Idéal pour :</strong> création artistique, image à partir de texte, qualité maximale</p>
+      <strong>Idéal pour :</strong> création artistique, texte→image</p>
     </div>
   </div>
 
-  <!-- TABLEAU COMPARATIF DÉTAILLÉ (sans icônes) -->
-  <h3>Tableau comparatif détaillé</h3>
+  <!-- TABLEAU COMPARATIF -->
+  <h3>Tableau récapitulatif</h3>
   <table class="tableau-compare">
-    <thead>
-      <tr><th>Caractéristique</th><th>GAN</th><th>VAE</th><th>Diffusion</th></tr>
-    </thead>
+    <thead><tr><th>Critère</th><th>GAN</th><th>VAE</th><th>Diffusion</th></tr></thead>
     <tbody>
-      <tr><td>Idée principale</td><td>Compétition générateur / discriminateur</td><td>Compression puis reconstruction</td><td>Débruitage progressif</td></tr>
-      <tr><td>Netteté des images</td><td>Très bonne</td><td>Assez bonne (peu floue)</td><td>Meilleure qualité possible</td></tr>
-      <tr><td>Temps de génération</td><td>Quelques millisecondes</td><td>Quelques millisecondes</td><td>Secondes à minutes</td></tr>
-      <tr><td>Stabilité à l'entraînement</td><td>Instable, réglages délicats</td><td>Très stable</td><td>Stable</td></tr>
-      <tr><td>Modifier un détail précis</td><td>Difficile</td><td>Très facile (espace latent)</td><td>Possible via prompt</td></tr>
-      <tr><td>Usage typique</td><td>Deepfakes, StyleGAN, super-résolution</td><td>Détection d'anomalies, vieillissement, morphing</td><td>DALL-E, Midjourney, création text->image</td></tr>
+      <tr><td>Principe</td><td>Compétition générateur/discriminateur</td><td>Compression puis reconstruction</td><td>Débruitage progressif</td></tr>
+      <tr><td>Qualité</td><td>Très bonne</td><td>Assez bonne (peu floue)</td><td>Meilleure possible</td></tr>
+      <tr><td>Vitesse</td><td>Millisecondes</td><td>Millisecondes</td><td>Secondes à minutes</td></tr>
+      <tr><td>Contrôle</td><td>Limitié</td><td>Excellent (code latent)</td><td>Par texte</td></tr>
     </tbody>
   </table>
-
-  <!-- GUIDE DE CHOIX SIMPLE -->
-  <div class="bloc-decision">
-    <h3>Comment choisir la bonne méthode ?</h3>
-    <p><strong>Vous avez besoin de vitesse et de temps réel ?</strong> → Choisissez un GAN. C'est le plus rapide.</p>
-    <p><strong>Vous voulez modifier un attribut précis (âge, couleur, sourire) ou faire des transitions douces ?</strong> → Choisissez un VAE. Il permet un contrôle fin.</p>
-    <p><strong>Vous voulez la plus belle image possible, ou générer à partir d'une phrase ?</strong> → Choisissez un modèle de diffusion. C'est le meilleur en qualité.</p>
-    <p><strong>Vous débutez et voulez un entraînement stable ?</strong> → Préférez VAE ou diffusion (plus robustes que GAN).</p>
-    <hr>
-    <p><strong>Note importante :</strong> Aujourd'hui, les modèles de diffusion sont devenus la référence pour la création artistique et le text-to-image (DALL-E, Midjourney). Les GAN restent imbattables pour les applications en temps réel. Les VAE excellent pour la manipulation fine d'images.</p>
-  </div>
-
-  <!-- EXPLICATION TRÈS SIMPLE (ELI5) -->
-  <h3>Explication pour tous (sans jargon technique)</h3>
-  <ul>
-    <li><strong>GAN :</strong> deux enfants jouent : l'un dessine un faux jouet, l'autre devine si c'est un vrai. À force, le dessinateur devient imbattable.</li>
-    <li><strong>VAE :</strong> on résume une image en quelques mots secrets, puis on la reconstruit. Si on change un mot, l'image change (ex: remplacer « sérieux » par « souriant »).</li>
-    <li><strong>Diffusion :</strong> on part d'une photo, on ajoute du bruit jusqu'à ne plus rien voir. Puis on apprend à enlever le bruit couche par couche pour faire réapparaître l'image, guidé par une description.</li>
-  </ul>
-
-  <!-- CONCLUSION LÉGÈRE -->
-  <h2>En résumé</h2>
-  <p>Les trois architectures ne sont pas en concurrence : elles répondent à des besoins différents. Le GAN mise sur la rapidité, le VAE sur le contrôle précis des attributs, et la diffusion sur la qualité et la flexibilité créative. L'important est de choisir l'outil adapté à votre objectif : vitesse, manipulation ou qualité d'image. L'IA générative ne remplace pas l'humain, elle démultiplie sa créativité.</p>
-
-
 
 </div>
 </body>
