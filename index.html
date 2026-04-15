@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GenAI en Computer Vision — Nouveaux Horizons (ELI5)</title>
+<title>GenAI en Computer Vision — Inspiré par DeepLearning.AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* [Le CSS reste exactement le même que dans votre version originale pour préserver le style] */
+  /* [Le CSS reste inchangé pour préserver le style visuel] */
   :root {
     --ink: #1a1714;
     --ink2: #4a4540;
@@ -32,8 +32,6 @@
     line-height: 1.75;
     font-size: 17px;
   }
-
-  /* ── HERO ── */
   .hero {
     background: var(--ink);
     color: var(--bg);
@@ -79,8 +77,6 @@
     color: rgba(255,255,255,.3);
     letter-spacing: .05em;
   }
-
-  /* ── NAV ── */
   .toc {
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
@@ -108,14 +104,9 @@
     white-space: nowrap;
   }
   .toc-inner a:hover { color: var(--accent); }
-
-  /* ── LAYOUT ── */
   .page { max-width: 900px; margin: 0 auto; padding: 0 40px; }
-
-  /* ── SECTIONS ── */
   section { padding: 72px 0; border-bottom: 1px solid var(--border); }
   section:last-child { border-bottom: none; }
-
   .section-label {
     font-size: 10px;
     font-weight: 500;
@@ -143,8 +134,6 @@
   }
   p { color: var(--ink2); margin-bottom: 18px; }
   strong { font-weight: 500; color: var(--ink); }
-
-  /* ── CALLOUT / ANALOGY BOXES ── */
   .callout {
     background: var(--bg2);
     border-left: 3px solid var(--accent);
@@ -161,8 +150,6 @@
     margin-bottom: 8px;
   }
   .callout p { color: var(--ink2); margin: 0; font-style: italic; }
-
-  /* ── DIAGRAM CONTAINERS ── */
   .diagram-wrap {
     background: var(--bg2);
     border: 1px solid var(--border);
@@ -180,8 +167,6 @@
     margin-bottom: 16px;
     text-align: center;
   }
-
-  /* ── ARCH CARDS ── */
   .arch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -234,8 +219,6 @@
   .diff .arch-tag { background: #ece5f5; color: #4a2080; }
   .arch-card h3 { margin-top: 0; font-size: 20px; }
   .arch-card p { font-size: 15px; }
-
-  /* ── COMPARISON TABLE ── */
   .compare-table {
     width: 100%;
     border-collapse: collapse;
@@ -272,11 +255,7 @@
   .badge.green { background: #d7f0e4; color: #1a5e38; }
   .badge.yellow { background: #fdeede; color: #7a4010; }
   .badge.red { background: #fce8e8; color: #7a1a1a; }
-
-  /* ── FLOW DIAGRAMS (SVG) ── */
   svg.diagram { width: 100%; height: auto; display: block; }
-
-  /* ── APPS SECTION ── */
   .apps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -297,8 +276,6 @@
   }
   .app-item strong { display: block; font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
   .app-item span { font-size: 13px; color: var(--ink3); }
-
-  /* ── FOOTER ── */
   footer {
     background: var(--ink);
     color: rgba(255,255,255,.4);
@@ -307,8 +284,6 @@
     font-size: 13px;
   }
   footer a { color: rgba(255,255,255,.6); }
-
-  /* ── HIGHLIGHT PHRASE ── */
   .big-quote {
     font-family: 'Fraunces', serif;
     font-size: clamp(20px, 3.5vw, 30px);
@@ -322,7 +297,6 @@
     margin: 40px 0;
   }
   .big-quote em { color: var(--accent); font-style: normal; }
-
   @media (max-width: 600px) {
     .page { padding: 0 20px; }
     .hero { padding: 60px 20px 48px; }
@@ -333,12 +307,12 @@
 </head>
 <body>
 
-<!-- HERO (Contenu modifié) -->
+<!-- HERO -->
 <header class="hero">
-  <p class="hero-eyebrow">Explorations · Intelligence Artificielle Générative</p>
-  <h1>Peindre avec des maths :<br>L'<em>imagination</em> des machines<br>— expliquée simplement</h1>
-  <p class="hero-sub">GAN, VAE, Diffusion : trois méthodes pour transformer des lignes de code en images étonnantes. Voici comment l'IA apprend à rêver.</p>
-  <p class="hero-meta">Mis à jour en Avril 2026 · Lecture : ~9 min</p>
+  <p class="hero-eyebrow">Cours inspiré par DeepLearning.AI · Generative AI for Everyone</p>
+  <h1>L'IA Générative<br>en <em>Computer Vision</em><br>— le guide illustré</h1>
+  <p class="hero-sub">GAN, VAE, Diffusion Models : comment l'IA apprend à "imaginer" des images à partir de données, expliqué avec la pédagogie d'Andrew Ng [citation:1][citation:4].</p>
+  <p class="hero-meta">Rédigé en Avril 2026 · Lecture : ~8 min</p>
 </header>
 
 <!-- TOC -->
@@ -355,26 +329,24 @@
 
 <main>
 
-<!-- ── SECTION 1 : C'EST QUOI (Contenu modifié) ── -->
+<!-- ── SECTION 1 : C'EST QUOI ── -->
 <section id="intro">
   <div class="page">
-    <p class="section-label">01 — Au-delà de la reconnaissance</p>
-    <h2>Quand l'ordinateur arrête de regarder et commence à créer</h2>
+    <p class="section-label">01 — Introduction</p>
+    <h2>L'IA Générative en Vision : de l'analyse à la création</h2>
 
-    <p>Jusqu'à récemment, la vision par ordinateur, c'était surtout "qu'est-ce qu'il y a sur cette photo ?". Un chat, une voiture, un visage. L'IA Générative change la donne : elle répond à la question <strong>"et si on inventait ce qui n'existe pas ?"</strong>.</p>
-
-    <p>Concrètement, on donne à un modèle des millions d'exemples (des paysages, des portraits, des plans d'architecte), et il en extrait les règles cachées. Ensuite, à partir d'un simple code ou d'une phrase, il <strong>synthétise une image totalement inédite</strong>.</p>
+    <p>La "Computer Vision" a longtemps été un outil d'**analyse** : reconnaître un objet, détecter un visage, segmenter une image. L'IA Générative marque une rupture : elle ne se contente plus de lire le monde visuel, elle apprend à **en produire de nouveaux exemplaires, cohérents et réalistes**. C'est le passage de l'IA discriminative (qui trace une frontière entre "chat" et "chien") à l'IA générative (qui apprend ce qu'est fondamentalement un "chat" pour en créer un nouveau) [citation:4].</p>
 
     <div class="callout">
-      <p class="callout-label">🧩 Nouvelle Analogie</p>
-      <p>Imagine un chef cuisinier qui a goûté tous les plats du monde. Un jour, on lui demande une recette qui n'a jamais été écrite : un "dessert épicé aux notes de rose et de safran". Grâce à sa connaissance profonde des ingrédients, il peut inventer la recette. L'IA générative est ce chef : elle mélange les concepts appris pour créer du nouveau.</p>
+      <p class="callout-label">🧠 Vision vs. Génération</p>
+      <p>Un modèle de **Vision** (discriminatif) répond à la question "Qu'est-ce que c'est ?" ou "Où est-ce ?". Un modèle **Génératif** répond à l'instruction "Imagine et crée un(e)...". L'un classe des pixels, l'autre synthétise de nouveaux pixels à partir d'un concept appris [citation:1].</p>
     </div>
 
-    <p>La frontière entre le "vrai" et le "synthétique" devient floue. Et c'est une excellente nouvelle pour la science et la créativité.</p>
+    <p>Cette distinction est fondamentale. Les modèles que nous allons explorer (GAN, VAE, Diffusion) sont tous entraînés par **apprentissage supervisé**, mais sur une tâche très spécifique : apprendre la distribution statistique des données d'entraînement pour pouvoir en tirer de nouveaux échantillons [citation:1].</p>
 
-    <!-- DIAGRAM 1 : Discriminatif vs Génératif (Gardé visuellement, texte changé) -->
+    <!-- DIAGRAM 1 : Discriminatif vs Génératif (Légèrement adapté) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">IA d'Analyse vs IA de Création</p>
+      <p class="diagram-title">IA Discriminative vs. IA Générative</p>
       <svg class="diagram" viewBox="0 0 820 210" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -382,109 +354,110 @@
           </marker>
         </defs>
 
-        <!-- Gauche -->
-        <text x="205" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA D'ANALYSE (Discriminative)</text>
+        <text x="205" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA DISCRIMINATIVE (Supervisée)</text>
         <rect x="30" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="75" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Photo</text>
-        <text x="75" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">📸 Entrée</text>
+        <text x="75" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Image</text>
+        <text x="75" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">📷 entrée</text>
         <line x1="120" y1="68" x2="160" y2="68" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr)"/>
         <rect x="162" y="38" width="90" height="60" rx="8" fill="#c45c2e" stroke="#a03c12" stroke-width="1"/>
-        <text x="207" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Analyse</text>
-        <text x="207" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Réseau de neurones</text>
+        <text x="207" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Modèle</text>
+        <text x="207" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">ResNet, ViT</text>
         <line x1="252" y1="68" x2="292" y2="68" stroke="#c4b89a" stroke-width="1.5" marker-end="url(#arr)"/>
         <rect x="294" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="339" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Résultat</text>
-        <text x="339" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🏔️ "Montagne"</text>
+        <text x="339" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Label</text>
+        <text x="339" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🐱 "Chat"</text>
 
         <line x1="420" y1="20" x2="420" y2="195" stroke="#e8e0d0" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-        <!-- Droite -->
-        <text x="618" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA GÉNÉRATIVE (Créative)</text>
+        <text x="618" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#8a837a" letter-spacing="1">IA GÉNÉRATIVE (Supervisée)</text>
         <rect x="440" y="38" width="90" height="60" rx="8" fill="#e8e0d0" stroke="#c4b89a" stroke-width="1"/>
-        <text x="485" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Idée / Bruit</text>
-        <text x="485" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🎲 Impulsion</text>
+        <text x="485" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a4540">Bruit / Texte</text>
+        <text x="485" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#8a837a">🎲 point de départ</text>
         <line x1="530" y1="68" x2="570" y2="68" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr)"/>
         <rect x="572" y="38" width="90" height="60" rx="8" fill="#6a40b0" stroke="#4a2080" stroke-width="1"/>
-        <text x="617" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Synthèse</text>
-        <text x="617" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Générateur</text>
+        <text x="617" y="63" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#fff" font-weight="500">Modèle</text>
+        <text x="617" y="79" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,.7)">GAN / VAE / Diff.</text>
         <line x1="662" y1="68" x2="702" y2="68" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr)"/>
         <rect x="704" y="38" width="90" height="60" rx="8" fill="#ece5f5" stroke="#8a60c0" stroke-width="1"/>
-        <text x="749" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a2080">Nouvelle</text>
-        <text x="749" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">✨ Image</text>
+        <text x="749" y="60" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#4a2080">Image</text>
+        <text x="749" y="78" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">✨ synthétisée</text>
 
-        <text x="205" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">"Je vois une montagne"</text>
-        <text x="618" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">"Je crée une montagne sur une autre planète"</text>
+        <text x="205" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">Trouve la frontière de décision</text>
+        <text x="205" y="153" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">→ "c'est un chat"</text>
+        <text x="618" y="135" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#4a4540">Modélise la distribution P(X)</text>
+        <text x="618" y="153" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">→ génère un nouveau chat</text>
       </svg>
     </div>
+
+    <p>Autrement dit, une IA classique dit **"je vois un chat"**. Une IA générative dit **"je sais ce qu'est un chat, laisse-moi en dessiner un"**.</p>
   </div>
 </section>
 
-<!-- ── SECTION 2 : POURQUOI (Contenu modifié) ── -->
+<!-- ── SECTION 2 : POURQUOI ── -->
 <section id="pourquoi">
   <div class="page">
-    <p class="section-label">02 — Les super-pouvoirs du synthétique</p>
-    <h2>À quoi ça sert de fabriquer des images ?</h2>
+    <p class="section-label">02 — Motivation et Applications</p>
+    <h2>Pourquoi apprendre à une machine à "imaginer" ?</h2>
 
-    <p>Au-delà du "waouh" artistique, la génération d'images résout des problèmes très concrets d'<strong>apprentissage automatique et de conception</strong>. Voici quelques usages qui changent la donne :</p>
+    <p>La réponse tient en un mot : **données**. L'apprentissage profond est vorace en données. Dans de nombreux domaines critiques, les données réelles sont rares, coûteuses à obtenir, ou sensibles. L'IA générative offre une solution de contournement puissante : **l'augmentation de données synthétiques**.</p>
+
+    <p>Voici des applications concrètes issues des cas d'usage du cours :</p>
 
     <div class="apps-grid">
       <div class="app-item">
-        <span class="app-icon">🌾</span>
-        <strong>Agriculture de précision</strong>
-        <span>Créer des milliers de photos de mauvaises herbes pour entraîner des robots désherbeurs sans avoir à toutes les photographier en vrai.</span>
+        <span class="app-icon">🚗</span>
+        <strong>Véhicule Autonome</strong>
+        <span>Simuler des scénarios de conduite dangereux ou rares (piétons de nuit, brouillard) pour entraîner les systèmes de perception en toute sécurité [citation:8].</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🏛️</span>
-        <strong>Archéologie & Patrimoine</strong>
-        <span>Reconstituer des fresques effacées ou visualiser des ruines antiques en 3D telles qu'elles étaient il y a 2000 ans.</span>
+        <span class="app-icon">🏥</span>
+        <strong>Santé & Imagerie Médicale</strong>
+        <span>Générer des IRM ou scanners synthétiques pour pallier le manque de données sur les maladies rares, améliorant ainsi la robustesse des diagnostics [citation:8].</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🦾</span>
-        <strong>Robotique</strong>
-        <span>Apprendre à un robot à saisir des objets fragiles (fruits, verres) en s'entraînant sur des millions de scènes simulées photoréalistes.</span>
+        <span class="app-icon">🎬</span>
+        <strong>Cinéma & Effets Spéciaux</strong>
+        <span>Rajeunir ou vieillir des acteurs de manière réaliste (effets de "de-aging"), ou créer des arrière-plans et textures complexes [citation:8].</span>
+      </div>
+      <div class="app-item">
+        <span class="app-icon">🎨</span>
+        <strong>Création Artistique</strong>
+        <span>Des outils comme DALL-E ou Midjourney permettent de générer des images à partir de descriptions textuelles ("prompt engineering") [citation:4].</span>
       </div>
       <div class="app-item">
         <span class="app-icon">🛰️</span>
         <strong>Observation de la Terre</strong>
-        <span>Simuler des vues satellites de zones sinistrées (inondations, incendies) pour préparer les équipes de secours à tous les scénarios.</span>
+        <span>Générer des images satellites de zones sinistrées ou de champs agricoles pour entraîner des modèles à détecter des anomalies [citation:9].</span>
       </div>
       <div class="app-item">
-        <span class="app-icon">🧬</span>
-        <strong>Découverte de médicaments</strong>
-        <span>Générer des formes 3D de nouvelles protéines qui n'existent pas dans la nature pour créer des médicaments plus efficaces.</span>
-      </div>
-      <div class="app-item">
-        <span class="app-icon">🕶️</span>
-        <strong>Essayage virtuel</strong>
-        <span>Voir une veste sur soi sans l'enfiler, ou visualiser un canapé dans son salon avant de l'acheter.</span>
+        <span class="app-icon">🔬</span>
+        <strong>Recherche</strong>
+        <span>Visualiser et explorer l'"espace latent" des concepts pour mieux comprendre ce qu'un réseau de neurones a réellement appris.</span>
       </div>
     </div>
 
     <div class="big-quote">
-      Générer, c'est aussi <em>mieux comprendre</em>. Si l'IA peut dessiner un chat, c'est qu'elle a vraiment saisi l'essence de ce qu'est un chat.
+      L'IA générative n'est pas qu'un outil créatif, c'est aussi un <em>multiplicateur de force</em> pour l'apprentissage automatique là où les données manquent.
     </div>
   </div>
 </section>
 
-<!-- ── SECTION 3 : GAN (Contenu modifié) ── -->
+<!-- ── SECTION 3 : GAN ── -->
 <section id="gan">
   <div class="page">
-    <p class="section-label">03 — Le Duel Créatif</p>
-    <h2>GAN — Le Peintre et le Critique d'Art</h2>
+    <p class="section-label">03 — Architecture GAN</p>
+    <h2>GAN — L'Élève Artiste et le Critique Impitoyable</h2>
 
-    <p>Imaginez un étudiant en art (le <strong>Générateur</strong>) qui présente ses toiles à un professeur très sévère (le <strong>Discriminateur</strong>). Le professeur a aussi accès aux toiles de grands maîtres. Au début, les toiles de l'étudiant sont faciles à repérer. Mais à chaque fois que le professeur dit "c'est un faux !", l'étudiant apprend de ses erreurs. Après des mois de ce jeu du chat et de la souris, l'étudiant peint des œuvres que même le professeur n'arrive plus à distinguer des vrais tableaux de maîtres.</p>
-
-    <p>Voilà l'essence du <strong>GAN (Generative Adversarial Network)</strong> : une compétition qui pousse à l'excellence.</p>
+    <p>Le **GAN (Generative Adversarial Network)** est un système à deux acteurs : un **Générateur (G)** et un **Discriminateur (D)**. Le Générateur crée des images à partir de bruit aléatoire. Le Discriminateur, lui, reçoit un mélange d'images réelles (du dataset) et d'images fausses (créées par G), et doit apprendre à les distinguer.</p>
 
     <div class="callout">
-      <p class="callout-label">🎭 Rôles</p>
-      <p><strong>Générateur (G) :</strong> Le Faussaire. Il prend du bruit aléatoire et tente de le sculpter en image cohérente.<br>
-      <strong>Discriminateur (D) :</strong> L'Expert. Il examine l'image et doit dire "VRAI" (du dataset) ou "FAUX" (créé par G).</p>
+      <p class="callout-label">🎭 Un jeu à somme nulle</p>
+      <p>Le Générateur essaie de **minimiser** la capacité du Discriminateur à détecter ses faux. Le Discriminateur essaie de **maximiser** sa capacité à les reconnaître. Cette compétition pousse le Générateur à s'améliorer jusqu'à produire des images indiscernables des vraies.</p>
     </div>
 
-    <!-- DIAGRAM GAN (Gardé) -->
+    <!-- DIAGRAM GAN (Inchangé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Le face-à-face du GAN</p>
+      <p class="diagram-title">Architecture d'un GAN</p>
       <svg class="diagram" viewBox="0 0 820 230" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -516,33 +489,33 @@
         <text x="705" y="116" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a4f80" font-weight="500">Vrai ou Faux ?</text>
         <text x="705" y="134" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">Probabilité [0 → 1]</text>
         <path d="M705 150 Q705 215 530 215 Q355 215 210 175" fill="none" stroke="#c45c2e" stroke-width="1" stroke-dasharray="5 4" marker-end="url(#arr2)"/>
-        <text x="450" y="208" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#c45c2e">Feedback : "Tu t'es fait avoir ! Améliore-toi."</text>
+        <text x="450" y="208" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#c45c2e">erreur → améliore G</text>
       </svg>
     </div>
 
-    <h3>La révolution StyleGAN</h3>
-    <p>Les GANs ont connu leur heure de gloire avec <strong>StyleGAN</strong> (NVIDIA), capable de générer des visages humains d'un réalisme saisissant et même de contrôler finement les attributs (âge, pose, coiffure, lunettes) en se déplaçant dans un "espace latent". Un autre exemple frappant est <strong>CycleGAN</strong> qui a appris à transformer des photos de chevaux en zèbres, ou des paysages d'été en hiver, sans avoir besoin d'exemples parfaitement appariés.</p>
+    <h3>Les défis du GAN</h3>
+    <p>L'entraînement d'un GAN est notoirement **instable**. Il faut maintenir un équilibre subtil : si le Discriminateur devient trop fort, le Générateur n'apprend plus rien. C'est ce qu'on appelle le "vanishing gradient". De plus, le Générateur peut tomber dans le **"mode collapse"** : il trouve une image qui trompe bien le Discriminateur, et se contente de ne générer que cette image ou de légères variations, limitant la diversité.</p>
+    <p>Malgré ces difficultés, des modèles comme **StyleGAN** (NVIDIA) ont atteint un niveau de réalisme stupéfiant pour la génération de visages humains.</p>
   </div>
 </section>
 
-<!-- ── SECTION 4 : VAE (Contenu modifié) ── -->
+<!-- ── SECTION 4 : VAE ── -->
 <section id="vae">
   <div class="page">
-    <p class="section-label">04 — La Carte au Trésor des Concepts</p>
-    <h2>VAE — L'Architecte de l'Espace des Idées</h2>
+    <p class="section-label">04 — Architecture VAE</p>
+    <h2>VAE — Le Cartographe des Possibles</h2>
 
-    <p>Plutôt que de dessiner pixel par pixel, un <strong>VAE (Variational AutoEncoder)</strong> apprend à construire un <strong>plan de métro des concepts visuels</strong>. Chaque image est une "station" sur ce plan. Les stations proches se ressemblent (visages souriants), les stations éloignées sont différentes (voitures de course).</p>
-
-    <p>L'<strong>Encodeur</strong> lit l'image et donne ses coordonnées GPS sur le plan (l'Espace Latent). Le <strong>Décodeur</strong> prend des coordonnées et reconstruit l'image correspondante. La magie, c'est qu'on peut se promener sur ce plan et visiter des stations qui n'existent pas encore !</p>
+    <p>Le **VAE (Variational AutoEncoder)** adopte une approche différente, basée sur la compression et la probabilité. Il se compose de deux parties : un **Encodeur** et un **Décodeur**.</p>
+    <p>L'Encodeur apprend à compresser une image en un "code" succinct dans un **espace latent**. La clé est que ce code n'est pas une valeur fixe, mais une **distribution de probabilité** (une moyenne et une variance). Le Décodeur apprend à faire l'inverse : à partir d'un code tiré dans cet espace, reconstruire une image.</p>
 
     <div class="callout">
-      <p class="callout-label">🗺️ Pourquoi c'est utile ?</p>
-      <p>Imaginez que vous ayez un curseur "Sourire". À gauche : visage triste. À droite : visage joyeux. Vous pouvez ainsi <strong>manipuler</strong> l'image de façon intuitive et continue. C'est l'outil parfait pour les logiciels de retouche intelligente.</p>
+      <p class="callout-label">🗺️ L'Espace Latent Continu</p>
+      <p>L'astuce du VAE est de forcer cet espace latent à être **continu** et **structuré**. Deux images similaires auront des codes proches dans cet espace. Cela permet de faire des "morphings" fluides : se déplacer le long d'une direction dans cet espace modifie un attribut spécifique de l'image (sourire, âge, etc.).</p>
     </div>
 
-    <!-- DIAGRAM VAE (Gardé) -->
+    <!-- DIAGRAM VAE (Inchangé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Le Tunnel Encodeur-Décodeur</p>
+      <p class="diagram-title">Architecture d'un VAE</p>
       <svg class="diagram" viewBox="0 0 820 230" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -561,7 +534,7 @@
         <text x="375" y="95" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a4f80" font-weight="500">Espace Latent z</text>
         <text x="375" y="113" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">μ (moyenne)</text>
         <text x="375" y="130" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2d6fa8">σ (variance)</text>
-        <text x="375" y="146" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#6a90b0">"la carte des idées"</text>
+        <text x="375" y="146" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="9" fill="#6a90b0">"la carte des concepts"</text>
         <line x1="440" y1="110" x2="478" y2="110" stroke="#2d6fa8" stroke-width="1.5" marker-end="url(#arr3)"/>
         <polygon points="480,80 600,60 600,160 480,140" fill="#1e7a60" stroke="#126040" stroke-width="1"/>
         <text x="538" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#fff" font-weight="500">Décodeur</text>
@@ -571,41 +544,44 @@
         <text x="685" y="107" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a5e38" font-weight="500">Image</text>
         <text x="685" y="125" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#2a7848">reconstruite</text>
         <text x="65" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#8a837a">Visage réel</text>
-        <text x="375" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#2d6fa8">Code mathématique</text>
+        <text x="375" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#2d6fa8">Code probabiliste</text>
         <text x="685" y="185" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" fill="#1e7a60">Visage généré</text>
       </svg>
     </div>
 
-    <h3>Interpolation : La magie du "morphing"</h3>
-    <p>L'un des aspects les plus fascinants des VAEs est l'<strong>interpolation linéaire</strong>. Prenez le point A (un homme barbu) et le point B (une femme aux cheveux longs). Si vous tirez une ligne droite entre A et B dans l'espace latent et que vous générez les images correspondant aux points sur cette ligne, vous verrez une transformation fluide et cohérente : la barbe disparaît progressivement, les traits s'adoucissent, les cheveux s'allongent. Aucun "saut" bizarre, juste une évolution naturelle.</p>
+    <h3>Compromis et Avantages</h3>
+    <p>Le VAE produit souvent des images un peu plus **floues** que les GANs. C'est un compromis pour obtenir un espace latent **robuste, structuré et interprétable**. Le VAE est donc un excellent outil pour l'exploration de données, la détection d'anomalies (une image "hors distribution" aura un code aberrant), et les applications scientifiques où la compréhension des facteurs de variation est cruciale.</p>
   </div>
 </section>
 
-<!-- ── SECTION 5 : DIFFUSION (Contenu modifié) ── -->
+<!-- ── SECTION 5 : DIFFUSION ── -->
 <section id="diffusion">
   <div class="page">
-    <p class="section-label">05 — La Révélation Progressive</p>
-    <h2>Diffusion — Le Sculpteur qui Travaille dans le Brouillard</h2>
+    <p class="section-label">05 — Modèles de Diffusion</p>
+    <h2>Diffusion — L'Art de la Reconstruction Progressive</h2>
 
-    <p>Un <strong>modèle de diffusion</strong> est un perfectionniste patient. Plutôt que de peindre une toile d'un seul coup (comme un GAN), il part d'un brouillard de neige cathodique (du <strong>bruit aléatoire</strong>). Ensuite, <em>étape par étape</em>, il retire un peu de neige pour révéler les contours, puis les formes, puis les textures et enfin les détails les plus fins.</p>
-
-    <p>Pour apprendre à faire cela, on lui a montré des millions de fois comment on "abîme" une belle photo en y ajoutant du bruit. Il est devenu expert pour faire le chemin inverse.</p>
+    <p>Les **Modèles de Diffusion** sont la base des générateurs d'images les plus puissants d'aujourd'hui (Stable Diffusion, DALL-E 3). Leur principe est contre-intuitif : apprendre à **détruire** une image pour mieux apprendre à la **créer**.</p>
+    <p>Le processus se déroule en deux temps :</p>
+    <ol style="color:var(--ink2); margin-bottom:18px; padding-left:20px;">
+      <li><strong>Processus Forward (fixe) :</strong> On prend une image réelle et on lui ajoute du **bruit gaussien** petit à petit, sur des centaines d'étapes. L'image finit par être un chaos total de bruit pur.</li>
+      <li><strong>Processus Reverse (appris) :</strong> Le modèle (souvent un U-Net) apprend à faire l'inverse. On lui donne une image bruitée et l'étape *t*, et il doit **prédire le bruit qui a été ajouté** à l'étape précédente.</li>
+    </ol>
 
     <div class="callout">
-      <p class="callout-label">⏳ Pourquoi c'est plus lent mais meilleur ?</p>
-      <p>En décomposant la création en 50 ou 100 petites étapes simples ("enlever un tout petit peu de bruit"), le modèle résout un problème facile 100 fois de suite, plutôt qu'un problème impossible une seule fois. C'est pour ça que les images sont tellement plus nettes et créatives qu'avec les autres méthodes.</p>
+      <p class="callout-label">📖 L'Analogie du Sculpteur de Brouillard</p>
+      <p>Imaginez un bloc de brouillard dense et informe (bruit). Le modèle de diffusion est comme un sculpteur qui sait exactement où "gratter" le brouillard pour révéler, couche après couche, les détails d'une statue cachée à l'intérieur. Il fait cela de manière itérative, affinant l'image à chaque passage.</p>
     </div>
 
-    <!-- DIAGRAM DIFFUSION (Gardé) -->
+    <!-- DIAGRAM DIFFUSION (Inchangé) -->
     <div class="diagram-wrap">
-      <p class="diagram-title">Le Cycle Bruit ↔ Image</p>
+      <p class="diagram-title">Processus de Diffusion (Forward vs Reverse)</p>
       <svg class="diagram" viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arr4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
             <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </marker>
         </defs>
-        <text x="410" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#c45c2e" letter-spacing="1">APPRENTISSAGE : Ajouter du bruit</text>
+        <text x="410" y="22" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#c45c2e" letter-spacing="1">APPRENTISSAGE (Forward Process) : Ajouter du bruit</text>
         <line x1="20" y1="32" x2="800" y2="32" stroke="#e8c09a" stroke-width="1" stroke-dasharray="4 3"/>
         <rect x="20" y="42" width="80" height="80" rx="8" fill="#d7f0e4" stroke="#60b880" stroke-width="1"/>
         <text x="60" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#1a5e38" font-weight="500">Image</text>
@@ -629,7 +605,7 @@
         <text x="520" y="80" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#f2ede3" font-weight="500">Bruit pur</text>
         <text x="520" y="98" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#a0988f">xT ∈ 𝒩(0,1)</text>
         
-        <text x="410" y="155" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#6a40b0" letter-spacing="1">GÉNÉRATION : Enlever le bruit</text>
+        <text x="410" y="155" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="11" font-weight="500" fill="#6a40b0" letter-spacing="1">GÉNÉRATION (Reverse Process) : Débruiter étape par étape</text>
         <line x1="20" y1="165" x2="800" y2="165" stroke="#c0a8e0" stroke-width="1" stroke-dasharray="4 3"/>
         <rect x="590" y="175" width="130" height="60" rx="8" fill="#6a40b0" stroke="#4a2080" stroke-width="1"/>
         <text x="655" y="201" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="13" fill="#fff" font-weight="500">Modèle U-Net θ</text>
@@ -640,46 +616,53 @@
         <text x="730" y="201" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#4a2080" font-weight="500">Image</text>
         <text x="730" y="218" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="10" fill="#6a40b0">générée ✨</text>
         <line x1="720" y1="175" x2="720" y2="130" stroke="#6a40b0" stroke-width="1.5" marker-end="url(#arr4)"/>
-        <text x="410" y="240" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">Guidage par Texte : "Un astronaute en armure samouraï"</text>
+        <text x="410" y="240" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="12" fill="#8a837a">Guidage par Texte : "Un robot jardinier dans une serre futuriste"</text>
       </svg>
     </div>
 
-    <h3>Le Secret : Prédire le Bruit</h3>
-    <p>L'astuce géniale de cette méthode, c'est que le réseau de neurones (souvent un U-Net) n'apprend pas à dessiner. Il apprend à <strong>deviner quel bruit a été ajouté</strong> à une image à une étape donnée. Une fois qu'il sait faire ça parfaitement, on peut lui donner du bruit pur et lui dire : "D'après toi, quel bruit a été ajouté pour obtenir ce chaos ?". Il nous donne le bruit, on le soustrait, et on obtient une image un peu plus nette. On répète 50 fois.</p>
+    <h3>Pourquoi la Diffusion Domine</h3>
+    <p>Cette approche résout les deux plus gros problèmes des GANs : **l'instabilité de l'entraînement** et le **mode collapse**. Comme le modèle est entraîné à prédire le bruit (une tâche simple et bien définie) sur une grande variété d'images, il apprend à couvrir toute la diversité des données sans se coincer. Le revers de la médaille est le **coût de la génération** : il faut faire tourner le modèle des dizaines de fois pour une seule image, ce qui est plus lent qu'un GAN.</p>
+    <p>L'ajout de **guidage par texte** (via des modèles comme CLIP) a transformé ces modèles en outils de création grand public, où l'on peut piloter la génération par une simple description [citation:4].</p>
   </div>
 </section>
 
-<!-- ── SECTION 6 : COMPARAISON (Contenu légèrement modifié) ── -->
+<!-- ── SECTION 6 : COMPARAISON ── -->
 <section id="comparaison">
   <div class="page">
-    <p class="section-label">06 — Quel outil pour quel rêve ?</p>
-    <h2>Choisir son Architecture</h2>
+    <p class="section-label">06 — Synthèse et Choix</p>
+    <h2>Quel outil pour quelle tâche ?</h2>
 
-    <p>Il n'y a pas de méthode parfaite, mais des philosophies différentes adaptées à des besoins différents.</p>
+    <p>Voici une vue d'ensemble pour vous aider à situer ces trois piliers de la génération d'images.</p>
 
     <!-- Arch cards summary -->
     <div class="arch-grid">
       <div class="arch-card gan">
         <span class="arch-num">01</span>
         <span class="arch-tag">GAN</span>
-        <h3>Le Virtuose Rapide</h3>
-        <p>Idéal pour la synthèse en temps réel (filtres vidéo, jeux). Rapide mais parfois capricieux à entraîner. Peut se bloquer à ne générer qu'un seul type d'image (mode collapse).</p>
+        <h3>L'Adversaire</h3>
+        <p><strong>Principe :</strong> Compétition entre deux réseaux.<br>
+        <strong>Atout :</strong> Rapidité et réalisme.<br>
+        <strong>Faiblesse :</strong> Instabilité, mode collapse.</p>
       </div>
       <div class="arch-card vae">
         <span class="arch-num">02</span>
         <span class="arch-tag">VAE</span>
-        <h3>L'Explorateur Rigoureux</h3>
-        <p>Parfait pour la science et l'analyse de données. Si vous avez besoin de comprendre et manipuler les "ingrédients" d'une image, le VAE est votre meilleur allié.</p>
+        <h3>Le Cartographe</h3>
+        <p><strong>Principe :</strong> Encodage/Décodage probabiliste.<br>
+        <strong>Atout :</strong> Espace latent structuré et robuste.<br>
+        <strong>Faiblesse :</strong> Images parfois floues.</p>
       </div>
       <div class="arch-card diff">
         <span class="arch-num">03</span>
         <span class="arch-tag">Diffusion</span>
-        <h3>Le Maître Incontesté</h3>
-        <p>Le standard actuel pour la qualité photo et l'illustration créative. C'est le plus lent, mais le résultat est tellement supérieur que tout le monde l'utilise aujourd'hui.</p>
+        <h3>Le Sculpteur</h3>
+        <p><strong>Principe :</strong> Débruitage itératif.<br>
+        <strong>Atout :</strong> Qualité et diversité maximales.<br>
+        <strong>Faiblesse :</strong> Lenteur de la génération.</p>
       </div>
     </div>
 
-    <!-- COMPARISON TABLE (Gardée) -->
+    <!-- COMPARISON TABLE -->
     <div class="diagram-wrap" style="padding: 0; overflow: hidden;">
       <table class="compare-table" style="margin: 0;">
         <thead>
@@ -692,50 +675,50 @@
         </thead>
         <tbody>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">💡 Philosophie</td>
-            <td>Compétition (Adversarial)</td>
-            <td>Compression (Probabiliste)</td>
-            <td>Débruitage (Itératif)</td>
+            <td class="row-label" style="padding-left: 24px;">💡 Analogie</td>
+            <td>Faussaire vs. Détective</td>
+            <td>Cartographe de l'imaginaire</td>
+            <td>Sculpteur dans le brouillard</td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🖼️ Rendu Visuel</td>
-            <td><span class="badge green">Très net</span></td>
-            <td><span class="badge yellow">Souvent flou</span></td>
-            <td><span class="badge green">Ultra-réaliste</span></td>
+            <td class="row-label" style="padding-left: 24px;">🖼️ Qualité d'image</td>
+            <td><span class="badge green">Très bonne</span></td>
+            <td><span class="badge yellow">Moyenne (flou)</span></td>
+            <td><span class="badge green">Excellente</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🎲 Créativité / Variété</td>
-            <td><span class="badge yellow">Risque de répétition</span></td>
-            <td><span class="badge green">Bonne couverture</span></td>
-            <td><span class="badge green">Excellente diversité</span></td>
+            <td class="row-label" style="padding-left: 24px;">🎲 Diversité</td>
+            <td><span class="badge red">Risque de mode collapse</span></td>
+            <td><span class="badge green">Bonne</span></td>
+            <td><span class="badge green">Très haute</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">⚙️ Stabilité entraînement</td>
+            <td class="row-label" style="padding-left: 24px;">⚙️ Stabilité Entraînement</td>
             <td><span class="badge red">Instable</span></td>
-            <td><span class="badge green">Très stable</span></td>
+            <td><span class="badge green">Stable</span></td>
             <td><span class="badge green">Stable</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">⚡ Vitesse</td>
-            <td><span class="badge green">Instantané (~0.1s)</span></td>
-            <td><span class="badge green">Rapide (~0.2s)</span></td>
-            <td><span class="badge yellow">Lent (2s à 10s)</span></td>
+            <td class="row-label" style="padding-left: 24px;">⚡ Vitesse de Génération</td>
+            <td><span class="badge green">Très rapide</span></td>
+            <td><span class="badge green">Rapide</span></td>
+            <td><span class="badge yellow">Lente (itérative)</span></td>
           </tr>
           <tr>
-            <td class="row-label" style="padding-left: 24px;">🔍 Contrôle</td>
-            <td><span class="badge yellow">Difficile</span></td>
-            <td><span class="badge green">Très précis</span></td>
-            <td><span class="badge green">Excellent (via texte)</span></td>
+            <td class="row-label" style="padding-left: 24px;">🌟 Cas d'usage type</td>
+            <td>Deepfakes, transfert de style (CycleGAN)</td>
+            <td>Détection d'anomalies, analyse de données</td>
+            <td>Génération Texte-Image (DALL-E, Stable Diffusion)</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h3>L'avenir : La Fusion</h3>
-    <p>Aujourd'hui, la recherche ne consiste plus à choisir mais à <strong>fusionner</strong>. Les <strong>Modèles de Diffusion Latente</strong> (comme Stable Diffusion) utilisent un VAE pour compresser l'image avant d'appliquer la diffusion, rendant le processus beaucoup plus rapide et moins gourmand en mémoire.</p>
+    <h3>Le Mot de la Fin</h3>
+    <p>Comme l'enseigne Andrew Ng dans son cours, comprendre ces architectures, c'est saisir les fondations de la "General Purpose Technology" qu'est l'IA Générative [citation:1]. Les modèles d'aujourd'hui sont souvent hybrides (par exemple, un VAE combiné à un processus de diffusion pour plus d'efficacité), mais la logique fondamentale reste ancrée dans ces trois piliers.</p>
 
     <div class="big-quote">
-      Comprendre ces trois architectures, c'est tenir les clés du <em>langage visuel de l'IA moderne</em>.
+      L'IA générative est une "technologie à usage général" comme l'électricité. Comprendre ses mécanismes de base, c'est se préparer à construire le monde de demain <em>— Andrew Ng, Generative AI for Everyone</em> [citation:1].
     </div>
   </div>
 </section>
@@ -743,8 +726,8 @@
 </main>
 
 <footer>
-  <p>Documentation Pédagogique · GenAI Computer Vision · Nouveaux Horizons 2026</p>
-  <p style="margin-top: 8px; font-size: 11px;">GAN · VAE · Diffusion Models · Du pixel à l'imagination</p>
+  <p>Guide pédagogique librement inspiré du cours "Generative AI for Everyone" de DeepLearning.AI · 2026</p>
+  <p style="margin-top: 8px; font-size: 11px;">GAN · VAE · Diffusion Models — Expliqué simplement.</p>
 </footer>
 
 </body>
